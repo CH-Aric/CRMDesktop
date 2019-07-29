@@ -90,20 +90,20 @@ namespace CRMDesktop.Pages
         {
 
         }
-        public async void onClicked(object sender, EventArgs e)
+        public async void onClicked(object sender, RoutedEventArgs e)
         {
             SecurityButton dataButton = (SecurityButton)sender;
             TaskCallback call = new TaskCallback(this.openFile);
             string loadedfile = DatabaseFunctions.getFile(dataButton.String, dataButton.String2, call);
             //await PopupNavigation.Instance.PushAsync(new Audio_Popup(loadedfile), true); //TODO Make this work in Mobile
         }
-        public void onClickedSearch(object sender, EventArgs e)
+        public void onClickedSearch(object sender, RoutedEventArgs e)
         {
             string statement = "SELECT DISTINCT CusID FROM cusfields WHERE Value LIKE '%" + this.SearchEntry.Text + "%'";
             TaskCallback call = new TaskCallback(this.performSearch2);
             DatabaseFunctions.SendToPhp(false, statement, call);
         }
-        public void onClickedExplicitySearch(object sender, EventArgs e)
+        public void onClickedExplicitySearch(object sender, RoutedEventArgs e)
         {
             string text = "SELECT uniqueid,cnum,cnam,disposition,duration,did,recordingfile,src,calldate FROM asteriskcdrdb.cdr WHERE ";
             string text2 = this.SearchEntry.Text;

@@ -48,7 +48,7 @@ namespace CRMDesktop.Pages
                 }
             }
         }
-        public void onClicked(object sender, EventArgs e)
+        public void onClicked(object sender, RoutedEventArgs e)
         {
             foreach (DataPair dataPair in this.entryDict)
             {
@@ -64,7 +64,7 @@ namespace CRMDesktop.Pages
                 }
             }
         }
-        public void onClickAddFields(object sender, EventArgs e)
+        public void onClickAddFields(object sender, RoutedEventArgs e)
         {
             DataPair dataPair = new DataPair(0, "", "");
             dataPair.setNew();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace CRMDesktop.Pages.Inventory
@@ -51,7 +52,7 @@ namespace CRMDesktop.Pages.Inventory
                 GridFiller.rapidAppendData(total, idk, BodyGrid);
             }
         }
-        public void onClickedViewAudit(object sender, EventArgs e)
+        public void onClickedViewAudit(object sender, RoutedEventArgs e)
         {
             string sql = "SELECT SUM(audits.Quantity) Total,items.Description,items.Price,items.IDKey FROM audits LEFT JOIN items ON items.IDKey=audits.ItemID  INNER JOIN auditlist ON audits.AuditID=auditlist.IDKey WHERE auditlist.Name='" + AuditPicker.SelectedItem + "' GROUP BY audits.IDKey;";
             TaskCallback call = populateTableWithAudit;

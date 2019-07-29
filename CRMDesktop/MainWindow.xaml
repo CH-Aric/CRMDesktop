@@ -34,7 +34,11 @@
             <local:StyledButton Content="Chat" Click="onClickAccess" Grid.Column="2"/>
             <local:StyledButton Content="Manage Favourites" Click="onClickAccess" Grid.Column="3"/>
             <local:StyledButton Content="Inventory" Click="onClickAccess" Grid.Column="4"/>
-            <local:StyledButton Content="Perform an Audit" Click="onClickAccess" Grid.Column="5"/>
+            <local:StyledButton Content="Perform an Audit" Click="onClickAccess" Grid.Column="5" IsEnabled="False"/>
+            <local:StyledButton Content="CDR" Click="onClickAccess" Grid.Column="6" />
+            <local:StyledButton Content="View Tasks" Click="onClickAccess" Grid.Column="7" />
+            <local:StyledButton Content="View Customers" Click="onClickAccess" Grid.Column="8" />
+            <local:StyledButton Content="Missed Calls" Click="onClickAccess" Grid.Column="9" />
         </Grid>
         <Frame x:Name="mainFrame" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
     </StackPanel>

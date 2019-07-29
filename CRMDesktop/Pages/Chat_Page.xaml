@@ -4,21 +4,21 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CRMDesktop.Pages"
-      xmlns:locla1="clr-namespace:CRMDesktop"
+      xmlns:local1="clr-namespace:CRMDesktop"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Chat_Page">
 
-    <StackPanel>
-        <StackPanel x:Name="ChatStack">
+    <StackPanel Orientation="Vertical">
+        <StackPanel x:Name="ChatStack" Orientation="Vertical">
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <TextBox x:Name="Message" />
             <ComboBox x:Name="Target"/>
-            <locla1:StyledButton Content="Send" Click="OnClickSendMsg"/>
+            <local1:StyledButton Content="Send" Click="OnClickSendMsg"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <locla1:StyledButton Content="Manage Groups and Favorites" Click="OnClickMan"/>
+            <local1:StyledButton Content="Manage Groups and Favorites" Click="OnClickMan"/>
         </StackPanel>
     </StackPanel>
 </Page>

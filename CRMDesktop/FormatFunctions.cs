@@ -18,6 +18,10 @@ namespace CRMDesktop
         }
         public static string PrettyPhone(string phone)
         {
+            if (phone.Length < 10)
+            {
+                return phone;
+            }
             return string.Format("({0}) {1}-{2}", phone.Substring(0, 3), phone.Substring(3, 3), phone.Substring(6));
         }
         public static string[] CleanDate(string datein)

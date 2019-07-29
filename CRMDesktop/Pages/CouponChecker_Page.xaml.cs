@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace CRMDesktop.Pages
@@ -13,7 +14,7 @@ namespace CRMDesktop.Pages
             {
                 InitializeComponent();
             }
-            public void onClickCheck(object sender, EventArgs e)
+            public void onClickCheck(object sender, RoutedEventArgs e)
             {
                 string today = "" + DateTime.Today;
                 string sql = "SELECT * FROM coupons WHERE Code='" + CouponEntry.Text + "' AND ((StartDate<'" + today + "'AND EndDate>'" + today + "') OR EndDate IS NULL);";

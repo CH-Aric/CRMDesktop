@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace CRMDesktop.Pages
@@ -97,7 +98,7 @@ namespace CRMDesktop.Pages
             }
             Target.ItemsSource = pickerIndex["Name"];
         }
-        public void OnClickSendMsg(object sender, EventArgs e)
+        public void OnClickSendMsg(object sender, RoutedEventArgs e)
         {
             int num = int.Parse(DatabaseFunctions.lookupInDictionary((string)Target.SelectedItem, "Name", "IDKey", this.pickerIndex));
             int num2 = int.Parse(DatabaseFunctions.lookupInDictionary((string)Target.SelectedItem, "Name", "g", this.pickerIndex));
@@ -106,7 +107,7 @@ namespace CRMDesktop.Pages
             DatabaseFunctions.SendToPhp(sql);
             this.getChatMessages();
         }
-        public void OnClickMan(object sender, EventArgs e)
+        public void OnClickMan(object sender, RoutedEventArgs e)
         {
             Favourites_Page page = new Favourites_Page();
             ClientData.mainFrame.Navigate(page);

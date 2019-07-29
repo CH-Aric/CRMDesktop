@@ -28,10 +28,6 @@ namespace CRMDesktop.Pages
             InitializeComponent();
             this.loadFromDatabase();
         }
-        private async void Clicked_Task(object sender, EventArgs e)
-        {
-            await Application.Current.MainPage.Navigation.PopAsync();
-        }
         public void loadFromDatabase()
         {
             TaskCallback call = new TaskCallback(this.populateList);
@@ -101,7 +97,7 @@ namespace CRMDesktop.Pages
             TaskEdit_Page page = new TaskEdit_Page(dataButton.Integer);
             ClientData.mainFrame.Navigate(page);
         }
-        public void onClickedAssign(object sender, EventArgs e)
+        public void onClickedAssign(object sender, RoutedEventArgs e)
         {
             string text;
             if (!this.gMode)
@@ -144,12 +140,12 @@ namespace CRMDesktop.Pages
             }
             DatabaseFunctions.SendToPhp(text);
         }
-        public void onClickedCreate(object sender, EventArgs e)
+        public void onClickedCreate(object sender, RoutedEventArgs e)
         {
             //TaskEdit_Page page = new TaskEdit_Page();
            // ClientData.mainFrame.Navigate(page);//TODO MAKE THIS WORK WITH TASKCREATE_PAGE WHEN ADDED
         }
-        public void onClickedSearch(object sender, EventArgs e)
+        public void onClickedSearch(object sender, RoutedEventArgs e)
         {
             GridFiller.PurgeGrid(TSection);
             string text = "%" + SearchEntry.Text + "%";
@@ -166,7 +162,7 @@ namespace CRMDesktop.Pages
             TaskCallback call = new TaskCallback(populateList);
             DatabaseFunctions.SendToPhp(false, statement, call);
         }
-        public void onToggledGroup(object sender, EventArgs e)
+        public void onToggledGroup(object sender, RoutedEventArgs e)
         {
             gMode = !gMode;
             if (gMode)

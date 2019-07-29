@@ -137,7 +137,7 @@ namespace CRMDesktop.Pages
             TopBar.Children.Add(button4);
             TopBar.Children.Add(button5);
         }
-        public void onClickAddToGroup(object sender, EventArgs e)
+        public void onClickAddToGroup(object sender, RoutedEventArgs e)
         {
             string text = "INSERT INTO groupmembers (GroupName,GroupID,MemberID) VALUES ";
             int num = 0;
@@ -172,7 +172,7 @@ namespace CRMDesktop.Pages
                 DatabaseFunctions.SendToPhp(text);
             }
         }
-        public void onClickRemoveFromGroup(object sender, EventArgs e)
+        public void onClickRemoveFromGroup(object sender, RoutedEventArgs e)
         {
             string text = "DELETE FROM groupmembers WHERE ";
             int num = 0;
@@ -198,7 +198,7 @@ namespace CRMDesktop.Pages
                 DatabaseFunctions.SendToPhp(text);
             }
         }
-        public void onClickCreateGroup(object sender, EventArgs e)
+        public void onClickCreateGroup(object sender, RoutedEventArgs e)
         {
             string statement = "SELECT GroupID FROM groupmembers ORDER BY GroupID DESC LIMIT 1";
             TaskCallback call = new TaskCallback(this.createGroup);
@@ -218,7 +218,7 @@ namespace CRMDesktop.Pages
                 "');"
             }));
         }
-        public void onClickDeleteGroup(object sender, EventArgs e)
+        public void onClickDeleteGroup(object sender, RoutedEventArgs e)
         {
             DatabaseFunctions.SendToPhp(string.Concat(new object[]
             {
@@ -229,7 +229,7 @@ namespace CRMDesktop.Pages
                 "')"
             }));
         }
-        public void onClickSaveFavorite(object sender, EventArgs e)
+        public void onClickSaveFavorite(object sender, RoutedEventArgs e)
         {
             string text = "INSERT INTO chatfavorite (TargetID,AgentID) VALUES ";
             string text2 = "DELETE FROM chatfavorite WHERE ";
