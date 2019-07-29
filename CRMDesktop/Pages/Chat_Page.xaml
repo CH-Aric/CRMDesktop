@@ -1,0 +1,24 @@
+﻿<Page x:Class="CRMDesktop.Pages.Chat_Page"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CRMDesktop.Pages"
+      xmlns:locla1="clr-namespace:CRMDesktop"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Chat_Page">
+
+    <StackPanel>
+        <StackPanel x:Name="ChatStack">
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBox x:Name="Message" />
+            <ComboBox x:Name="Target"/>
+            <locla1:StyledButton Content="Send" Click="OnClickSendMsg"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <locla1:StyledButton Content="Manage Groups and Favorites" Click="OnClickMan"/>
+        </StackPanel>
+    </StackPanel>
+</Page>

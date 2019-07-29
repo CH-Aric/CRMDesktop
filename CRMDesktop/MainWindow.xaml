@@ -1,0 +1,41 @@
+﻿<Window x:Class="CRMDesktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CRMDesktop"
+        mc:Ignorable="d"
+        Title="CoolHeat CRM"
+        WindowState="Maximized">
+    <StackPanel>
+        <StackPanel.Background>
+            <ImageBrush ImageSource="\\CH-FILESERVER\Root\Files\Marketing\Resources\background.png"/>
+        </StackPanel.Background>
+        <Grid  Background="Transparent" x:Name="TopGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+
+            <local:StyledButton Grid.Row="0" Content="Pricing Guide" Click="onClickAccess"/>
+            <local:StyledButton Content="Coupon Checker" Click="onClickAccess" Grid.Column="1" />
+            <local:StyledButton Content="Chat" Click="onClickAccess" Grid.Column="2"/>
+            <local:StyledButton Content="Manage Favourites" Click="onClickAccess" Grid.Column="3"/>
+            <local:StyledButton Content="Inventory" Click="onClickAccess" Grid.Column="4"/>
+            <local:StyledButton Content="Perform an Audit" Click="onClickAccess" Grid.Column="5"/>
+        </Grid>
+        <Frame x:Name="mainFrame" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+    </StackPanel>
+</Window>

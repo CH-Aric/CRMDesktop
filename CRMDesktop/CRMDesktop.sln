@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRMDesktop", "CRMDesktop.csproj", "{750A6D95-E309-4946-A4A3-D0F4E6A3002E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{750A6D95-E309-4946-A4A3-D0F4E6A3002E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{750A6D95-E309-4946-A4A3-D0F4E6A3002E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{750A6D95-E309-4946-A4A3-D0F4E6A3002E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{750A6D95-E309-4946-A4A3-D0F4E6A3002E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8F7C1320-105D-46B2-81AE-E2CE404C8CA7}
+	EndGlobalSection
+EndGlobal

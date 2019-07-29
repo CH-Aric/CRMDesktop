@@ -1,0 +1,43 @@
+﻿<Page x:Class="CRMDesktop.Pages.Tasks_Page"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CRMDesktop.Pages"
+      xmlns:local1="clr-namespace:CRMDesktop"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Tasks_Page">
+    <StackPanel>
+        <Grid Background="Black">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="25*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Rectangle Fill="White" Margin="1" Grid.Column="0" Grid.Row="0"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="1" Grid.Row="0"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="2" Grid.Row="0"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="3" Grid.Row="0"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="3" Grid.Row="1"/>
+            <Switch Toggled="onToggledGroup" Grid.Column="0" Grid.Row="0"/>
+            <ComboBox x:Name="agentPicker" ToolTip="Agent" Grid.Column="1" Grid.Row="0"/>
+            <local1:StyledButton Click="onClickedAssign" Content="Transfer" Grid.Column="2" Grid.Row="0"/>
+            <local1:StyledButton Click="onClickedCreate" Content="Create" Grid.Column="3" Grid.Row="0"/>
+            <TextBox x:Name="SearchEntry" ToolTip="Search For" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"/>
+            <local1:StyledButton Click="onClickedSearch" Content="Search"  Grid.Column="3" Grid.Row="1"/>
+        </Grid>
+        <Grid x:Name="TSection" Background="Black">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="85*"/>
+                <ColumnDefinition Width="15*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+    </StackPanel>
+</Page>

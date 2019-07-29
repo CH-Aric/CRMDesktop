@@ -1,0 +1,50 @@
+﻿<Page x:Class="CRMDesktop.Pages.Price_Page"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CRMDesktop.Pages"
+      xmlns:local1="clr-namespace:CRMDesktop"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Price_Page">
+
+    <StackPanel Orientation="Vertical">
+        <Grid Background="Black" Margin="1,1,1,1" x:Name="HeaderGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Rectangle Fill="White" Margin="1" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
+            <ComboBox x:Name="TypePicker" Grid.Column="0" Grid.ColumnSpan="2">
+                <ComboBoxItem Content="A/C"/>
+                <ComboBoxItem Content="Furnace"/>
+                <ComboBoxItem Content="Water Tank"/>
+                <ComboBoxItem Content="Tankless"/>
+            </ComboBox>
+            <Rectangle Fill="White" Margin="1" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2"/>
+            <ComboBox x:Name="BrandPicker" Grid.Column="2" Grid.ColumnSpan="2">
+            </ComboBox>
+            <local1:StyledButton Content="View" Click="onClicked" Grid.Column="4" Grid.ColumnSpan="2"/>
+        </Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" Name="scroll">
+            <Grid x:Name="TSection" Background="Transparent" Margin="1,1,1,1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </ScrollViewer>
+    </StackPanel>
+</Page>
