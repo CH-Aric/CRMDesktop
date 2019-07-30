@@ -1,0 +1,41 @@
+﻿<Page x:Class="CRMDesktop.Pages.Customers.Booking_Page"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CRMDesktop.Pages.Customers"
+      xmlns:maincrmv2="clr-namespace:CRMDesktop"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Booking_Page">
+
+    <StackPanel>
+        <Grid x:Name="HeadData" Background="Black">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+            <Rectangle Fill="White" Margin="1" Grid.Column="0" Grid.Row="0"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="0" Grid.Row="1"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="1" Grid.Row="1"/>
+            <Label Grid.Column="0" Content="Name"  x:Name="nameLabel"/>
+            <maincrmv2:AwesomeHyperLinkLabel Grid.Column="0" Grid.Row="1" Content="Phone"  x:Name="phoneLabel"/>
+            <Label Grid.Column="1" Grid.Row="1" Content="Time" x:Name="bookLabel"/>
+            <maincrmv2:StyledButton Grid.Row="2" Grid.ColumnSpan="2" Content="Navigate To" Click="onClickNavigate" x:Name="navButton"/>
+            <maincrmv2:StyledButton Grid.Row="0" Grid.Column="1" Content="Advance" Click="onClickAdvance" x:Name="advButton"/>
+        </Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" Name="scroll">
+            <Grid x:Name="BodyGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="50*"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </ScrollViewer>
+    </StackPanel>
+</Page>

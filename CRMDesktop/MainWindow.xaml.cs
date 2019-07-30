@@ -1,4 +1,5 @@
 ﻿using CRMDesktop.Pages;
+using CRMDesktop.Pages.Customers;
 using CRMDesktop.Pages.Inventory;
 using System.Windows;
 
@@ -60,6 +61,12 @@ namespace CRMDesktop
                 Check_Page page = new Check_Page();
                 mainFrame.Navigate(page);
             }
+            else if (sb.Content.Equals("View Customers"))
+            {
+                CustomerList_Page page = new CustomerList_Page();
+                mainFrame.Navigate(page);
+            }
         }
     }
+    
 }

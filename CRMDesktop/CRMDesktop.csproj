@@ -90,6 +90,34 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Customers\Advance_Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Customers\Booking_Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Customers\CustomerDetail_Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Customers\CustomerList_Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Customers\Install_Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Customers\Quote_Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Customers\Request_Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Favourites_Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -124,6 +152,27 @@
     </Compile>
     <Compile Include="Pages\CouponChecker_Page.xaml.cs">
       <DependentUpon>CouponChecker_Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Customers\Advance_Page.xaml.cs">
+      <DependentUpon>Advance_Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Customers\Booking_Page.xaml.cs">
+      <DependentUpon>Booking_Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Customers\CustomerDetail_Page.xaml.cs">
+      <DependentUpon>CustomerDetail_Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Customers\CustomerList_Page.xaml.cs">
+      <DependentUpon>CustomerList_Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Customers\Install_Page.xaml.cs">
+      <DependentUpon>Install_Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Customers\Quote_Page.xaml.cs">
+      <DependentUpon>Quote_Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Customers\Request_Page.xaml.cs">
+      <DependentUpon>Request_Page.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Favourites_Page.xaml.cs">
       <DependentUpon>Favourites_Page.xaml</DependentUpon>
@@ -166,7 +215,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Pages\Customers\" />
     <Folder Include="Pages\Popup_Pages\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

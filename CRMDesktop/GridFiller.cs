@@ -120,11 +120,55 @@ namespace CRMDesktop
                 r++;
             }
         }
+        public static void rapidFillSpacedPremadeObjects(List<UIElement> Objects, Grid g, int[] Spacing, bool[] boxoff)
+        {
+            int i = 0;
+            int r = 0;
+            Brush c = ClientData.getGridColor();
+            g.RowDefinitions.Add(new RowDefinition { Height = new GridLength(10, GridUnitType.Star) });
+            foreach (UIElement s in Objects)
+            {
+                if (boxoff[i])
+                {
+                    Rectangle b = new Rectangle() { Fill = c, Margin = ClientData.GridMargin };
+                    g.Children.Add(b);
+                    Grid.SetColumn(b, i);
+                    Grid.SetRow(b, g.RowDefinitions.Count - 1);
+                    Grid.SetColumnSpan(b, Spacing[r]);
+                }
+                g.Children.Add(s);
+                Grid.SetColumn(s, i);
+                Grid.SetRow(s, g.RowDefinitions.Count - 1);
+                Grid.SetColumnSpan(s, Spacing[r]);
+                i += Spacing[r];
+                r++;
+            }
+        }
         public static void rapidFillPremadeObjects(List<UIElement> Objects, Grid g, bool[] boxoff)
         {
             int i = 0;
             Brush c = ClientData.getGridColor();
             g.RowDefinitions.Add(new RowDefinition { Height = new GridLength(50, GridUnitType.Pixel) });
+            foreach (UIElement s in Objects)
+            {
+                if (boxoff[i])
+                {
+                    Rectangle b = new Rectangle() { Fill = c, Margin = ClientData.GridMargin };
+                    g.Children.Add(b);
+                    Grid.SetColumn(b, i);
+                    Grid.SetRow(b, g.RowDefinitions.Count - 1);
+                }
+                g.Children.Add(s);
+                Grid.SetColumn(s, i);
+                Grid.SetRow(s, g.RowDefinitions.Count - 1);
+                i++;
+            }
+        }
+        public static void rapidFillPremadeObjectsStandardHeight(List<UIElement> Objects, Grid g, bool[] boxoff, int Height)
+        {
+            int i = 0;
+            Brush c = ClientData.getGridColor();
+            g.RowDefinitions.Add(new RowDefinition { Height = new GridLength(Height, GridUnitType.Pixel) });
             foreach (UIElement s in Objects)
             {
                 if (boxoff[i])
