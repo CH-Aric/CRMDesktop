@@ -27,7 +27,7 @@ namespace CRMDesktop.Pages.Customers
             InitializeComponent();
             searchCustomerData();
         }
-        public void onClickAdvance(object sender, EventArgs e)
+        public void onClickAdvance(object sender, RoutedEventArgs e)
         {
             Advance_Page page = new Advance_Page();
             ClientData.mainFrame.Navigate(page);
@@ -46,7 +46,7 @@ namespace CRMDesktop.Pages.Customers
             HeadData.Children.Add(map, 0, 3);
             Grid.SetColumnSpan(map, 2);*/
         }
-        public async void onClickNavigate(object sender, EventArgs e)
+        public async void onClickNavigate(object sender, RoutedEventArgs e)
         {
             //var options = new MapLaunchOptions { NavigationMode = NavigationMode.Driving };
             //await Xamarin.Essentials.Map.OpenAsync(place, options);

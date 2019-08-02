@@ -46,3 +46,9 @@ D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\Customers\Customer
 D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\Customers\Install_Page.baml
 D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\Customers\Quote_Page.baml
 D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\Customers\Request_Page.baml
+D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\Login_Page.g.cs
+D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Toolbar.g.cs
+D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\Login_Page.baml
+D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Toolbar.baml
+D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\blank.g.cs
+D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\blank.baml

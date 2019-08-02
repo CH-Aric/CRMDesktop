@@ -20,10 +20,10 @@ namespace CRMDesktop.Pages.Customers
     /// </summary>
     public partial class CustomerList_Page : Page
     {
-        int stageSearch = 0;
         public CustomerList_Page()
         {
             this.InitializeComponent();
+            scroll.Height = ClientData.FrameHeight-75;
         }
         public void loadFromDatabase()
         {

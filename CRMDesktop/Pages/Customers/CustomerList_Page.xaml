@@ -6,13 +6,13 @@
       xmlns:local="clr-namespace:CRMDesktop.Pages.Customers"
       xmlns:maincrmv2="clr-namespace:CRMDesktop"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="200"
       Title="CustomerList_Page">
 
-    <StackPanel>
+    <StackPanel Orientation="Vertical">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="25*"/>
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
@@ -51,8 +51,8 @@
             </ComboBox>
             <maincrmv2:StyledButton Click="onClickedCreate" Content="Create New File" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"/>
         </Grid>
-        <ScrollViewer>
-            <Grid x:Name="dataGrid" Margin="0">
+        <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" Name="scroll">
+            <Grid x:Name="dataGrid" Background="Transparent" Margin="1,1,1,1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100*"/>
                 </Grid.ColumnDefinitions>

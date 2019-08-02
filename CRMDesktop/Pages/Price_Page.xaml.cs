@@ -106,6 +106,5 @@ namespace CRMDesktop.Pages
             GridFiller.PurgeGrid(TSection);
             GridFiller.PurgeHeader(HeaderGrid);
         }
-
     }
 }

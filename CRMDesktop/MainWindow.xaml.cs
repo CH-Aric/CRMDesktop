@@ -13,59 +13,18 @@ namespace CRMDesktop
         public MainWindow()
         {
             InitializeComponent();
-            mainFrame.Height = SystemParameters.PrimaryScreenHeight-102;
-            mainFrame.Width = SystemParameters.PrimaryScreenWidth;
+            mainFrame.Height = SystemParameters.PrimaryScreenHeight-topFrame.Height;
+            sideFrame.Height = mainFrame.Height;
+            mainFrame.Width = SystemParameters.PrimaryScreenWidth*0.8;
+            sideFrame.Width = SystemParameters.PrimaryScreenWidth * 0.2;
+            topFrame.Width = SystemParameters.PrimaryScreenWidth;
             ClientData.FrameHeight = mainFrame.Height;
             ClientData.FrameWidth = mainFrame.Width;
             ClientData.mainFrame = mainFrame;
-        }
-        public void onClickAccess(object sender,RoutedEventArgs e)
-        {
-            StyledButton sb = (StyledButton)sender;
-            if (sb.Content.Equals("Pricing Guide"))
-            {
-                Price_Page page = new Price_Page();
-                mainFrame.Navigate(page);
-            }else if (sb.Content.Equals("Inventory"))
-            {
-                Items_Page page = new Items_Page();
-                mainFrame.Navigate(page);
-            }
-            else if (sb.Content.Equals("Chat"))
-            {
-                Chat_Page page = new Chat_Page();
-                mainFrame.Navigate(page);
-            }
-            else if (sb.Content.Equals("Coupon Checker"))
-            {
-                CouponChecker_Page page = new CouponChecker_Page();
-                mainFrame.Navigate(page);
-            }
-            else if (sb.Content.Equals("Manage Favourites"))
-            {
-                Favourites_Page page = new Favourites_Page();
-                mainFrame.Navigate(page);
-            }
-            else if (sb.Content.Equals("View Tasks"))
-            {
-                Tasks_Page page = new Tasks_Page();
-                mainFrame.Navigate(page);
-            }
-            else if (sb.Content.Equals("CDR"))
-            {
-                CDR_Page page = new CDR_Page(true,"");
-                mainFrame.Navigate(page);
-            }
-            else if (sb.Content.Equals("Missed Calls"))
-            {
-                Check_Page page = new Check_Page();
-                mainFrame.Navigate(page);
-            }
-            else if (sb.Content.Equals("View Customers"))
-            {
-                CustomerList_Page page = new CustomerList_Page();
-                mainFrame.Navigate(page);
-            }
+            ClientData.sideFrame = sideFrame;
+            ClientData.toolFrame = topFrame;
+            Login_Page page = new Login_Page();
+            mainFrame.Navigate(page);
         }
     }
     

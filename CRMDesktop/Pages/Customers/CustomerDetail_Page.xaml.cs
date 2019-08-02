@@ -68,7 +68,7 @@ namespace CRMDesktop.Pages.Customers
                 }
             }
         }
-        public void onClicked(object sender, EventArgs e)
+        public void onClicked(object sender, RoutedEventArgs e)
         {
             foreach (DataPair dataPair in this.entryDict)
             {
@@ -101,7 +101,7 @@ namespace CRMDesktop.Pages.Customers
                 }
             }
         }
-        public void onClickAddFields(object sender, EventArgs e)
+        public void onClickAddFields(object sender, RoutedEventArgs e)
         {
             DataPair dataPair = new DataPair(0, "", "");
             dataPair.setNew();
@@ -112,17 +112,17 @@ namespace CRMDesktop.Pages.Customers
             GridFiller.rapidFillPremadeObjects(new List<UIElement>() { dataPair.Index, dataPair.Value }, mainGrid, new bool[] { true, true });
             this.entryDict.Add(dataPair);
         }
-        public void onFileButton(object sender, EventArgs e)
+        public void onFileButton(object sender, RoutedEventArgs e)
         {
 
         }
-        public void onClickCDR(object sender, EventArgs e)
+        public void onClickCDR(object sender, RoutedEventArgs e)
         {
             //App.MDP.Detail.Navigation.PushAsync(new CDR_Page(false, customer + ""));
             CDR_Page page = new CDR_Page(false, customer + "");
             ClientData.mainFrame.Navigate(page);
         }
-        public void onBooking(object sender, EventArgs e)
+        public void onBooking(object sender, RoutedEventArgs e)
         {
             //App.MDP.Detail.Navigation.PushAsync(new Booking_Page(customer));
             Booking_Page page = new Booking_Page(customer);

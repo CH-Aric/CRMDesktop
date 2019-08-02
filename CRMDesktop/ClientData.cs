@@ -26,7 +26,7 @@ namespace CRMDesktop
         //Desktop Stuff
         public static double FrameHeight;
         public static double FrameWidth;
-        public static Frame mainFrame;
+        public static Frame mainFrame,sideFrame,toolFrame;
         public static Brush getGridColor()
         {
             LastColor++;
