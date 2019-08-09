@@ -4,11 +4,82 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CRMDesktop.Pages.Customers"
+      xmlns:MainCRMV2="clr-namespace:CRMDesktop"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Quote_Page">
+    <ScrollViewer x:Name="scroll" VerticalScrollBarVisibility="Visible">
+        <StackPanel>
+            <Grid Background="Black" x:Name="quoteStack">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="25"/>
+                </Grid.RowDefinitions>
+                <!--First row-->
+                <Rectangle Fill="White" Grid.Row="0" Grid.Column="0" Margin="2"/>
+                <Rectangle Fill="White" Grid.Row="0" Grid.Column="1" Margin="2"/>
+                <Rectangle Fill="White" Grid.Row="0" Grid.Column="2" Margin="2"/>
+                <Rectangle Fill="White" Grid.Row="0" Grid.Column="3" Margin="2"/>
+                <Rectangle Fill="White" Grid.Row="0" Grid.Column="4" Margin="2"/>
+                <Rectangle Fill="White" Grid.Row="0" Grid.Column="5" Margin="2"/>
+                <TextBox x:Name="nameLabel" Text="NameHere" Foreground="Black" Margin="2"/>
+                <TextBox x:Name="contactLabel" Text="ContactHere" Grid.Row="0" Grid.Column="3" Margin="2"/>
+                <Label Content="Salesman:" Grid.Row="0" Grid.Column="1" Margin="2"/>
+                <ComboBox x:Name="Salesman" Grid.Row="0" Grid.Column="2" Margin="2"/>
+                <MainCRMV2:AwesomeHyperLinkLabel x:Name="phoneLabel" Content="PhoneHere" Grid.Row="0" Grid.Column="4"/>
+                <MainCRMV2:StyledButton x:Name="StageButton" Content="Advance" Grid.Row="0" Grid.Column="5"/>
+                <!--Second row-->
+                <Rectangle Fill="White" Grid.Row="1" Grid.Column="0" Margin="2"/>
+                <Rectangle Fill="White" Grid.Row="1" Grid.Column="1" Margin="2"/>
+                <Rectangle Fill="White" Grid.Row="1" Grid.Column="2" Margin="2"/>
+                <Rectangle Fill="White" Grid.Row="1" Grid.Column="3" Margin="2"/>
+                <Rectangle Fill="White" Grid.Row="1" Grid.Column="4" Margin="2"/>
+                <Rectangle Fill="White" Grid.Row="1" Grid.Column="5" Margin="2"/>
 
-    <Grid>
-        
-    </Grid>
+                <Label Content="Quote Total:" Grid.Row="1" Grid.Column="0" Margin="2"/>
+
+                <MainCRMV2:StyledButton Content="Add Item" Click="onClickAddFieldsQ" Grid.Row="1" Grid.Column="3"/>
+                <MainCRMV2:StyledButton Content="Save Changes" Click="onClicked" Grid.Row="1" Grid.Column="5"/>
+            </Grid>
+            <Grid Background="Black" x:Name="bottomStack">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                </Grid.RowDefinitions>
+                <!--First row-->
+                <Rectangle Fill="White" Grid.Row="0" Grid.Column="0" Margin="2"/>
+                <Rectangle Fill="White" Grid.Row="0" Grid.Column="1" Margin="2"/>
+                <Rectangle Fill="White" Grid.Row="0" Grid.Column="2" Margin="2"/>
+                <Rectangle Fill="White" Grid.Row="0" Grid.Column="3" Margin="2"/>
+                <Rectangle Fill="White" Grid.Row="0" Grid.Column="4" Margin="2"/>
+                <Rectangle Fill="White" Grid.Row="0" Grid.Column="5" Margin="2"/>
+
+                <MainCRMV2:StyledButton Content="Add Row" Click="onClickAddFields" x:Name="row"/>
+                <MainCRMV2:StyledButton Content="Add Signature" Click="onClickAddFields" x:Name="sig" Grid.Row="0" Grid.Column="1"/>
+                <MainCRMV2:StyledButton Content="Add Deposit Field" Click="onClickAddFields" x:Name="fie" Grid.Row="0" Grid.Column="2"/>
+                <MainCRMV2:StyledButton Content="Add Payment Method" Click="onClickAddFields" x:Name="met" Grid.Row="0" Grid.Column="3"/>
+                <MainCRMV2:StyledButton Content="Save Changes" Click="onClicked" Grid.Row="0" Grid.Column="5"/>
+            </Grid>
+            <Grid x:Name="fileGrid" Background="Black">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
 </Page>

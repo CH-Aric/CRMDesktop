@@ -34,7 +34,7 @@ namespace CRMDesktop
         {
             int i = 0;
             Brush c = ClientData.getGridColorCC(CC);
-            g.RowDefinitions.Add(new RowDefinition { Height = new GridLength(50, GridUnitType.Pixel) });
+            g.RowDefinitions.Add(new RowDefinition { Height = new GridLength(25, GridUnitType.Pixel) });
             foreach (string s in strings)
             {
                 Rectangle b = new Rectangle() { Fill = c, Margin = ClientData.GridMargin };
@@ -128,7 +128,7 @@ namespace CRMDesktop
             g.RowDefinitions.Add(new RowDefinition { Height = new GridLength(10, GridUnitType.Star) });
             foreach (UIElement s in Objects)
             {
-                if (boxoff[i])
+                if (boxoff[r])
                 {
                     Rectangle b = new Rectangle() { Fill = c, Margin = ClientData.GridMargin };
                     g.Children.Add(b);
@@ -148,7 +148,7 @@ namespace CRMDesktop
         {
             int i = 0;
             Brush c = ClientData.getGridColor();
-            g.RowDefinitions.Add(new RowDefinition { Height = new GridLength(50, GridUnitType.Pixel) });
+            g.RowDefinitions.Add(new RowDefinition { Height = new GridLength(25, GridUnitType.Pixel) });
             foreach (UIElement s in Objects)
             {
                 if (boxoff[i])
@@ -192,6 +192,18 @@ namespace CRMDesktop
                 g.Children.Remove(child);
             }
             while (g.RowDefinitions.Count > 1)
+            {
+                g.RowDefinitions.RemoveAt(0);
+            }
+        }
+        public static void PurgeAllGrid(Grid g)
+        {
+            var children = g.Children.OfType<UIElement>().ToArray();
+            foreach (UIElement child in children)
+            {
+                g.Children.Remove(child);
+            }
+            while (g.RowDefinitions.Count > 0)
             {
                 g.RowDefinitions.RemoveAt(0);
             }

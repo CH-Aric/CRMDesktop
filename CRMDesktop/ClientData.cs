@@ -75,18 +75,12 @@ namespace CRMDesktop
         {
             this.Responded = false;
             TaskCallback call = new TaskCallback(response);
-            string statement = string.Concat(new string[]
-            {
-                "SELECT IDKey,AgentNum FROM agents WHERE Username='",
-                u,
-                "'AND Password='",
-                p,
-                "';"
-            });
+            string statement = "SELECT IDKey,AgentNum FROM agents WHERE Username='"+u+"'AND Password='"+p+"';";
             DatabaseFunctions.SendToPhp(false, statement, call);
             while (!Responded)
             {
-                await Task.Delay(50);
+
+                await Task.Delay(5);
             }
             bool result;
             if (dict.Count > 1)

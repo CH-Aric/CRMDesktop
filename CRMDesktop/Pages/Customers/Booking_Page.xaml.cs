@@ -29,7 +29,7 @@ namespace CRMDesktop.Pages.Customers
         }
         public void onClickAdvance(object sender, RoutedEventArgs e)
         {
-            Advance_Page page = new Advance_Page();
+            Advance_Page page = new Advance_Page(customerID);
             ClientData.mainFrame.Navigate(page);
         }
         public async void renderBookingMap(string Address)

@@ -3,21 +3,22 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:CRMDesktop.Pages"
-      xmlns:local1="clr-namespace:CRMDesktop"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Favourites_Page">
 
-    <StackPanel Orientation="Vertical">
-        <StackPanel Orientation="Horizontal" x:Name="TopBar"/>
+    <StackPanel Orientation="Vertical" >
+        <StackPanel Orientation="Horizontal" x:Name="TopBar" Background="Black"/>
         <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" Name="scroll">
-            <Grid x:Name="TSection" Background="Transparent" Margin="1,1,1,1">
+            <Grid x:Name="TSection" Margin="1,1,1,1" Background="Black">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="40*"/>
                     <ColumnDefinition Width="10*"/>
                     <ColumnDefinition Width="10*"/>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                </Grid.RowDefinitions>
             </Grid>
         </ScrollViewer>
     </StackPanel>

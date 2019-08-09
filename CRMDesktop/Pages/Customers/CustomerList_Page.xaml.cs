@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CRMDesktop.Pages.Customers
 {
@@ -20,6 +9,7 @@ namespace CRMDesktop.Pages.Customers
     /// </summary>
     public partial class CustomerList_Page : Page
     {
+        int stageSearch = 0;
         public CustomerList_Page()
         {
             this.InitializeComponent();
@@ -46,12 +36,13 @@ namespace CRMDesktop.Pages.Customers
                         SecurityButton dataButton = new SecurityButton(int.Parse(dictionary["IDKey"][i]), new string[] { "Employee" })
                         {
                             Content = text,
+                            Width=ClientData.sideFrame.Width*0.925
                         };
                         dataButton.Click += this.onClicked;
                         dataButton.Integer2 = int.Parse(dictionary["Stage"][i]);
                         List<UIElement> list = new List<UIElement>() { dataButton };
                         bool[] box = new bool[] { false };
-                        GridFiller.rapidFillPremadeObjectsStandardHeight(list, dataGrid, box, 50);
+                        GridFiller.rapidFillPremadeObjectsStandardHeight(list, dataGrid, box, 25);
 
                         dictionary2.Add(dictionary["IDKey"][i], dataButton);
                     }
@@ -83,7 +74,7 @@ namespace CRMDesktop.Pages.Customers
             }
             else if (dataButton.GetInt2() > 2 && dataButton.GetInt2() < 9)
             {
-                Quote_Page page = new Quote_Page(dataButton.Integer);
+                Quote_Page page = new Quote_Page(dataButton.Integer,stageSearch);
                 ClientData.mainFrame.Navigate(page);
             }
         }
@@ -124,13 +115,13 @@ namespace CRMDesktop.Pages.Customers
                     text = text + " cusindex.IDKey='" + str + "' OR";
                 }
                 text += " cusindex.IDKey='0');";
-                //this.PurgeCells();
+                PurgeCells();
                 DatabaseFunctions.SendToPhp(false, text, call);
             }
         }
         public void PurgeCells()
         {
-            GridFiller.PurgeGrid(dataGrid);
+            GridFiller.PurgeAllGrid(dataGrid);
         }
         public string appendPickerResult()
         {

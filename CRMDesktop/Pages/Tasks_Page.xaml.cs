@@ -142,8 +142,8 @@ namespace CRMDesktop.Pages
         }
         public void onClickedCreate(object sender, RoutedEventArgs e)
         {
-            //TaskEdit_Page page = new TaskEdit_Page();
-           // ClientData.mainFrame.Navigate(page);//TODO MAKE THIS WORK WITH TASKCREATE_PAGE WHEN ADDED
+            TaskCreate_Page page = new TaskCreate_Page();
+           ClientData.mainFrame.Navigate(page);
         }
         public void onClickedSearch(object sender, RoutedEventArgs e)
         {

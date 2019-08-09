@@ -1,23 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CRMDesktop.Pages
 {
-    /// <summary>
-    /// Interaction logic for Favourites_Page.xaml
-    /// </summary>
     public partial class Favourites_Page : Page
     {
         private List<DataSwitch> Favorites;
@@ -34,6 +20,7 @@ namespace CRMDesktop.Pages
             this.getFavorites();
             this.renderLowerUI();
             this.getGroups();
+            scroll.Height = ClientData.mainFrame.Height-TopBar.Height;
         }
         public void getAgents()
         {
@@ -146,17 +133,7 @@ namespace CRMDesktop.Pages
                 if (dataSwitch.getState())
                 {
                     num++;
-                    text = string.Concat(new object[]
-                    {
-                        text,
-                        "('",
-                        this.GroupSelector.SelectedItem,
-                        "','",
-                        this.pickerIndex["GroupID"][this.GroupSelector.SelectedIndex],
-                        "','",
-                        dataSwitch.GetInt(),
-                        "'), "
-                    });
+                    text+="('"+ this.GroupSelector.SelectedItem+ "','"+this.pickerIndex["GroupID"][this.GroupSelector.SelectedIndex]+ "','"+ dataSwitch.GetInt()+ "'), ";
                 }
             }
             if (num > 0)

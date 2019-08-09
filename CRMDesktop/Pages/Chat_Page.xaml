@@ -10,15 +10,15 @@
       Title="Chat_Page">
 
     <StackPanel Orientation="Vertical">
-        <StackPanel x:Name="ChatStack" Orientation="Vertical">
-        </StackPanel>
+        <ScrollViewer x:Name="scroll" Background="White">
+            <StackPanel x:Name="ChatStack" Orientation="Vertical">
+            </StackPanel>
+        </ScrollViewer>
         <StackPanel Orientation="Horizontal">
-            <TextBox x:Name="Message" />
-            <ComboBox x:Name="Target"/>
-            <local1:StyledButton Content="Send" Click="OnClickSendMsg"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <local1:StyledButton Content="Manage Groups and Favorites" Click="OnClickMan"/>
+            <TextBox x:Name="Message" Width="250"/>
+            <ComboBox x:Name="Target" Width="150"/>
+            <local1:StyledButton Content="Send" Click="OnClickSendMsg" Width="150"/>
+            <local1:StyledButton Content="Manage Groups and Favorites" Click="OnClickMan" Width="200"/>
         </StackPanel>
     </StackPanel>
 </Page>

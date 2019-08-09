@@ -52,3 +52,9 @@ D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\Login_Page.baml
 D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Toolbar.baml
 D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\blank.g.cs
 D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\blank.baml
+D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\TaskCreate_Page.g.cs
+D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\TaskCreate_Page.baml
+D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\bin\Debug\CRMDesktop.exe.manifest
+D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\bin\Debug\CRMDesktop.application
+D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\CRMDesktop.exe.manifest
+D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\CRMDesktop.application

@@ -4,11 +4,29 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CRMDesktop.Pages.Customers"
+      xmlns:MainCRMV2="clr-namespace:CRMDesktop"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Request_Page">
 
-    <Grid>
-        
-    </Grid>
+    <StackPanel Background="Black">
+        <StackPanel x:Name="nameStack" Orientation="Horizontal">
+            <TextBox x:Name="nameLabel" Text="NameHere" Width="200"/>
+            <Label x:Name="phoneLabel" Content="PhoneHere" Foreground="White" Width="200"/>
+            <TextBox x:Name="contactLabel" Text="ContactHere" Width="200"/>
+            <MainCRMV2:StyledButton x:Name="StageButton" Content="Advance" Click="onClickAdvance" Width="125"/>
+            <MainCRMV2:StyledButton x:Name="SaveButton" Content="Save Changes" Click="onClicked" Width="125"/>
+            <MainCRMV2:StyledButton x:Name="AddButton" Content="Add Field" Click="onClickAddFields" Width="125"/>
+        </StackPanel>
+        <StackPanel x:Name="phoneStack" Orientation="Horizontal">
+        </StackPanel>
+        <StackPanel x:Name="noteStack" Orientation="Vertical">
+            <TextBox x:Name="noteLabel" Text=""/>
+        </StackPanel>
+        <ScrollViewer Height="406" x:Name="scroll">
+            <StackPanel x:Name="TSection">
+
+            </StackPanel>
+        </ScrollViewer>
+    </StackPanel>
 </Page>

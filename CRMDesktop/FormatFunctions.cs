@@ -28,16 +28,22 @@ namespace CRMDesktop
         {
             return datein.Split(' ')[0].Split('-');
         }
+        public static string stripper(string intake)
+        {
+            string intake2 = intake;
+            intake2 = intake2.Replace("\"", "");
+            intake2 = intake2.Replace("\\", "");
+            intake2 = intake2.Replace("[", "");
+            intake2 = intake2.Replace("]", "");
+            intake2 = intake2.Replace("{", "");
+            intake2 = intake2.Replace("}", "");
+            intake2 = intake2.Replace("[", "");
+            intake2 = intake2.Replace("NewRow:", "");
+            return intake2;
+        }
         public static string[] SplitToPairs(string input)
         {
-            input = input.Replace("\"", "");
-            input = input.Replace("\\", "");
-            input = input.Replace("[", "");
-            input = input.Replace("]", "");
-            input = input.Replace("{", "");
-            input = input.Replace("}", "");
-            input = input.Replace("[", "");
-            input = input.Replace("NewRow:", "");
+            input = stripper(input);
             return input.Split(',');
         }
         public static Dictionary<string, List<string>> createValuePairs(string[] input)

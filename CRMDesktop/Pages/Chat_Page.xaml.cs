@@ -31,6 +31,7 @@ namespace CRMDesktop.Pages
             });
             getFavoriteAgents();
             getFavoriteGroups();
+            scroll.Height = ClientData.mainFrame.Height * 0.9;
         }
         public void getChatMessages()
         {
