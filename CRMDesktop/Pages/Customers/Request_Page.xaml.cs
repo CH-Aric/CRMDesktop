@@ -1,17 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CRMDesktop.Pages.Customers
 {
@@ -44,17 +34,14 @@ namespace CRMDesktop.Pages.Customers
          {
              Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
              entryDict = new List<DataPair>();
+            nameLabel.Text = dictionary["Name"][0];
              if (dictionary.Count > 0)
              {
                  for (int i = 0; i < dictionary["Index"].Count; i++)
                  {
                      if (dictionary["Index"][i].Contains("hone"))
                      {
-                         phoneLabel.Content = dictionary["value"][i];
-                     }
-                     else if (dictionary["Index"][i].Contains("ook"))
-                     {
-                         nameLabel.Text = "Booked For: " + dictionary["value"][i];
+                         phoneLabel.Text = dictionary["value"][i];
                      }
                      else if (dictionary["Index"][i].Contains("OTES"))
                      {
@@ -124,8 +111,9 @@ namespace CRMDesktop.Pages.Customers
                      DatabaseFunctions.SendToPhp(string.Concat(new object[] { "UPDATE cusfields SET cusfields.Value = '", dataPair.Value.Text, "',cusfields.Index='", dataPair.Index.Text, "' WHERE (IDKey= '", dataPair.Index.GetInt(), "');" }));
                  }
              }
-             string sql = "UPDATE cusfields SET cusfields.value='" + noteLabel.Text + "' WHERE cusfields.Index='Notes:'";
+             string sql = "UPDATE cusfields SET cusfields.value='" + noteLabel.Text + "' WHERE cusfields.Index='Notes:' AND IDKey= '" + customer + "'";
              DatabaseFunctions.SendToPhp(sql);
+            string sql2 = "UPDATE cusindex SET Name='"+nameLabel.Text+ "' WHERE IDKey= '"+customer+ "'";
          }
          public void onClickAddFields(object sender, RoutedEventArgs e)
          {

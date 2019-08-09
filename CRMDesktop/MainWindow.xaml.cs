@@ -13,7 +13,7 @@ namespace CRMDesktop
         public MainWindow()
         {
             InitializeComponent();
-            mainFrame.Height = SystemParameters.PrimaryScreenHeight-topFrame.Height;
+            mainFrame.Height = SystemParameters.MaximizedPrimaryScreenHeight-topFrame.Height;
             sideFrame.Height = mainFrame.Height;
             mainFrame.Width = SystemParameters.PrimaryScreenWidth*0.8;
             sideFrame.Width = SystemParameters.PrimaryScreenWidth * 0.2;

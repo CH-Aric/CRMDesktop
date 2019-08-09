@@ -88,7 +88,7 @@ namespace CRMDesktop.Pages.Customers
         }
         public void onClickedCreate(object sender, RoutedEventArgs e)
         {
-            string sql = "INSERT INTO cusindex (Stage) VALUES ('" + (NewPicker.SelectedIndex + 1) + "')";
+            string sql = "INSERT INTO cusindex (Stage,Name) VALUES ('" + (NewPicker.SelectedIndex + 1) + "','CustomerName')";
             DatabaseFunctions.SendToPhp(sql);
             System.Threading.Thread.Sleep(500);
             string sql2 = "SELECT IDKey,Stage FROM cusindex ORDER BY IDKey Desc LIMIT 1";

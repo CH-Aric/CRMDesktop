@@ -38,12 +38,12 @@
             </ComboBox>
             <ComboBox ToolTip="Starting Stage" x:Name="NewPicker"   Grid.Column="0" Grid.Row="1" SelectedValuePath="Content">
 
-                <ComboBoxItem>Leads</ComboBoxItem>
+                <ComboBoxItem>Lead</ComboBoxItem>
                 <ComboBoxItem>Booked</ComboBoxItem>
                 <ComboBoxItem>Quoted</ComboBoxItem>
                 <ComboBoxItem>Follow Up With</ComboBoxItem>
                 <ComboBoxItem>Sold</ComboBoxItem>
-                <ComboBoxItem>Installs</ComboBoxItem>
+                <ComboBoxItem>Install</ComboBoxItem>
                 <ComboBoxItem>Installing</ComboBoxItem>
                 <ComboBoxItem>QA</ComboBoxItem>
                 <ComboBoxItem>Clients</ComboBoxItem>
