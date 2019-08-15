@@ -24,6 +24,18 @@ namespace CRMDesktop
             }
             return string.Format("({0}) {1}-{2}", phone.Substring(0, 3), phone.Substring(3, 3), phone.Substring(6));
         }
+        public static string CleanDateNew(string Date)
+        {
+            string s1 = Date.Replace(",","@");
+            string s2 = s1.Replace(":","!");
+            return s2;
+        }
+        public static string PrettyDate(string Date)
+        {
+            string s1 = Date.Replace("@", ",");
+            string s2 = s1.Replace("!", ":");
+            return s2;
+        }
         public static string[] CleanDate(string datein)
         {
             return datein.Split(' ')[0].Split('-');

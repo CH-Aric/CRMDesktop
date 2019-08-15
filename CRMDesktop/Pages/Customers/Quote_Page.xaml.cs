@@ -24,6 +24,7 @@ namespace CRMDesktop.Pages.Customers
         string address;
         private int customer;
         private int stage;
+        List<string> prices;
         public Quote_Page(int customerIn, int stageIn)
         {
             customer = customerIn;
@@ -31,6 +32,7 @@ namespace CRMDesktop.Pages.Customers
             InitializeComponent();
             searchCustomers();
             populateFileList();
+            fillPriceGuideComboBox();
         }
         public void searchCustomers()
         {
@@ -39,7 +41,7 @@ namespace CRMDesktop.Pages.Customers
             TaskCallback call3 = populateQuoteList;
             DatabaseFunctions.SendToPhp(false, "SELECT cusfields.IDKey,cusfields.Value,cusfields.AdvValue FROM cusfields WHERE cusfields.CusID='" + customer + "' AND cusfields.Index='QUOTEFIELD';", call3);
         }
-        public void onClickAdvance(object sender, EventArgs e)
+        public void onClickAdvance(object sender, RoutedEventArgs e)
         {
             Advance_Page page = new Advance_Page(customer);
             ClientData.mainFrame.Navigate(page);
@@ -50,11 +52,20 @@ namespace CRMDesktop.Pages.Customers
             entryDict = new List<DataPair>();
             if (dictionary.Count > 0)
             {
+                nameLabel.Text = dictionary["Name"][0];
                 for (int i = 0; i < dictionary["Index"].Count; i++)
                 {
                     if (dictionary["Index"][i].Contains("hone"))
                     {
                         phoneLabel.Content = dictionary["Value"][i];
+                    }
+                    else if (dictionary["Index"][i].Contains("alesMan"))
+                    {
+                        Salesman.Text = dictionary["Value"][i];
+                    }
+                    else if (dictionary["Index"][i].Contains("uoteTotal"))
+                    {
+                        QuoteTotal.Text = dictionary["Value"][i];
                     }
                     else
                     {
@@ -64,7 +75,7 @@ namespace CRMDesktop.Pages.Customers
                         dataPair.Index.Text = dictionary["Index"][i];
                         dataPair.Index.ToolTip = "Index here";
                         List<UIElement> list = new List<UIElement>() { dataPair.Index, dataPair.Value };
-                        int[] j = new int[] { 3, 3 };
+                        int[] j = new int[] { 2, 4 };
                         GridFiller.rapidFillSpacedPremadeObjects(list, bottomStack, j, new bool[] { true, true });
                         entryDict.Add(dataPair);
                     }
@@ -102,13 +113,13 @@ namespace CRMDesktop.Pages.Customers
                     dataPair.Index.Text = dictionary["AdvValue"][i];
                     dataPair.Index.ToolTip = "Amount";
                     List<UIElement> list = new List<UIElement>() { dataPair.Index, dataPair.Value };
-                    int[] j = new int[] { 3, 3 };
+                    int[] j = new int[] { 2, 4 };
                     GridFiller.rapidFillSpacedPremadeObjects(list, quoteStack, j, new bool[] { true, true });
                     entryDictQ.Add(dataPair);
                 }
             }
         }
-        public void onClicked(object sender, EventArgs e)
+        public void onClicked(object sender, RoutedEventArgs e)
         {
             foreach (DataPair dataPair in entryDict)
             {
@@ -144,7 +155,7 @@ namespace CRMDesktop.Pages.Customers
             Quote_Page page = new Quote_Page(customer, stage);
             ClientData.mainFrame.Navigate(page);
         }
-        public void onClickAddFields(object sender, EventArgs e)
+        public void onClickAddFields(object sender, RoutedEventArgs e)
         {
             DataPair dataPair = new DataPair(0, "", "");
             dataPair.setNew();
@@ -154,7 +165,7 @@ namespace CRMDesktop.Pages.Customers
             dataPair.Index.ToolTip = "Value here";
 
             List<UIElement> list = new List<UIElement>() { dataPair.Index, dataPair.Value };
-            int[] i = new int[] { 3, 3 };
+            int[] i = new int[] { 2, 4 };
             GridFiller.rapidFillSpacedPremadeObjects(list, bottomStack, i, new bool[] { true, true });
             entryDictQ.Add(dataPair);
             entryDict.Add(dataPair);
@@ -177,24 +188,49 @@ namespace CRMDesktop.Pages.Customers
                 }
             }
         }
-        public void onClickAddFieldsQ(object sender, EventArgs e)
+        public void onClickAddFieldsQ(object sender, RoutedEventArgs e)
         {
-            DataPair dataPair = new DataPair(0, "", "");//TODO REWORK with Picker from the pricing guide!
+            DataPair dataPair = new DataPair(0, "", "");
             dataPair.setNew();
-            dataPair.Value.Text = "";
-            dataPair.Value.ToolTip = "Item";
             dataPair.Index.Text = "";
-            dataPair.Index.ToolTip = "Amount";
+            dataPair.Index.ToolTip = "Item";
+            dataPair.Value.Text = "";
+            dataPair.Value.ToolTip = "Amount";
             List<UIElement> list = new List<UIElement>() { dataPair.Index,dataPair.Value};
             int[] i = new int[] { 3,3};
             GridFiller.rapidFillSpacedPremadeObjects(list,quoteStack,i,new bool[]{ true,true});
             entryDictQ.Add(dataPair);
         }
-        public void onFileButton(object sender, EventArgs e)
+        public void onClickAddPrefilledFieldsQ(object sender, RoutedEventArgs e)
+        {
+            DataPair dataPair = new DataPair(0, "", "");//TODO REWORK with Picker from the pricing guide!
+            dataPair.setNew();
+            dataPair.Index.Text = PriceGuidecombo.SelectedItem.ToString();
+            dataPair.Index.ToolTip = "Item";
+            dataPair.Value.Text = prices[PriceGuidecombo.SelectedIndex];
+            dataPair.Value.ToolTip = "Amount";
+            List<UIElement> list = new List<UIElement>() { dataPair.Index, dataPair.Value };
+            int[] i = new int[] { 3, 3 };
+            GridFiller.rapidFillSpacedPremadeObjects(list, quoteStack, i, new bool[] { true, true });
+            entryDictQ.Add(dataPair);
+        }
+        public void fillPriceGuideComboBox()
+        {
+            string sql = "SELECT PriceSale, concat(Brand, '/ ',ItemType,'/ ',Desc1,'/ ',Desc2) as v FROM crm2.pricesheet;";//Make this readable in some way
+            TaskCallback call2 = populateCombo;
+            DatabaseFunctions.SendToPhp(false,sql,call2);
+        }
+        public void populateCombo(string result)
+        {
+            Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
+            PriceGuidecombo.ItemsSource=dictionary["v"];
+            prices = dictionary["PriceSale"];
+        }
+        public void onFileButton(object sender, RoutedEventArgs e)
         {
 
         }
-        public void onClickCDR(object sender, EventArgs e)
+        public void onClickCDR(object sender, RoutedEventArgs e)
         {
             CDR_Page page = new CDR_Page(false, customer + "");
             ClientData.mainFrame.Navigate(page);

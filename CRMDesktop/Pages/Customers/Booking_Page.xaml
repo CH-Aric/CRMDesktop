@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CRMDesktop.Pages.Customers"
       xmlns:maincrmv2="clr-namespace:CRMDesktop"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Booking_Page">
@@ -14,28 +15,35 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50*"/>
                 <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="25"/>
                 <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
             </Grid.RowDefinitions>
+            <!-- Row 1-->
             <Rectangle Fill="White" Margin="1" Grid.Column="0" Grid.Row="0"/>
-            <Rectangle Fill="White" Margin="1" Grid.Column="0" Grid.Row="1"/>
-            <Rectangle Fill="White" Margin="1" Grid.Column="1" Grid.Row="1"/>
-            <Label Grid.Column="0" Content="Name"  x:Name="nameLabel"/>
-            <maincrmv2:AwesomeHyperLinkLabel Grid.Column="0" Grid.Row="1" Content="Phone"  x:Name="phoneLabel"/>
-            <Label Grid.Column="1" Grid.Row="1" Content="Time" x:Name="bookLabel"/>
-            <maincrmv2:StyledButton Grid.Row="2" Grid.ColumnSpan="2" Content="Navigate To" Click="onClickNavigate" x:Name="navButton"/>
-            <maincrmv2:StyledButton Grid.Row="0" Grid.Column="1" Content="Advance" Click="onClickAdvance" x:Name="advButton"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="1" Grid.Row="0"/>
+            <TextBlock Grid.Column="0" Text="Name"  x:Name="nameLabel"/>
+            <TextBlock Grid.Column="1" Text="Phone"  x:Name="phoneLabel"/>
+            <xctk:DateTimePicker Grid.Column="2" Grid.Row="0" x:Name="BookingDate"/>
+            <maincrmv2:StyledButton Grid.Row="0" Grid.Column="3" Content="Advance" Click="onClickAdvance" x:Name="advButton"/>
+            <maincrmv2:StyledButton x:Name="SaveButton" Content="Save Changes" Click="onClicked" Grid.Column="4"/>
+            <maincrmv2:StyledButton x:Name="AddButton" Content="Add Field" Click="onClickAddFields" Grid.Column="5"/>
+
+            <!-- Row 2-->
+            <Rectangle Fill="White" Grid.Row="1" Margin="2,2,-2,2"/>
+            <Label Grid.Row="1" Content="Notes:" HorizontalContentAlignment="Right"/>
+            <TextBox x:Name="noteLabel" Text="" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Margin="2"/>
+
+            <maincrmv2:StyledButton Grid.Row="1" Grid.Column="5" Content="Navigate To" Click="onClickNavigate" x:Name="navButton"/>
         </Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" Name="scroll">
-            <Grid x:Name="BodyGrid">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50*"/>
-                    <ColumnDefinition Width="50*"/>
-                </Grid.ColumnDefinitions>
-            </Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" Name="scroll" Background="Black">
+            <StackPanel x:Name="BodyGrid">
+            </StackPanel>
         </ScrollViewer>
     </StackPanel>
 </Page>

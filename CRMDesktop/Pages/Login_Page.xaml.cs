@@ -23,7 +23,17 @@ namespace CRMDesktop.Pages
     {
         public Login_Page()
         {
-            InitializeComponent();
+            if (DatabaseFunctions.client.attemptSavedLoginAsync().GetAwaiter().GetResult())
+            {
+                Page p = new Toolbar();
+                ClientData.toolFrame.Navigate(p);
+                Page p2 = new blank();
+                ClientData.mainFrame.Navigate(p2);
+            }
+            else
+            {
+                InitializeComponent();
+            }
         }
         private void Button_Clicked(object sender, RoutedEventArgs e)
         {

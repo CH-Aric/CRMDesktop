@@ -60,12 +60,15 @@ namespace CRMDesktop
                 Username = (Application.Current.Properties["UN"] as string);
                 Password = (Application.Current.Properties["PW"] as string);
             }*/
+            Username = (Properties.Settings.Default.UN);
+            Password = (Properties.Settings.Default.PW);
         }
         public void writeUserDataToFile(string u, string p)
         {
+            Properties.Settings.Default.UN = u;
+            Properties.Settings.Default.PW = p;
+            Properties.Settings.Default.Save();
             //TODO REWRITE FOR DESKTOP
-            /*Application.Current.Properties["UN"] = u;
-            Application.Current.Properties["PW"] = p;*/
         }
         public void wipeUserDataFromFile()
         {

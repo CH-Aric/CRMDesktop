@@ -17,7 +17,7 @@
                 <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="25"/>
             </Grid.RowDefinitions>
             <TextBox x:Name="SearchEntry" Grid.Column="0"/>
             <local1:StyledButton x:Name="SearchButton" Content="Search" Click="onClickedSearch" Grid.Column="1"/>

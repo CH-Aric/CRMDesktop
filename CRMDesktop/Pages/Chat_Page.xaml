@@ -11,14 +11,23 @@
 
     <StackPanel Orientation="Vertical">
         <ScrollViewer x:Name="scroll" Background="White">
-            <StackPanel x:Name="ChatStack" Orientation="Vertical">
-            </StackPanel>
+            <Grid x:Name="ChatStack">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25*"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
         </ScrollViewer>
-        <StackPanel Orientation="Horizontal">
-            <TextBox x:Name="Message" Width="250"/>
-            <ComboBox x:Name="Target" Width="150"/>
-            <local1:StyledButton Content="Send" Click="OnClickSendMsg" Width="150"/>
-            <local1:StyledButton Content="Manage Groups and Favorites" Click="OnClickMan" Width="200"/>
-        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="Message" Grid.Column="0"/>
+            <ComboBox x:Name="Target" Grid.Column="1"/>
+            <local1:StyledButton Content="Send" Click="OnClickSendMsg"  Grid.Column="2"/>
+            <local1:StyledButton Content="Manage Groups and Favorites" Click="OnClickMan" Grid.Column="3"/>
+        </Grid>
     </StackPanel>
 </Page>

@@ -103,8 +103,47 @@ namespace CRMDesktop.Pages.Customers
             SecurityButton db = (SecurityButton)sender;
             string sql = "UPDATE cusindex SET Stage='" + db.GetInt() + "' WHERE IDKey='" + customer + "'";
             DatabaseFunctions.SendToPhp(sql);
+            onCreateStageSpecificData(customer, db.GetInt());
             blank page = new blank();
             ClientData.mainFrame.Navigate(page);
+        }
+        public void onCreateStageSpecificData(int cusID,int stage)
+        {
+            List<string> batch = new List<string>();
+            string noteSQL = "INSERT INTO cusfields (cusfields.Index,cusfields.Value,CusID) VALUES ('Notes:','','" + cusID + "')";
+            batch.Add(noteSQL);
+            if (stage == 0)//For creating leads
+            {
+                //BookingDate, Notes
+                string sql = "INSERT INTO cusfields (cusfields.Index,cusfields.Value,CusID) VALUES ('BookingDate','','" + cusID + "'),('PhoneNumber','','" + cusID + "')";
+                batch.Add(sql);
+            }
+            else if (stage == 1)//Booked!
+            {
+                string sql = "INSERT INTO cusfields (cusfields.Index,cusfields.Value,CusID) VALUES ('Salesman','','" + cusID + "')";
+                batch.Add(sql);
+            }
+            else if (stage == 2)//Quoted!
+            {
+                string sql = "INSERT INTO cusfields (cusfields.Index,cusfields.Value,CusID) VALUES ('QuoteTotal','','" + cusID + "'),('Signature','False','" + cusID + "'),('Deposit Received','False','" + cusID + "'),('Payment Method','Fill Me Out!','" + cusID + "')";
+                batch.Add(sql);
+            }
+            else if (stage == 3)//Followup on Quote
+            {
+                string sql = "INSERT INTO cusfields (cusfields.Index,cusfields.Value,CusID) VALUES ('LastContact','mm/dd','" + cusID + "')";
+                batch.Add(sql);
+            }
+            else if (stage == 4)//Sold!
+            {
+                //string sql = "INSERT INTO cusfields (cusfields.Index,cusfields.Value,CusID) VALUES ";
+                //batch.Add(sql);
+            }
+            else if (stage == 5)//Install!
+            {
+                string sql = "INSERT INTO cusfields (cusfields.Index,cusfields.Value,CusID) VALUES ('InstallDate','','" + cusID + "')";
+                batch.Add(sql);
+            }
+            DatabaseFunctions.SendBatchToPHP(batch);
         }
     }
 }

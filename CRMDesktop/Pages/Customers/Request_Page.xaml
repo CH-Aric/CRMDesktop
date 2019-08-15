@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CRMDesktop.Pages.Customers"
       xmlns:MainCRMV2="clr-namespace:CRMDesktop"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Request_Page">
@@ -25,8 +26,8 @@
             </Grid.RowDefinitions>
 
             <TextBox x:Name="nameLabel" Text="NameHere" Grid.Column="0"/>
-            <TextBox x:Name="phoneLabel" Text="PhoneHere" Foreground="White" Grid.Column="1"/>
-            <TextBox x:Name="contactLabel" Text="ContactHere" Grid.Column="2"/>
+            <TextBox x:Name="phoneLabel" Text="PhoneHere" Foreground="Black" Grid.Column="1"/>
+            <xctk:DateTimePicker x:Name="BookingDate" Grid.Column="2"/>
             <MainCRMV2:StyledButton x:Name="StageButton" Content="Advance" Click="onClickAdvance" Grid.Column="3"/>
             <MainCRMV2:StyledButton x:Name="SaveButton" Content="Save Changes" Click="onClicked" Grid.Column="4"/>
             <MainCRMV2:StyledButton x:Name="AddButton" Content="Add Field" Click="onClickAddFields" Grid.Column="5"/>

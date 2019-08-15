@@ -1,17 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CRMDesktop.Pages.Customers
 {
@@ -20,16 +10,18 @@ namespace CRMDesktop.Pages.Customers
     /// </summary>
     public partial class Booking_Page : Page
     {
-        int customerID;
+        int customer;
+        private List<DataPair> entryDict;
         public Booking_Page(int cusID)
         {
-            customerID = cusID;
+            customer = cusID;
             InitializeComponent();
             searchCustomerData();
+            scroll.Height = ClientData.mainFrame.Height - 60;
         }
         public void onClickAdvance(object sender, RoutedEventArgs e)
         {
-            Advance_Page page = new Advance_Page(customerID);
+            Advance_Page page = new Advance_Page(customer);
             ClientData.mainFrame.Navigate(page);
         }
         public async void renderBookingMap(string Address)
@@ -53,36 +45,123 @@ namespace CRMDesktop.Pages.Customers
         }
         public void searchCustomerData()
         {
-            string sql = "SELECT cusfields.Index,cusfields.Value,cusindex.Name FROM crm2.cusfields INNER JOIN crm2.cusindex ON cusfields.CusID=cusindex.IDKey WHERE (cusfields.Index LIKE '%phone%' OR cusfields.Index LIKE '%address%' OR cusfields.Index LIKE '%book%') AND cusfields.CusID='" + customerID + "';";
-            TaskCallback call = populateCustomerData;
+            string sql = "SELECT cusfields.Index,cusfields.value,cusindex.Name FROM crm2.cusfields INNER JOIN crm2.cusindex ON cusfields.CusID=cusindex.IDKey WHERE (cusfields.Index LIKE '%phone%' OR cusfields.Index LIKE '%address%' OR cusfields.Index LIKE '%book%') AND cusfields.CusID='" + customer + "';";
+            TaskCallback call = populatePage;
             DatabaseFunctions.SendToPhp(false, sql, call);
         }
-        public void populateCustomerData(string result)
+        public void populatePage(string result)
         {
-            string address = "2591 Ottawa Regional Road 174";
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
+            entryDict = new List<DataPair>();
+            string address = "";
             if (dictionary.Count > 0)
             {
-                nameLabel.Content = dictionary["Name"][0];
+                nameLabel.Text = dictionary["Name"][0];
                 for (int i = 0; i < dictionary["Index"].Count; i++)
                 {
                     if (dictionary["Index"][i].Contains("hone"))
                     {
-                        phoneLabel.Content = dictionary["Value"][i];
+                        phoneLabel.Text = dictionary["value"][i];
                     }
-                    else if (dictionary["Index"][i].Contains("ook"))
+                    else if (dictionary["Index"][i].Contains("otes"))
                     {
-                        bookLabel.Content = "Booked For: " + dictionary["Value"][i];
+                        noteLabel.Text += dictionary["value"][i];
                     }
-                    else if (dictionary["Index"][i].Contains("ress"))
+                    else if (dictionary["Index"][i].Contains("ookin"))
                     {
-                        address = dictionary["Value"][i];
-                        navButton.Content += dictionary["Value"][i];
-                        address = dictionary["Value"][i];
+                        BookingDate.Text = FormatFunctions.PrettyDate(dictionary["value"][i]);
+                        scroll.Height = 0;
+                    }
+                    else
+                    {
+                        DataPair dataPair = new DataPair(int.Parse(dictionary["FID"][i]), dictionary["value"][i], dictionary["Index"][i]);
+                        dataPair.Value.Text = dictionary["value"][i];
+                        dataPair.Value.ToolTip = "Value here";
+                        dataPair.Value.Width = ClientData.mainFrame.Width * 0.7 - 10;
+                        dataPair.Index.Text = dictionary["Index"][i];
+                        dataPair.Index.ToolTip = "Index here";
+                        dataPair.Index.Width = ClientData.mainFrame.Width * 0.3 - 10;
+                        StackPanel stackLayout = new StackPanel
+                        {
+                            Orientation = Orientation.Horizontal
+                        };
+                        stackLayout.Children.Add(dataPair.Index);
+                        stackLayout.Children.Add(dataPair.Value);
+                        BodyGrid.Children.Add(stackLayout);
+                        entryDict.Add(dataPair);
                     }
                 }
             }
             renderBookingMap(address);
+            populateFileList();
+        }
+        public void onClicked(object sender, RoutedEventArgs e)
+        {
+            List<string> batch = new List<string>();
+            foreach (DataPair dataPair in this.entryDict)
+            {
+                if (dataPair.isNew)
+                {
+                    string s = "INSERT INTO cusfields (cusfields.Value,cusfields.Index,CusID) VALUES('" + dataPair.Value.Text + "','" + dataPair.Index.Text + "','" + this.customer + "')";
+                    batch.Add(s);
+                    dataPair.isNew = false;
+                }
+                else if (!dataPair.Index.Text.Equals(dataPair.Index.GetInit()))
+                {
+                    string s = "UPDATE cusfields SET cusfields.Value = '" + dataPair.Value.Text + "',cusfields.Index='" + dataPair.Index.Text + "' WHERE (IDKey= '" + dataPair.Index.GetInt() + "');";
+                    batch.Add(s);
+                }
+            }
+            string sql = "UPDATE cusfields SET cusfields.value='" + noteLabel.Text + "' WHERE cusfields.Index LIKE'%otes%' AND CusID= '" + customer + "'";
+            batch.Add(sql);
+            string sql2 = "UPDATE cusindex SET Name='" + nameLabel.Text + "' WHERE IDKey= '" + customer + "'";
+            batch.Add(sql2);
+            string sql3 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(BookingDate.Text) + "' WHERE cusfields.Index LIKE '%ookin%' AND CusID= '" + customer + "'";
+            batch.Add(sql3);
+            string sql4 = "UPDATE cusfields SET cusfields.value='" + phoneLabel.Text + "' WHERE cusfields.Index LIKE '%hone%' AND CusID= '" + customer + "'";
+            batch.Add(sql4);
+            DatabaseFunctions.SendBatchToPHP(batch);
+        }
+        public void onClickAddFields(object sender, RoutedEventArgs e)
+        {
+            DataPair dataPair = new DataPair(0, "", "");
+            dataPair.setNew();
+            dataPair.Value.Text = "";
+            dataPair.Value.ToolTip = "Index here";
+            dataPair.Value.Width = ClientData.mainFrame.Width * 0.7 - 10;
+            dataPair.Index.Text = "";
+            dataPair.Index.ToolTip = "Value here";
+            dataPair.Index.Width = ClientData.mainFrame.Width * 0.3 - 10;
+            StackPanel stackLayout = new StackPanel
+            {
+                Orientation = Orientation.Horizontal
+            };
+            stackLayout.Children.Add(dataPair.Index);
+            stackLayout.Children.Add(dataPair.Value);
+            BodyGrid.Children.Add(stackLayout);
+            entryDict.Add(dataPair);
+        }
+        public void populateFileList()
+        {
+            string[] customerFileList = DatabaseFunctions.getCustomerFileList(nameLabel.Text);
+            foreach (string text in customerFileList)
+            {
+                if ((text != "." || text != "..") && customerFileList.Length > 1)
+                {
+                    SecurityButton dataButton = new SecurityButton(nameLabel.Text + "/" + text, new string[] { "Employee" })
+                    {
+                        Content = text
+                    };
+                    dataButton.Click += onFileButton;
+                    StackPanel stackLayout = new StackPanel();
+                    stackLayout.Children.Add(dataButton);
+                    BodyGrid.Children.Add(stackLayout);
+                }
+            }
+        }
+        public void onFileButton(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -67,6 +67,30 @@ namespace CRMDesktop
                 Console.WriteLine("--->" + str);
             }
         }
+        public static void SendBatchToPHP(List<string> statementList)
+        {
+            try
+            {
+                string[] statements = statementList.ToArray();
+                string text = JsonClass.JSONSerialize<DatabaseFunctions.dataArray>(new DatabaseFunctions.dataArray
+                {
+                    BatchLength= statements.Length,
+                    statements = statements
+                });
+                HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://coolheatcrm.duckdns.org/CRM-2/accessBatched.php");
+                httpWebRequest.Method = "POST";
+                string s = text;
+                byte[] bytes = Encoding.UTF8.GetBytes(s);
+                httpWebRequest.ContentType = "application/x-www-form-urlencoded";
+                httpWebRequest.ContentLength = (long)bytes.Length;
+                httpWebRequest.GetRequestStream().Write(bytes, 0, bytes.Length);
+            }
+            catch (WebException ex)
+            {
+                string str = ex.ToString();
+                Console.WriteLine("--->" + str);
+            }
+        }
         public static string[] getCustomerFileList(string name)
         {
             string s = JsonClass.JSONSerialize<DatabaseFunctions.data>(new DatabaseFunctions.data
@@ -154,7 +178,8 @@ namespace CRMDesktop
         }
         public class dataArray
         {
-            public string[] df_text1 { get; set; }
+            public int BatchLength { get; set; }
+            public string[] statements { get; set; }
         }
     }
 }

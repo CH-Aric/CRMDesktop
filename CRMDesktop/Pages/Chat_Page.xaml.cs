@@ -43,7 +43,7 @@ namespace CRMDesktop.Pages
                 ClientData.AgentIDK,
                 "' OR 'Chat.Global' = '1' OR('chat.Global' = '2' AND chat.TargetID IN(SELECT IDKey FROM groupmembers WHERE MemberID = '",
                 ClientData.AgentIDK,
-                "')); "
+                "')) ORDER BY chat.IDKey ASC; "
             });
             TaskCallback call = new TaskCallback(this.populateChat);
             DatabaseFunctions.SendToPhp(false, statement, call);
@@ -62,23 +62,14 @@ namespace CRMDesktop.Pages
         }
         public void populateChat(string result)
         {
+            GridFiller.PurgeAllGrid(ChatStack);
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
             if (dictionary.Count > 0)
             {
                 for (int i = 0; i < dictionary["Message"].Count; i++)
                 {
-                    Label item = new Label
-                    {
-                        Content = string.Concat(new string[]
-                        {
-                            dictionary["Timestamp"][i],
-                            ":",
-                            dictionary["FName"][i],
-                            ":",
-                            dictionary["Message"][i]
-                        })
-                    };
-                    ChatStack.Children.Add(item);
+                    string[] s =new string[] { FormatFunctions.PrettyDate(dictionary["Timestamp"][i]) + ":" + dictionary["FName"][i] + ":" + FormatFunctions.PrettyDate(dictionary["Message"][i]) } ;
+                    GridFiller.rapidFill(s,ChatStack);
                 }
             }
         }
@@ -103,8 +94,8 @@ namespace CRMDesktop.Pages
         {
             int num = int.Parse(DatabaseFunctions.lookupInDictionary((string)Target.SelectedItem, "Name", "IDKey", this.pickerIndex));
             int num2 = int.Parse(DatabaseFunctions.lookupInDictionary((string)Target.SelectedItem, "Name", "g", this.pickerIndex));
-            string text = DateTime.Now.ToString("yyyy'-'MM'-'dd HH':'mm':'ss");
-            string sql = "INSERT INTO chat (Message,AgentID,TargetID,Global,Timestamp) VALUES ('" + Message.Text + "','" + ClientData.AgentIDK + "','" + num + "','" + num2 + "','" + text + "')";
+            string text = FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy'-'MM'-'dd HH':'mm':'ss"));
+            string sql = "INSERT INTO chat (Message,AgentID,TargetID,Global,Timestamp) VALUES ('" + FormatFunctions.CleanDateNew(Message.Text) + "','" + ClientData.AgentIDK + "','" + num + "','" + num2 + "','" + text + "')";
             DatabaseFunctions.SendToPhp(sql);
             this.getChatMessages();
         }

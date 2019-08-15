@@ -1,6 +1,7 @@
 ﻿using CRMDesktop.Pages;
 using CRMDesktop.Pages.Customers;
 using CRMDesktop.Pages.Inventory;
+using System.Net;
 using System.Windows;
 
 namespace CRMDesktop
@@ -13,6 +14,7 @@ namespace CRMDesktop
         public MainWindow()
         {
             InitializeComponent();
+            ServicePointManager.DefaultConnectionLimit = 25;
             mainFrame.Height = SystemParameters.MaximizedPrimaryScreenHeight-topFrame.Height;
             sideFrame.Height = mainFrame.Height;
             mainFrame.Width = SystemParameters.PrimaryScreenWidth*0.8;
