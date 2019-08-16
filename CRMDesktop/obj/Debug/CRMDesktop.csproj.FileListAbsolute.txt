@@ -76,3 +76,5 @@ D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\bin\Debug\zh-Hans\Xceed.Wpf.Avalon
 D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\CRMDesktop.csproj.CopyComplete
 D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\Customers\Customer_Base.g.cs
 D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\Customers\Customer_Base.baml
+D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\RoleAssignment_Page.g.cs
+D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\RoleAssignment_Page.baml

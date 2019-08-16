@@ -33,7 +33,7 @@
                 <TextBox x:Name="nameLabel" Text="NameHere" Foreground="Black" Margin="2"/>
                 <TextBox x:Name="contactLabel" Text="ContactHere" Grid.Row="0" Grid.Column="3" Margin="2"/>
                 <Label Content="Salesman:" Grid.Row="0" Grid.Column="1" Margin="2" HorizontalAlignment="Right"/>
-                <TextBox x:Name="Salesman" Grid.Row="0" Grid.Column="2" Margin="2"/>
+                <ComboBox x:Name="SalemanCombo" Grid.Row="0" Grid.Column="2"/>
                 <MainCRMV2:AwesomeHyperLinkLabel x:Name="phoneLabel" Content="PhoneHere" Grid.Row="0" Grid.Column="4"/>
                 <MainCRMV2:StyledButton x:Name="StageButton" Content="Advance" Grid.Row="0" Grid.Column="5"/>
                 <!--Second row-->
@@ -45,7 +45,7 @@
                 <Rectangle Fill="White" Grid.Row="1" Grid.Column="5" Margin="2"/>
 
                 <Label Content="Quote Total:" Grid.Row="1" Grid.Column="0" Margin="2" HorizontalAlignment="Right"/>
-                <TextBox x:Name="QuoteTotal" Grid.Row="0" Grid.Column="2" Margin="2"/>
+                <TextBox x:Name="QuoteTotal" Grid.Row="1" Grid.Column="1" Margin="2"/>
                 <ComboBox x:Name="PriceGuidecombo" Grid.Row="1" Grid.Column="2"/>
                 <MainCRMV2:StyledButton Content="Add PriceGuide Item" Click="onClickAddPrefilledFieldsQ" Grid.Row="1" Grid.Column="3"/>
                 <MainCRMV2:StyledButton Content="Add Blank Item" Click="onClickAddFieldsQ" Grid.Row="1" Grid.Column="4"/>

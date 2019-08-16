@@ -27,7 +27,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>12</ApplicationRevision>
+    <ApplicationRevision>13</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -112,6 +112,9 @@
     </Compile>
     <Compile Include="Pages\Customers\Customer_Base.xaml.cs">
       <DependentUpon>Customer_Base.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RoleAssignment_Page.xaml.cs">
+      <DependentUpon>RoleAssignment_Page.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\TaskCreate_Page.xaml.cs">
       <DependentUpon>TaskCreate_Page.xaml</DependentUpon>
@@ -202,6 +205,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Price_Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\RoleAssignment_Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

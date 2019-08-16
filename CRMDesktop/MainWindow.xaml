@@ -11,7 +11,7 @@
         <StackPanel.Background>
             <ImageBrush ImageSource="\\CH-FILESERVER\Root\Files\Marketing\Resources\background.png"/>
         </StackPanel.Background>
-        <Frame x:Name="topFrame" Height="30"/>
+        <Frame x:Name="topFrame" Height="50"/>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 
             <Frame x:Name="sideFrame" Width="150" Height="100"/>

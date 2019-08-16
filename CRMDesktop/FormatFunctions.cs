@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace CRMDesktop
 {
@@ -141,6 +143,34 @@ namespace CRMDesktop
             string[] input = FormatFunctions.SplitToPairs(result);
             dict = FormatFunctions.createValuePairs(input);
             Responded = true;
+        }
+        public static List<UIElement> scrubOutUnwanted(List<UIElement> listToScrub, UIElement example)
+        {
+            List<UIElement> returnList = new List<UIElement>();
+            foreach (UIElement x in listToScrub)
+            {
+                if (!x.GetType().Equals(example.GetType()))
+                {
+                    returnList.Add(x);
+                }
+            }
+            return returnList;
+        }
+        public static List<UIElement> scrubOutUnlessWanted(List<UIElement> listToScrub, UIElement example,List<Label> scrubList)
+        {
+            List<UIElement> returnList = new List<UIElement>();
+            foreach (UIElement x in listToScrub)
+            {
+                if (x.GetType().Equals(example.GetType()))
+                {
+                    returnList.Add(x);
+                }
+                else
+                {
+                    scrubList.Add((Label)x);
+                }
+            }
+            return returnList;
         }
     }
 }

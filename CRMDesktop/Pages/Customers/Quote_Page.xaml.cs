@@ -25,6 +25,7 @@ namespace CRMDesktop.Pages.Customers
         private int customer;
         private int stage;
         List<string> prices;
+        List<string> salesmen;
         public Quote_Page(int customerIn, int stageIn)
         {
             customer = customerIn;
@@ -61,11 +62,15 @@ namespace CRMDesktop.Pages.Customers
                     }
                     else if (dictionary["Index"][i].Contains("alesMan"))
                     {
-                        Salesman.Text = dictionary["Value"][i];
+                        SalemanCombo.SelectedIndex = DatabaseFunctions.findIndexInList(salesmen, dictionary["Value"][i]);//TODO UPDATE with proper index checking
                     }
                     else if (dictionary["Index"][i].Contains("uoteTotal"))
                     {
                         QuoteTotal.Text = dictionary["Value"][i];
+                    }
+                    else if (dictionary["Index"][i].Contains("ontactDate"))
+                    {
+                        contactLabel.Text = dictionary["Value"][i];
                     }
                     else
                     {
@@ -219,12 +224,21 @@ namespace CRMDesktop.Pages.Customers
             string sql = "SELECT PriceSale, concat(Brand, '/ ',ItemType,'/ ',Desc1,'/ ',Desc2) as v FROM crm2.pricesheet;";//Make this readable in some way
             TaskCallback call2 = populateCombo;
             DatabaseFunctions.SendToPhp(false,sql,call2);
+            string sql2 = "SELECT agents.FName,agents.IDKey FROM agents INNER JOIN agentroles ON agents.IDKey=agentroles.AgentID AND AgentRole='0'";
+            TaskCallback call3 = populateSalesCombo;
+            DatabaseFunctions.SendToPhp(false, sql2, call3);
         }
         public void populateCombo(string result)
         {
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
             PriceGuidecombo.ItemsSource=dictionary["v"];
             prices = dictionary["PriceSale"];
+        }
+        public void populateSalesCombo(string result)
+        {
+            Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
+            SalemanCombo.ItemsSource = dictionary["FName"];
+            salesmen = dictionary["IDKey"];
         }
         public void onFileButton(object sender, RoutedEventArgs e)
         {

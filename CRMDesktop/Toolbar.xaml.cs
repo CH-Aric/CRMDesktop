@@ -75,7 +75,12 @@ namespace CRMDesktop
                 CustomerList_Page page = new CustomerList_Page();
                 ClientData.sideFrame.Navigate(page);
             }
+            else if (sb.Content.Equals("Role Assignment"))
+            {
+                RoleAssignment_Page page = new RoleAssignment_Page();
+                ClientData.sideFrame.Navigate(page);
+            }
         }
-    }
-   
+    }//
+
 }

@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CRMDesktop"
       mc:Ignorable="d" 
-      d:DesignHeight="25" d:DesignWidth="800"
+      d:DesignHeight="50" d:DesignWidth="800"
       Title="Toolbar">
 
     <Grid  Background="Transparent" x:Name="TopGrid">
@@ -25,7 +25,7 @@
             <RowDefinition Height="25"/>
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
-
+        <!-- Row 1-->
         <local:StyledButton Grid.Row="0" Content="Pricing Guide" Click="onClickAccess"/>
         <local:StyledButton Content="Coupon Checker" Click="onClickAccess" Grid.Column="1" />
         <local:StyledButton Content="Chat" Click="onClickAccess" Grid.Column="2"/>
@@ -36,5 +36,8 @@
         <local:StyledButton Content="View Tasks" Click="onClickAccess" Grid.Column="7" />
         <local:StyledButton Content="View Customers" Click="onClickAccess" Grid.Column="8" />
         <local:StyledButton Content="Missed Calls" Click="onClickAccess" Grid.Column="9" />
+        <!-- Row 2-->
+
+        <local:StyledButton Grid.Row="1" Content="Role Assignment" Click="onClickAccess"/>
     </Grid>
 </Page>

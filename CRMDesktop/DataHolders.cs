@@ -130,6 +130,18 @@ namespace CRMDesktop
         public DataEntry Value;
         public bool isNew;
     }
+    public class DataDoubleSwitch : DataSwitch
+    {
+        public DataDoubleSwitch(int i, int j) :base(i)
+        {
+            Integer2 = j;
+        }
+        public int getSecondInt()
+        {
+            return Integer2;
+        }
+        public int Integer2;
+    }
     public class DataSwitch : CheckBox
     {
         public DataSwitch(int i)

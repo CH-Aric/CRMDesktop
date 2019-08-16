@@ -212,7 +212,7 @@ namespace CRMDesktop.Pages
             string text2 = "DELETE FROM chatfavorite WHERE ";
             int num = 0;
             int num2 = 0;
-            foreach (DataSwitch dataSwitch in this.Favorites)
+            foreach (DataSwitch dataSwitch in Favorites)
             {
                 if (dataSwitch.getState() && dataSwitch.hasChanged())
                 {
