@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,6 +13,7 @@ namespace CRMDesktop.Pages.Customers
     { 
         private List<DataPair> entryDict;
         private int customer;
+        public string address;
         public Request_Page(int customerIn)
         {
             customer = customerIn;
@@ -67,10 +69,14 @@ namespace CRMDesktop.Pages.Customers
                         stackLayout.Children.Add(dataPair.Value);
                         TSection.Children.Add(stackLayout);
                         entryDict.Add(dataPair);
+                        if (dictionary["Index"][i].Contains("dress"))
+                        {
+                            address = dictionary["Value"][i];
+                        }
                     }
                 }
             }
-            populateFileList();
+            //populateFileList();
         }
         public void populateFileList()
         {
@@ -136,9 +142,11 @@ namespace CRMDesktop.Pages.Customers
             TSection.Children.Add(stackLayout);
             entryDict.Add(dataPair);
         }
-        public void onFileButton(object sender, EventArgs e)
+        public void onFileButton(object sender, RoutedEventArgs e)
         {
-
+            string dir = @"\\CH-FILESERVER\Root\Files\Customer Files\CoolHeat Comfort Customer List\Residential Customers\" + address + @" - " + nameLabel.Text + @"\";
+            System.IO.Directory.CreateDirectory(dir);
+            Process.Start("explorer.exe", dir);
         }
         public void onClickCDR(object sender, EventArgs e)
         {

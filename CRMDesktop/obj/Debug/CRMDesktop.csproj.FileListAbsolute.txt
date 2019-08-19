@@ -1,4 +1,3 @@
-D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\CRMDesktop.csprojAssemblyReference.cache
 D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\MainWindow.g.cs
 D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\CDR_Page.g.cs
 D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\Chat_Page.g.cs
@@ -78,3 +77,4 @@ D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\Customers\Customer
 D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\Customers\Customer_Base.baml
 D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\RoleAssignment_Page.g.cs
 D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\RoleAssignment_Page.baml
+D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\CRMDesktop.csprojAssemblyReference.cache

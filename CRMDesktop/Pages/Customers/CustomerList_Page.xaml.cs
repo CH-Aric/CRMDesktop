@@ -56,7 +56,7 @@ namespace CRMDesktop.Pages.Customers
         public void onClicked(object sender, RoutedEventArgs e)
         {
             SecurityButton dataButton = (SecurityButton)sender;
-            if (dataButton.GetInt2() == 0)
+            if (dataButton.GetInt2() == 0 || dataButton.GetInt2() == 10)
             {
                 CustomerDetail_Page page = new CustomerDetail_Page(dataButton.Integer);
                 ClientData.mainFrame.Navigate(page);
@@ -71,9 +71,14 @@ namespace CRMDesktop.Pages.Customers
                 Booking_Page page = new Booking_Page(dataButton.Integer);
                 ClientData.mainFrame.Navigate(page);
             }
-            else if (dataButton.GetInt2() > 2 && dataButton.GetInt2() < 9)
+            else if (dataButton.GetInt2() ==3)
             {
                 Quote_Page page = new Quote_Page(dataButton.Integer,stageSearch);
+                ClientData.mainFrame.Navigate(page);
+            }
+            else if (dataButton.GetInt2() > 3 && dataButton.GetInt2() < 9)
+            {
+                Install_Page page = new Install_Page(dataButton.Integer, stageSearch);
                 ClientData.mainFrame.Navigate(page);
             }
         }
@@ -209,7 +214,7 @@ namespace CRMDesktop.Pages.Customers
             }
             else if (s == "Archived")
             {
-                sql += " AND cusindex.Stage='9' ORDER BY cusindex.IDKey DESC";
+                sql += " AND cusindex.Stage='10' ORDER BY cusindex.IDKey DESC";
             }
             return sql;
         }

@@ -75,6 +75,7 @@
                 <MainCRMV2:StyledButton Content="Add Signature" Click="onClickAddFields" x:Name="sig" Grid.Row="0" Grid.Column="1"/>
                 <MainCRMV2:StyledButton Content="Add Deposit Field" Click="onClickAddFields" x:Name="fie" Grid.Row="0" Grid.Column="2"/>
                 <MainCRMV2:StyledButton Content="Add Payment Method" Click="onClickAddFields" x:Name="met" Grid.Row="0" Grid.Column="3"/>
+                <MainCRMV2:StyledButton Content="View/Modify Files" Click="onFileButton" Grid.Row="0" Grid.Column="4"/>
                 <MainCRMV2:StyledButton Content="Save Changes" Click="onClicked" Grid.Row="0" Grid.Column="5"/>
             </Grid>
             <Grid x:Name="fileGrid" Background="Black">

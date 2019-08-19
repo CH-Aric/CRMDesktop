@@ -50,7 +50,7 @@ namespace CRMDesktop.Pages.Customers
                     this.entryDict.Add(dataPair);
                 }
             }
-            this.populateFileList();
+            //this.populateFileList();
         }
         public void populateFileList()
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,7 +33,7 @@ namespace CRMDesktop.Pages.Customers
             stage = stageIn;
             InitializeComponent();
             searchCustomers();
-            populateFileList();
+            //populateFileList();
             fillPriceGuideComboBox();
         }
         public void searchCustomers()
@@ -83,6 +84,10 @@ namespace CRMDesktop.Pages.Customers
                         int[] j = new int[] { 2, 4 };
                         GridFiller.rapidFillSpacedPremadeObjects(list, bottomStack, j, new bool[] { true, true });
                         entryDict.Add(dataPair);
+                        if (dictionary["Index"][i].Contains("dress"))
+                        {
+                            address = dictionary["Value"][i];
+                        }
                     }
                 }
             }
@@ -242,7 +247,9 @@ namespace CRMDesktop.Pages.Customers
         }
         public void onFileButton(object sender, RoutedEventArgs e)
         {
-
+            string dir= @"\\CH-FILESERVER\Root\Files\Customer Files\CoolHeat Comfort Customer List\Residential Customers\" + address + @" - " + nameLabel.Text + @"\";
+            System.IO.Directory.CreateDirectory(dir);
+            Process.Start("explorer.exe", dir);
         }
         public void onClickCDR(object sender, RoutedEventArgs e)
         {

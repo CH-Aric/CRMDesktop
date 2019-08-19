@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,6 +13,7 @@ namespace CRMDesktop.Pages.Customers
     {
         int customer;
         private List<DataPair> entryDict;
+        public string address;
         public Booking_Page(int cusID)
         {
             customer = cusID;
@@ -45,7 +47,7 @@ namespace CRMDesktop.Pages.Customers
         }
         public void searchCustomerData()
         {
-            string sql = "SELECT cusfields.Index,cusfields.value,cusindex.Name FROM crm2.cusfields INNER JOIN crm2.cusindex ON cusfields.CusID=cusindex.IDKey WHERE (cusfields.Index LIKE '%phone%' OR cusfields.Index LIKE '%address%' OR cusfields.Index LIKE '%book%') AND cusfields.CusID='" + customer + "';";
+            string sql = "SELECT cusfields.Index,cusfields.value,cusindex.Name,cusindex.IDKey AS FID FROM crm2.cusfields INNER JOIN crm2.cusindex ON cusfields.CusID=cusindex.IDKey WHERE (cusfields.Index LIKE '%phone%' OR cusfields.Index LIKE '%address%' OR cusfields.Index LIKE '%book%') AND cusfields.CusID='" + customer + "';";
             TaskCallback call = populatePage;
             DatabaseFunctions.SendToPhp(false, sql, call);
         }
@@ -89,11 +91,15 @@ namespace CRMDesktop.Pages.Customers
                         stackLayout.Children.Add(dataPair.Value);
                         BodyGrid.Children.Add(stackLayout);
                         entryDict.Add(dataPair);
+                        if (dictionary["Index"][i].Contains("dress"))
+                        {
+                            address = dictionary["Value"][i];
+                        }
                     }
                 }
             }
             renderBookingMap(address);
-            populateFileList();
+            //populateFileList();
         }
         public void onClicked(object sender, RoutedEventArgs e)
         {
@@ -159,9 +165,11 @@ namespace CRMDesktop.Pages.Customers
                 }
             }
         }
-        public void onFileButton(object sender, EventArgs e)
+        public void onFileButton(object sender, RoutedEventArgs e)
         {
-
+            string dir = @"\\CH-FILESERVER\Root\Files\Customer Files\CoolHeat Comfort Customer List\Residential Customers\" + address + @" - " + nameLabel.Text + @"\";
+            System.IO.Directory.CreateDirectory(dir);
+            Process.Start("explorer.exe", dir);
         }
     }
 }

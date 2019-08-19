@@ -72,7 +72,7 @@ namespace CRMDesktop.Pages.Customers
                     }
                 }
             }
-            populateFileList();
+            //populateFileList();
         }
         public void searchCustomers()
         {

@@ -130,7 +130,7 @@ namespace CRMDesktop
         }
         public static string[] getCustomerFileList(string name)
         {
-            string s = JsonClass.JSONSerialize<DatabaseFunctions.data>(new DatabaseFunctions.data
+            /*string s = JsonClass.JSONSerialize<DatabaseFunctions.data>(new DatabaseFunctions.data
             {
                 df_text1 = name
             });
@@ -149,11 +149,12 @@ namespace CRMDesktop
             responseStream.Close();
             response.Close();
             requestStream.Close();
-            return result;
+            return result;*/
+            return null;
         }
         public static string getFile(string Date, string filename, TaskCallback call)
         {
-            string[] array = FormatFunctions.CleanDate(Date);
+            /*string[] array = FormatFunctions.CleanDate(Date);
             string df_text = string.Concat(new string[]
             {
                 array[0],
@@ -184,7 +185,8 @@ namespace CRMDesktop
             {
                 fileStream.Write(buffer, 0, count);
             }
-            return "CHStreamFile" + filename;
+            return "CHStreamFile" + filename;*/
+            return null;
         }
         public static string lookupInDictionary(string Index, string ToFinditIn, string ToReturn, Dictionary<string, List<string>> DictionaryToUse)
         {
