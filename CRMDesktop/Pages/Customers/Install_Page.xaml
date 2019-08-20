@@ -36,7 +36,7 @@
                 <ComboBox x:Name="SalemanCombo" Grid.Row="0" Grid.Column="2"/>
                 <TextBox x:Name="contactLabel" Text="ContactHere" Grid.Row="0" Grid.Column="3" Margin="2"/>
                 <MainCRMV2:AwesomeHyperLinkLabel x:Name="phoneLabel" Content="PhoneHere" Grid.Row="0" Grid.Column="4"/>
-                <MainCRMV2:StyledButton x:Name="StageButton" Content="Advance" Grid.Row="0" Grid.Column="5"/>
+                <MainCRMV2:StyledButton x:Name="StageButton" Content="Advance" Click="onClickAdvance" Grid.Row="0" Grid.Column="5"/>
                 <!--Second row-->
                 <Rectangle Fill="White" Grid.Row="1" Grid.Column="0" Margin="2"/>
                 <Rectangle Fill="White" Grid.Row="1" Grid.Column="1" Margin="2"/>

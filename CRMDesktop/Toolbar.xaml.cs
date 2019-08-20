@@ -80,6 +80,11 @@ namespace CRMDesktop
                 RoleAssignment_Page page = new RoleAssignment_Page();
                 ClientData.sideFrame.Navigate(page);
             }
+            else if (sb.Content.Equals("Create Agent"))
+            {
+                Create_Agent page = new Create_Agent();
+                ClientData.sideFrame.Navigate(page);
+            }
         }
     }//
 

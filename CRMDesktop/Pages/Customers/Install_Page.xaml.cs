@@ -33,7 +33,7 @@ namespace CRMDesktop.Pages.Customers
             stage = stageIn;
             InitializeComponent();
             searchCustomers();
-            populateFileList();
+            //populateFileList();
             fillPriceGuideComboBox();
         }
         public void searchCustomers()

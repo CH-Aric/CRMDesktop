@@ -5,26 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CRMDesktop.Pages.Customers"
         mc:Ignorable="d"
-        Title="Advance_Page" Height="450" Width="800">
-    <Grid Background="Black" x:Name="grid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10*"/>
-            <ColumnDefinition Width="10*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="25"/>
-        </Grid.RowDefinitions>
+        Title="Advance_Page"
+        d:DesignHeight="450" d:DesignWidth="800">
+    <ScrollViewer>
+        
+        <Grid Background="Black" x:Name="grid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
 
-        <Rectangle Fill="White" Grid.Row="0" Grid.Column="0" Margin="2"/>
-        <Rectangle Fill="White" Grid.Row="0" Grid.Column="1" Margin="2"/>
-        <Label Content="NameHere" x:Name="nameLabel" />
-        <Label Content="StageHere" x:Name="stageLabel" Grid.Column="1"/>
+            <Rectangle Fill="White" Grid.Row="0" Grid.Column="0" Margin="2"/>
+            <Rectangle Fill="White" Grid.Row="0" Grid.Column="1" Margin="2"/>
+            <Label Content="NameHere" x:Name="nameLabel" />
+            <Label Content="StageHere" x:Name="stageLabel" Grid.Column="1"/>
 
 
-        <Rectangle Fill="White" Grid.Row="1" Grid.Column="0" Margin="2"/>
-        <Rectangle Fill="White" Grid.Row="1" Grid.Column="1" Margin="2"/>
-        <Label Content="Advance To:" Grid.Row="1"  Grid.Column="0"/>
-        <Label Content="Ready?" Grid.Row="1" Grid.Column="1"/>
-    </Grid>
+            <Rectangle Fill="White" Grid.Row="1" Grid.Column="0" Margin="2"/>
+            <Rectangle Fill="White" Grid.Row="1" Grid.Column="1" Margin="2"/>
+            <Label Content="Advance To:" Grid.Row="1"  Grid.Column="0"/>
+            <Label Content="Ready?" Grid.Row="1" Grid.Column="1"/>
+        </Grid>
+    </ScrollViewer>
 </Page>
