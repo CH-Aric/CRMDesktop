@@ -59,6 +59,8 @@ namespace CRMDesktop.Pages.Customers
                 l.Click += onClicked;
                 Buttons.Add(l);
                 list.Add(l);
+                List<string> options = new List<string>() { "1","2","3","4","5"};
+                QuotePicker.ItemsSource = options;                
             }
             if (Stage < 5)
             {
@@ -103,6 +105,11 @@ namespace CRMDesktop.Pages.Customers
             SecurityButton db = (SecurityButton)sender;
             string sql = "UPDATE cusindex SET Stage='" + db.GetInt() + "' WHERE IDKey='" + customer + "'";
             DatabaseFunctions.SendToPhp(sql);
+            if (db.GetInt() == 4)
+            {
+                string sql2 = "UPDATE cusfields SET cusfields.Index='INVOICEFIELD' WHERE cusfields.Index='QUOTEFIELD' AND CusID='" + customer+"' AND TaskID='"+QuotePicker.SelectedIndex+"'";
+                DatabaseFunctions.SendToPhp(sql2);
+            }
             onCreateStageSpecificData(customer, db.GetInt());
             blank page = new blank();
             ClientData.mainFrame.Navigate(page);

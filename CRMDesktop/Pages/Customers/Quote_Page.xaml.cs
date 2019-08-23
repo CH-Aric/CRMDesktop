@@ -21,7 +21,8 @@ namespace CRMDesktop.Pages.Customers
     /// </summary>
     public partial class Quote_Page : Page
     {
-        private List<DataPair> entryDict, entryDictQ;
+        private List<DataPair> entryDict;
+        private List<FlaggedDataPair> entryDictQ;
         string address;
         private int customer;
         private int stage;
@@ -41,7 +42,7 @@ namespace CRMDesktop.Pages.Customers
             TaskCallback call2 = populatePage;
             DatabaseFunctions.SendToPhp(false, "SELECT cusindex.Name,cusfields.IDKey AS FID,cusindex.IDKey,cusfields.Value,cusfields.Index FROM cusfields INNER JOIN cusindex ON cusfields.cusID=cusindex.IDKey WHERE cusfields.CusID='" + customer + "' AND cusfields.Index <> 'QUOTEFIELD';", call2);
             TaskCallback call3 = populateQuoteList;
-            DatabaseFunctions.SendToPhp(false, "SELECT cusfields.IDKey,cusfields.Value,cusfields.AdvValue FROM cusfields WHERE cusfields.CusID='" + customer + "' AND cusfields.Index='QUOTEFIELD';", call3);
+            DatabaseFunctions.SendToPhp(false, "SELECT cusfields.IDKey,cusfields.Value,cusfields.AdvValue,cusfields.TaskID FROM cusfields WHERE cusfields.CusID='" + customer + "' AND cusfields.Index='QUOTEFIELD';", call3);
         }
         public void onClickAdvance(object sender, RoutedEventArgs e)
         {
@@ -59,7 +60,7 @@ namespace CRMDesktop.Pages.Customers
                 {
                     if (dictionary["Index"][i].Contains("hone"))
                     {
-                        phoneLabel.Content = dictionary["Value"][i];
+                        phoneLabel.Text = dictionary["Value"][i];
                     }
                     else if (dictionary["Index"][i].Contains("alesMan"))
                     {
@@ -71,7 +72,7 @@ namespace CRMDesktop.Pages.Customers
                     }
                     else if (dictionary["Index"][i].Contains("ontactDate"))
                     {
-                        contactLabel.Text = dictionary["Value"][i];
+                        contactLabel.Text = FormatFunctions.PrettyDate(dictionary["Value"][i]);
                     }
                     else
                     {
@@ -112,19 +113,38 @@ namespace CRMDesktop.Pages.Customers
         public void populateQuoteList(string result)
         {
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
-            entryDictQ = new List<DataPair>();
+            entryDictQ = new List<FlaggedDataPair>();
             if (dictionary.Count > 0)
             {
                 for (int i = 0; i < dictionary["Value"].Count; i++)
                 {
-                    DataPair dataPair = new DataPair(0, dictionary["Value"][i], dictionary["AdvValue"][i]);
+                    FlaggedDataPair dataPair = new FlaggedDataPair(0, dictionary["Value"][i], dictionary["AdvValue"][i],int.Parse(dictionary["TaskID"][i]));
                     dataPair.Value.Text = dictionary["Value"][i];
                     dataPair.Value.ToolTip = "Item";
                     dataPair.Index.Text = dictionary["AdvValue"][i];
                     dataPair.Index.ToolTip = "Amount";
                     List<UIElement> list = new List<UIElement>() { dataPair.Index, dataPair.Value };
                     int[] j = new int[] { 2, 4 };
-                    GridFiller.rapidFillSpacedPremadeObjects(list, quoteStack, j, new bool[] { true, true });
+                    if (dictionary["TaskID"][i] == "0")
+                    {
+                        GridFiller.rapidFillSpacedPremadeObjects(list, Option1, j, new bool[] { true, true });
+                    }
+                    else if (dictionary["TaskID"][i] == "1")
+                    {
+                        GridFiller.rapidFillSpacedPremadeObjects(list, Option2, j, new bool[] { true, true });
+                    }
+                    else if (dictionary["TaskID"][i] == "2")
+                    {
+                        GridFiller.rapidFillSpacedPremadeObjects(list, Option3, j, new bool[] { true, true });
+                    }
+                    else if (dictionary["TaskID"][i] == "3")
+                    {
+                        GridFiller.rapidFillSpacedPremadeObjects(list, Option4, j, new bool[] { true, true });
+                    }
+                    else if (dictionary["TaskID"][i] == "4")
+                    {
+                        GridFiller.rapidFillSpacedPremadeObjects(list, Option5, j, new bool[] { true, true });
+                    }
                     entryDictQ.Add(dataPair);
                 }
             }
@@ -149,19 +169,27 @@ namespace CRMDesktop.Pages.Customers
                 }
                 else if (!dataPair.Index.Text.Equals(dataPair.Index.GetInit()))
                 {
-                    DatabaseFunctions.SendToPhp(string.Concat(new object[] { "UPDATE cusfields SET Value = '", dataPair.Value.Text, "',Index='", dataPair.Index.Text, "' WHERE (IDKey= '", dataPair.Index.GetInt(), "');" }));
+                    DatabaseFunctions.SendToPhp(string.Concat(new object[] { "UPDATE cusfields SET cusfields.Value = '", FormatFunctions.CleanDateNew(dataPair.Value.Text), "',cusfields.Index='", FormatFunctions.CleanDateNew(dataPair.Index.Text), "' WHERE (IDKey= '", dataPair.Index.GetInt(), "');" }));
                 }
             }
             string sql = "DELETE FROM cusfields WHERE CusID='" + customer + "' AND cusfields.Index='QUOTEFIELD'";
             DatabaseFunctions.SendToPhp(sql);
-            foreach (DataPair dp in entryDictQ)
+            foreach (FlaggedDataPair dp in entryDictQ)
             {
                 if (dp.Value.Text != "" && dp.Index.Text != "")
                 {
-                    string sql2 = "INSERT INTO cusfields(cusfields.Value,cusfields.Index,CusID,cusfields.AdvValue) VALUES ('" + dp.Value.Text + "','QUOTEFIELD','" + customer + "','" + dp.Index.Text + "')";
+                    string sql2 = "INSERT INTO cusfields(cusfields.Value,cusfields.Index,CusID,cusfields.AdvValue,TaskID) VALUES ('" + FormatFunctions.CleanDateNew(dp.Value.Text) + "','QUOTEFIELD','" + customer + "','" + FormatFunctions.CleanDateNew(dp.Index.Text) + "','"+dp.Flag+"')";
                     DatabaseFunctions.SendToPhp(sql2);
                 }
             }
+            List<string> batch = new List<string>();
+            string sql5 = "UPDATE cusindex SET Name='" + FormatFunctions.CleanDateNew(nameLabel.Text) + "' WHERE IDKey= '" + customer + "'";
+            batch.Add(sql5);
+            string sql3 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(contactLabel.Text) + "' WHERE cusfields.Index LIKE '%ookin%' AND CusID= '" + customer + "'";
+            batch.Add(sql3);
+            string sql4 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(phoneLabel.Text) + "' WHERE cusfields.Index LIKE '%hone%' AND CusID= '" + customer + "'";
+            batch.Add(sql4);
+            DatabaseFunctions.SendBatchToPHP(batch);
             Quote_Page page = new Quote_Page(customer, stage);
             ClientData.mainFrame.Navigate(page);
         }
@@ -177,7 +205,6 @@ namespace CRMDesktop.Pages.Customers
             List<UIElement> list = new List<UIElement>() { dataPair.Index, dataPair.Value };
             int[] i = new int[] { 2, 4 };
             GridFiller.rapidFillSpacedPremadeObjects(list, bottomStack, i, new bool[] { true, true });
-            entryDictQ.Add(dataPair);
             entryDict.Add(dataPair);
             Button x = (Button)sender;
             if (x != row)
@@ -200,7 +227,7 @@ namespace CRMDesktop.Pages.Customers
         }
         public void onClickAddFieldsQ(object sender, RoutedEventArgs e)
         {
-            DataPair dataPair = new DataPair(0, "", "");
+            FlaggedDataPair dataPair = new FlaggedDataPair(0, "", "", Tab.SelectedIndex);
             dataPair.setNew();
             dataPair.Index.Text = "";
             dataPair.Index.ToolTip = "Item";
@@ -208,12 +235,33 @@ namespace CRMDesktop.Pages.Customers
             dataPair.Value.ToolTip = "Amount";
             List<UIElement> list = new List<UIElement>() { dataPair.Index,dataPair.Value};
             int[] i = new int[] { 3,3};
-            GridFiller.rapidFillSpacedPremadeObjects(list,quoteStack,i,new bool[]{ true,true});
+
+            if (Tab.SelectedIndex==0)
+            {
+                GridFiller.rapidFillSpacedPremadeObjects(list, Option1, i, new bool[] { true, true });
+            }
+            else if (Tab.SelectedIndex == 1)
+            {
+                GridFiller.rapidFillSpacedPremadeObjects(list, Option2, i, new bool[] { true, true });
+            }
+            else if (Tab.SelectedIndex == 2)
+            {
+                GridFiller.rapidFillSpacedPremadeObjects(list, Option3, i, new bool[] { true, true });
+            }
+            else if (Tab.SelectedIndex == 3)
+            {
+                GridFiller.rapidFillSpacedPremadeObjects(list, Option4, i, new bool[] { true, true });
+            }
+            else if (Tab.SelectedIndex == 4)
+            {
+                GridFiller.rapidFillSpacedPremadeObjects(list, Option5, i, new bool[] { true, true });
+            }
+
             entryDictQ.Add(dataPair);
         }
         public void onClickAddPrefilledFieldsQ(object sender, RoutedEventArgs e)
         {
-            DataPair dataPair = new DataPair(0, "", "");//TODO REWORK with Picker from the pricing guide!
+            FlaggedDataPair dataPair = new FlaggedDataPair(0, "", "",Tab.SelectedIndex);
             dataPair.setNew();
             dataPair.Index.Text = PriceGuidecombo.SelectedItem.ToString();
             dataPair.Index.ToolTip = "Item";
@@ -221,7 +269,26 @@ namespace CRMDesktop.Pages.Customers
             dataPair.Value.ToolTip = "Amount";
             List<UIElement> list = new List<UIElement>() { dataPair.Index, dataPair.Value };
             int[] i = new int[] { 3, 3 };
-            GridFiller.rapidFillSpacedPremadeObjects(list, quoteStack, i, new bool[] { true, true });
+            if (Tab.SelectedIndex == 0)
+            {
+                GridFiller.rapidFillSpacedPremadeObjects(list, Option1, i, new bool[] { true, true });
+            }
+            else if (Tab.SelectedIndex == 1)
+            {
+                GridFiller.rapidFillSpacedPremadeObjects(list, Option2, i, new bool[] { true, true });
+            }
+            else if (Tab.SelectedIndex == 2)
+            {
+                GridFiller.rapidFillSpacedPremadeObjects(list, Option3, i, new bool[] { true, true });
+            }
+            else if (Tab.SelectedIndex == 3)
+            {
+                GridFiller.rapidFillSpacedPremadeObjects(list, Option4, i, new bool[] { true, true });
+            }
+            else if (Tab.SelectedIndex == 4)
+            {
+                GridFiller.rapidFillSpacedPremadeObjects(list, Option5, i, new bool[] { true, true });
+            }
             entryDictQ.Add(dataPair);
         }
         public void fillPriceGuideComboBox()

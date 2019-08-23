@@ -16,19 +16,14 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
             </Grid.RowDefinitions>
+
 
             <Rectangle Fill="White" Grid.Row="0" Grid.Column="0" Margin="2"/>
             <Rectangle Fill="White" Grid.Row="0" Grid.Column="1" Margin="2"/>
-            <Label Content="NameHere" x:Name="nameLabel" />
-            <Label Content="StageHere" x:Name="stageLabel" Grid.Column="1"/>
-
-
-            <Rectangle Fill="White" Grid.Row="1" Grid.Column="0" Margin="2"/>
-            <Rectangle Fill="White" Grid.Row="1" Grid.Column="1" Margin="2"/>
-            <Label Content="Advance To:" Grid.Row="1"  Grid.Column="0"/>
-            <Label Content="Ready?" Grid.Row="1" Grid.Column="1"/>
+            <Label Content="Advance To:" Grid.Row="0"  Grid.Column="0"/>
+            <Label Content="Desired Quote Option to Carry Forward:(Install Only)" Grid.Row="1"  Grid.Column="1"/>
+            <ComboBox x:Name="QuotePicker" Grid.Row="0" Grid.Column="1" Margin="270,0,0,0"/>
         </Grid>
     </ScrollViewer>
 </Page>

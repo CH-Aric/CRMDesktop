@@ -108,23 +108,23 @@ namespace CRMDesktop.Pages.Customers
             {
                 if (dataPair.isNew)
                 {
-                    string s = "INSERT INTO cusfields (cusfields.Value,cusfields.Index,CusID) VALUES('" + dataPair.Value.Text + "','" + dataPair.Index.Text + "','" + this.customer + "')";
+                    string s = "INSERT INTO cusfields (cusfields.Value,cusfields.Index,CusID) VALUES('" + FormatFunctions.CleanDateNew(dataPair.Value.Text) + "','" + FormatFunctions.CleanDateNew(dataPair.Index.Text) + "','" + this.customer + "')";
                     batch.Add(s);
                     dataPair.isNew = false;
                 }
                 else if (!dataPair.Index.Text.Equals(dataPair.Index.GetInit()))
                 {
-                    string s = "UPDATE cusfields SET cusfields.Value = '" + dataPair.Value.Text + "',cusfields.Index='" + dataPair.Index.Text + "' WHERE (IDKey= '" + dataPair.Index.GetInt() + "');";
+                    string s = "UPDATE cusfields SET cusfields.Value = '" + FormatFunctions.CleanDateNew(dataPair.Value.Text) + "',cusfields.Index='" + FormatFunctions.CleanDateNew(dataPair.Index.Text) + "' WHERE (IDKey= '" + dataPair.Index.GetInt() + "');";
                     batch.Add(s);
                 }
             }
-            string sql = "UPDATE cusfields SET cusfields.value='" + noteLabel.Text + "' WHERE cusfields.Index LIKE'%otes%' AND CusID= '" + customer + "'";
+            string sql = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(noteLabel.Text) + "' WHERE cusfields.Index LIKE'%otes%' AND CusID= '" + customer + "'";
             batch.Add(sql);
-            string sql2 = "UPDATE cusindex SET Name='" + nameLabel.Text + "' WHERE IDKey= '" + customer + "'";
+            string sql2 = "UPDATE cusindex SET Name='" + FormatFunctions.CleanDateNew(nameLabel.Text) + "' WHERE IDKey= '" + customer + "'";
             batch.Add(sql2);
             string sql3 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(BookingDate.Text) + "' WHERE cusfields.Index LIKE '%ookin%' AND CusID= '" + customer + "'";
             batch.Add(sql3);
-            string sql4 = "UPDATE cusfields SET cusfields.value='" + phoneLabel.Text + "' WHERE cusfields.Index LIKE '%hone%' AND CusID= '" + customer + "'";
+            string sql4 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(phoneLabel.Text) + "' WHERE cusfields.Index LIKE '%hone%' AND CusID= '" + customer + "'";
             batch.Add(sql4);
             DatabaseFunctions.SendBatchToPHP(batch);
         }

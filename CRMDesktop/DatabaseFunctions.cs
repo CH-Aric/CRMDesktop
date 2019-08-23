@@ -49,7 +49,7 @@ namespace CRMDesktop
         {
             try
             {
-                string text = JsonClass.JSONSerialize<DatabaseFunctions.data>(new DatabaseFunctions.data
+                string text = JsonClass.JSONSerialize<data>(new data
                 {
                     df_text1 = statement
                 });

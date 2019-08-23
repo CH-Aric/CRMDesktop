@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CRMDesktop.Pages.Customers"
       xmlns:MainCRMV2="clr-namespace:CRMDesktop"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Quote_Page">
@@ -31,10 +32,10 @@
                 <Rectangle Fill="White" Grid.Row="0" Grid.Column="4" Margin="2"/>
                 <Rectangle Fill="White" Grid.Row="0" Grid.Column="5" Margin="2"/>
                 <TextBox x:Name="nameLabel" Text="NameHere" Foreground="Black" Margin="2"/>
-                <TextBox x:Name="contactLabel" Text="ContactHere" Grid.Row="0" Grid.Column="3" Margin="2"/>
-                <Label Content="Salesman:" Grid.Row="0" Grid.Column="1" Margin="2" HorizontalAlignment="Right"/>
+                <xctk:DateTimePicker x:Name="contactLabel" Grid.Row="0" Grid.Column="3" Margin="2"/>
+                <Label Content="Salesman:" Grid.Row="0" Grid.Column="1" Margin="2" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                 <ComboBox x:Name="SalemanCombo" Grid.Row="0" Grid.Column="2"/>
-                <MainCRMV2:AwesomeHyperLinkLabel x:Name="phoneLabel" Content="PhoneHere" Grid.Row="0" Grid.Column="4"/>
+                <TextBox x:Name="phoneLabel" Text="PhoneHere" Grid.Row="0" Grid.Column="4"/>
                 <MainCRMV2:StyledButton x:Name="StageButton" Content="Advance" Click="onClickAdvance" Grid.Row="0" Grid.Column="5"/>
                 <!--Second row-->
                 <Rectangle Fill="White" Grid.Row="1" Grid.Column="0" Margin="2"/>
@@ -51,6 +52,93 @@
                 <MainCRMV2:StyledButton Content="Add Blank Item" Click="onClickAddFieldsQ" Grid.Row="1" Grid.Column="4"/>
                 <MainCRMV2:StyledButton Content="Save Changes" Click="onClicked" Grid.Row="1" Grid.Column="5"/>
             </Grid>
+            <TabControl x:Name="Tab">
+                <TabItem>
+                    <TabItem.Header>
+                        <Label Content="Option 1" Height="25" VerticalAlignment="Top"/>
+                    </TabItem.Header>
+                    <ScrollViewer Height="200">
+                        <Grid x:Name="Option1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <Label Content="Option 2" Height="25" VerticalAlignment="Top"/>
+                    </TabItem.Header>
+                    <ScrollViewer Height="200">
+                        <Grid x:Name="Option2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <Label Content="Option 3" Height="25" VerticalAlignment="Top"/>
+                    </TabItem.Header>
+                    <ScrollViewer Height="200">
+                        <Grid x:Name="Option3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <Label Content="Option 4" Height="25" VerticalAlignment="Top"/>
+                    </TabItem.Header>
+                    <ScrollViewer Height="200">
+                        <Grid x:Name="Option4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <Label Content="Option 5" Height="25" VerticalAlignment="Top"/>
+                    </TabItem.Header>
+                    <ScrollViewer Height="200">
+                        <Grid x:Name="Option5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10*"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ScrollViewer>
+                </TabItem>
+            </TabControl>
             <Grid Background="Black" x:Name="bottomStack">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="10*"/>
