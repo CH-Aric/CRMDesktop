@@ -28,9 +28,13 @@ namespace CRMDesktop
         }
         public static string CleanDateNew(string Date)
         {
-            string s1 = Date.Replace(",","@");
-            string s2 = s1.Replace(":","!");
-            return s2;
+            if (Date != null)
+            {
+                string s1 = Date.Replace(",", "@");
+                string s2 = s1.Replace(":", "!");
+                return s2;
+            }
+            return "";
         }
         public static string PrettyDate(string Date)
         {

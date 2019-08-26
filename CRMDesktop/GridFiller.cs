@@ -164,6 +164,26 @@ namespace CRMDesktop
                 i++;
             }
         }
+        public static void rapidVertFillPremadeObjects(List<UIElement> Objects, Grid g, bool[] boxoff)
+        {
+            int i = 0;
+            Brush c = ClientData.getGridColor();
+            foreach (UIElement s in Objects)
+            {
+                g.RowDefinitions.Add(new RowDefinition { Height = new GridLength(25, GridUnitType.Pixel) });
+                if (boxoff[i])
+                {
+                    Rectangle b = new Rectangle() { Fill = c, Margin = ClientData.GridMargin };
+                    g.Children.Add(b);
+                    Grid.SetColumn(b, 0);
+                    Grid.SetRow(b, g.RowDefinitions.Count - 1);
+                }
+                g.Children.Add(s);
+                Grid.SetColumn(s, 0);
+                Grid.SetRow(s, g.RowDefinitions.Count - 1);
+                i++;
+            }
+        }
         public static void rapidFillPremadeObjectsStandardHeight(List<UIElement> Objects, Grid g, bool[] boxoff, int Height)
         {
             int i = 0;

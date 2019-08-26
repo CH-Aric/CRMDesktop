@@ -98,7 +98,7 @@ namespace CRMDesktop.Pages.Customers
                 list.Add(l);
             }
             bool[] b = new bool[list.Count];
-            GridFiller.rapidFillPremadeObjects(list,grid,b);
+            GridFiller.rapidVertFillPremadeObjects(list,grid,b);
         }
         public void onClicked(object sender, EventArgs e)
         {

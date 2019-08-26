@@ -8,22 +8,19 @@
         Title="Advance_Page"
         d:DesignHeight="450" d:DesignWidth="800">
     <ScrollViewer>
-        
         <Grid Background="Black" x:Name="grid">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
             </Grid.RowDefinitions>
-
-
             <Rectangle Fill="White" Grid.Row="0" Grid.Column="0" Margin="2"/>
-            <Rectangle Fill="White" Grid.Row="0" Grid.Column="1" Margin="2"/>
-            <Label Content="Advance To:" Grid.Row="0"  Grid.Column="0"/>
-            <Label Content="Desired Quote Option to Carry Forward:(Install Only)" Grid.Row="1"  Grid.Column="1"/>
-            <ComboBox x:Name="QuotePicker" Grid.Row="0" Grid.Column="1" Margin="270,0,0,0"/>
+            <Rectangle Fill="White" Grid.Row="1" Grid.Column="0" Margin="2"/>
+            <Label Content="Advancement Selection" Grid.Row="0"  Grid.Column="0"/>
+            <Label Content="Desired Quote Option to Carry Forward:(Install Only)" Grid.Row="1"  Grid.Column="0"/>
+            <ComboBox x:Name="QuotePicker" Grid.Row="1" Grid.Column="0" Margin="300,3,2,2"/>
         </Grid>
     </ScrollViewer>
 </Page>

@@ -83,7 +83,12 @@ namespace CRMDesktop
             else if (sb.Content.Equals("Create Agent"))
             {
                 Create_Agent page = new Create_Agent();
-                ClientData.sideFrame.Navigate(page);
+                ClientData.mainFrame.Navigate(page);
+            }
+            else if (sb.Content.Equals("Punch Clock"))
+            {
+                Punch_Page page = new Punch_Page();
+                ClientData.mainFrame.Navigate(page);
             }
         }
     }//

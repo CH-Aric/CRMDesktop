@@ -80,3 +80,5 @@ D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\RoleAssignment_Pag
 D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\CRMDesktop.csprojAssemblyReference.cache
 D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\Create_Agent.g.cs
 D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\Create_Agent.baml
+D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\Punch_Page.g.cs
+D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\Punch_Page.baml
