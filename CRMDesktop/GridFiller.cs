@@ -16,7 +16,7 @@ namespace CRMDesktop
         {
             int i = 0;
             Brush c = ClientData.getGridColor();
-            g.RowDefinitions.Add(new RowDefinition { Height = new GridLength(50, GridUnitType.Pixel) });
+            g.RowDefinitions.Add(new RowDefinition { Height = new GridLength(25, GridUnitType.Pixel) });
             foreach (string s in strings)
             {
                 Rectangle b = new Rectangle() { Fill = c, Margin = ClientData.GridMargin };
@@ -53,7 +53,7 @@ namespace CRMDesktop
             int count = 1;
             Brush c = ClientData.getGridColor();
             int column = g.ColumnDefinitions.Count;
-            g.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50, GridUnitType.Pixel) });
+            g.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(25, GridUnitType.Pixel) });
             Rectangle b1 = new Rectangle() { Fill = c, Margin = ClientData.GridMargin };
             Label l = new Label() { Content = "Audited", Foreground = ClientData.textColor };
 
@@ -81,7 +81,7 @@ namespace CRMDesktop
             int i = 0;
             int r = 0;
             Brush c = ClientData.getGridColor();
-            g.RowDefinitions.Add(new RowDefinition { Height = new GridLength(50, GridUnitType.Pixel) });
+            g.RowDefinitions.Add(new RowDefinition { Height = new GridLength(25, GridUnitType.Pixel) });
             foreach (string s in strings)
             {
                 Rectangle b = new Rectangle() { Fill = c, Margin = ClientData.GridMargin };

@@ -57,6 +57,7 @@ namespace CRMDesktop.Pages
         {
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
             GroupPicker.ItemsSource=dictionary["GroupName"];
+            groups = new List<int>();
             if (dictionary.Count > 0)
             {
                 foreach (string s in dictionary["GroupID"])
@@ -65,6 +66,5 @@ namespace CRMDesktop.Pages
                 }
             }
         }
-
     }
 }
