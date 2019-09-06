@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace CRMDesktop.Pages.Customers
 {
@@ -98,6 +99,8 @@ namespace CRMDesktop.Pages.Customers
             string sql2 = "SELECT IDKey,Stage FROM cusindex ORDER BY IDKey Desc LIMIT 1";
             TaskCallback call = OpenPage;
             DatabaseFunctions.SendToPhp(false, sql2, call);
+            StyledButton x = (StyledButton)sender;
+            x.Background = new SolidColorBrush(Colors.SlateGray);
         }
         public void onCreateStageSpecificData(string cusID)
         {

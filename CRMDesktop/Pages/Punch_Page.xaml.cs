@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace CRMDesktop.Pages
 {
@@ -21,11 +22,15 @@ namespace CRMDesktop.Pages
         {
             createPunchOnResult = true;
             getCurrentPunchState();
+            StyledButton x = (StyledButton)sender;
+            x.Background = new SolidColorBrush(Colors.SlateGray);
         }
         public void onClickStateless(object sender, RoutedEventArgs e)
         {
             statelessPunch = true;
             getCurrentPunchState();
+            StyledButton x = (StyledButton)sender;
+            x.Background = new SolidColorBrush(Colors.SlateGray);
         }
         public void getCurrentPunchState()
         {
@@ -52,13 +57,13 @@ namespace CRMDesktop.Pages
             if (createPunchOnResult)
             {
                 createPunchOnResult = false;
-                string sql = "INSERT INTO punchclock (AgentID,Timestamp,Coordinates,State) VALUES('"+ClientData.AgentIDK+"','"+FormatFunctions.CleanDateNew(DateTime.Now.ToString())+"','Desktop','"+!PunchedIn+"')";
+                string sql = "INSERT INTO punchclock (AgentID,Timestamp,Coordinates,State) VALUES('"+ClientData.AgentIDK+"','"+FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss"))+"','Desktop','"+!PunchedIn+"')";
                 DatabaseFunctions.SendToPhp(sql);
             }
             if (statelessPunch)
             {
                 statelessPunch = false;
-                string sql = "INSERT INTO punchclock (AgentID,Timestamp,Coordinates,State,Note) VALUES('" + ClientData.AgentIDK + "','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString()) + "','Desktop','less','"+ TextEntry.Text+ "')";
+                string sql = "INSERT INTO punchclock (AgentID,Timestamp,Coordinates,State,Note) VALUES('" + ClientData.AgentIDK + "','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "','Desktop','less','"+ TextEntry.Text+ "')";
                 DatabaseFunctions.SendToPhp(sql);
             }
             getPunches();

@@ -1,0 +1,61 @@
+﻿<Page x:Class="CRMDesktop.Pages.PunchAdmin_Page"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CRMDesktop.Pages"
+      xmlns:crmdesktop="clr-namespace:CRMDesktop"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PunchAdmin_Page">
+
+    <StackPanel>
+        <Grid Background="Black" x:Name="quoteStack">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+            <Rectangle Fill="White" Grid.ColumnSpan="2" Margin="2"/>
+            <Rectangle Fill="White"  Margin="2" Grid.Column="2"/>
+            <Rectangle Fill="White"  Margin="2" Grid.Column="3"/>
+            <Rectangle Fill="White" Grid.Column="4" Margin="2"/>
+            <Rectangle Fill="White" Grid.Column="5" Margin="2"/>
+            <Label Content="Agent To View:" HorizontalAlignment="Right"/>
+            <ComboBox x:Name="Agent" Grid.Column="1"/>
+            <Label Content="View Location Punches:" Grid.Column="2"/>
+            <CheckBox Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" x:Name="LocCheck"/>
+            <Label Content="Week Beginning:" Grid.Column="3"/>
+            <DatePicker Grid.Column="4" x:Name="DayPicker"/>
+            <crmdesktop:StyledButton Grid.Column="5" Content="View"/>
+        </Grid>
+        <ScrollViewer Height="400">
+            <Grid x:Name="BodyGrid" Background="Black">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                </Grid.RowDefinitions>
+                <Rectangle Fill="White"  Margin="1"/>
+                <Rectangle Fill="White"  Margin="1" Grid.Column="1"/>
+                <Rectangle Fill="White"  Margin="1" Grid.Column="2"/>
+                <Rectangle Fill="White"  Margin="1" Grid.Column="3"/>
+                <Label Content="Day"/>
+                <Label Content="Hours" Grid.Column="1"/>
+                <Label Content="Start Time" Grid.Column="2"/>
+                <Label Content="End Time" Grid.Column="3"/>
+            </Grid>
+        </ScrollViewer>
+    </StackPanel>
+</Page>

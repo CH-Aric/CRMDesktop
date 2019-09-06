@@ -24,37 +24,37 @@
                 <RowDefinition Height="25"/>
             </Grid.RowDefinitions>
             <!--First row-->
-            <Rectangle Fill="White" Grid.Row="0" Grid.Column="0" Margin="2" Grid.ColumnSpan="2"/>
-            <Rectangle Fill="White" Grid.Row="0" Grid.Column="2" Margin="2" Grid.ColumnSpan="2"/>
-            <Rectangle Fill="White" Grid.Row="0" Grid.Column="4" Margin="2" Grid.ColumnSpan="2"/>
-            <Label Content="Agent First Name:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="2"/>
-            <TextBlock Text="" Grid.Column="1" x:Name="AgentName" VerticalAlignment="Center" Margin="2"/>
-            <Label Content="Agent Last Name:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="2" Grid.Column="2"/>
-            <TextBlock Text="" Grid.Column="3" x:Name="AgentLName" VerticalAlignment="Center" Margin="2"/>
-            <Label Content="Username:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="2" Grid.Column="4"/>
-            <TextBlock Text="" Grid.Column="5" x:Name="Username" VerticalAlignment="Center" Margin="2"/>
+            <Rectangle Fill="White" Grid.Row="0" Grid.Column="0" Margin="1" Grid.ColumnSpan="2"/>
+            <Rectangle Fill="White" Grid.Row="0" Grid.Column="2" Margin="1" Grid.ColumnSpan="2"/>
+            <Rectangle Fill="White" Grid.Row="0" Grid.Column="4" Margin="1" Grid.ColumnSpan="2"/>
+            <Label Content="Agent First Name:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox Text="" Grid.Column="1" x:Name="AgentName" VerticalAlignment="Center"/>
+            <Label Content="Agent Last Name:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="2"/>
+            <TextBox Text="" Grid.Column="3" x:Name="AgentLName" VerticalAlignment="Center"/>
+            <Label Content="Username:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="4"/>
+            <TextBox Text="" Grid.Column="5" x:Name="Username" VerticalAlignment="Center" />
             <!--Second row-->
-            <Rectangle Fill="White" Grid.Row="1" Grid.Column="0" Margin="2" Grid.ColumnSpan="2"/>
-            <Rectangle Fill="White" Grid.Row="1" Grid.Column="2" Margin="2" Grid.ColumnSpan="2"/>
-            <Rectangle Fill="White" Grid.Row="1" Grid.Column="4" Margin="2" Grid.ColumnSpan="2"/>
-            <Label Content="Role:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="2" Grid.Row="1"/>
-            <ComboBox x:Name="Role" Grid.Column="1" Grid.Row="1" Margin="1">
+            <Rectangle Fill="White" Grid.Row="1" Grid.Column="0" Margin="1" Grid.ColumnSpan="2"/>
+            <Rectangle Fill="White" Grid.Row="1" Grid.Column="2" Margin="1" Grid.ColumnSpan="2"/>
+            <Rectangle Fill="White" Grid.Row="1" Grid.Column="4" Margin="1" Grid.ColumnSpan="2"/>
+            <Label Content="Role:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
+            <ComboBox x:Name="Role" Grid.Column="1" Grid.Row="1">
                 <ComboBoxItem Content="Salesman"/>
                 <ComboBoxItem Content="Installer"/>
                 <ComboBoxItem Content="Neither"/>
             </ComboBox>
-            <Label Content="Agent Number:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="2" Grid.Column="2" Grid.Row="1"/>
-            <TextBlock Text="" Grid.Column="3" x:Name="AgentNum" Grid.Row="1" VerticalAlignment="Center" Margin="2"/>
-            <Label Content="Password:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="2" Grid.Column="4" Grid.Row="1"/>
-            <TextBlock Text="Temporary" Grid.Column="5" x:Name="Password" Grid.Row="1" VerticalAlignment="Center" Margin="2"/>
+            <Label Content="Agent Number:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1"/>
+            <TextBox Text="" Grid.Column="3" x:Name="AgentNum" Grid.Row="1" VerticalAlignment="Center" />
+            <Label Content="Password:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="4" Grid.Row="1"/>
+            <TextBox Text="Temporary" Grid.Column="5" x:Name="Password" Grid.Row="1" VerticalAlignment="Center"/>
             <!--Third row-->
-            <Rectangle Fill="White" Grid.Row="2" Grid.Column="0" Margin="2" Grid.ColumnSpan="2"/>
-            <Rectangle Fill="White" Grid.Row="2" Grid.Column="2" Margin="2" Grid.ColumnSpan="3"/>
-            <Rectangle Fill="White" Grid.Row="2" Grid.Column="4" Margin="2"/>
-            <Label Content="Group:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="2" Grid.Row="2"/>
+            <Rectangle Fill="White" Grid.Row="2" Grid.Column="0" Margin="1" Grid.ColumnSpan="2"/>
+            <Rectangle Fill="White" Grid.Row="2" Grid.Column="2" Margin="1" Grid.ColumnSpan="3"/>
+            <Rectangle Fill="White" Grid.Row="2" Grid.Column="4" Margin="1"/>
+            <Label Content="Group:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
             <ComboBox x:Name="GroupPicker" Grid.Column="1" Grid.Row="2" Margin="1"/>
-            <Label Content="Email:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="2" Grid.Row="2" Grid.Column="2"/>
-            <TextBlock Text="@coolheatcomfort.ca" Grid.Column="3" x:Name="Email" Grid.Row="2" VerticalAlignment="Center" Margin="2" Grid.ColumnSpan="2"/>
+            <Label Content="Email:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Grid.Column="2"/>
+            <TextBox Text="@coolheatcomfort.ca" Grid.Column="3" x:Name="Email" Grid.Row="2" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
             <MainCRM2:StyledButton Content="Create Agent" Grid.Column="5" Grid.Row="2" Click="onClicked"/>
         </Grid>
     </StackPanel>

@@ -33,9 +33,9 @@ namespace CRMDesktop.Pages.Customers
             customer = customerIn;
             stage = stageIn;
             InitializeComponent();
+            fillPriceGuideComboBox();
             searchCustomers();
             //populateFileList();
-            fillPriceGuideComboBox();
         }
         public void searchCustomers()
         {
@@ -62,7 +62,7 @@ namespace CRMDesktop.Pages.Customers
                     {
                         phoneLabel.Text = dictionary["Value"][i];
                     }
-                    else if (dictionary["Index"][i].Contains("alesMan"))
+                    else if (dictionary["Index"][i].Contains("alesman"))
                     {
                         SalemanCombo.SelectedIndex = DatabaseFunctions.findIndexInList(salesmen, dictionary["Value"][i]);//TODO UPDATE with proper index checking
                     }
@@ -189,6 +189,8 @@ namespace CRMDesktop.Pages.Customers
             batch.Add(sql3);
             string sql4 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(phoneLabel.Text) + "' WHERE cusfields.Index LIKE '%hone%' AND CusID= '" + customer + "'";
             batch.Add(sql4);
+            string sql6 = "UPDATE cusfields SET cusfields.value='" + salesmen[SalemanCombo.SelectedIndex] + "' WHERE cusfields.Index LIKE '%alesman%' AND CusID= '" + customer + "'";
+            batch.Add(sql6);
             DatabaseFunctions.SendBatchToPHP(batch);
             Quote_Page page = new Quote_Page(customer, stage);
             ClientData.mainFrame.Navigate(page);

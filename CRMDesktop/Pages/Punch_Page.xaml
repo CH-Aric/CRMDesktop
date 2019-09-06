@@ -49,6 +49,6 @@
                 <TextBlock Text="Punch State" Grid.Column="2" VerticalAlignment="Center" Foreground="Black"/>
             </Grid>
         </ScrollViewer>
-        
+
     </StackPanel>
 </Page>
