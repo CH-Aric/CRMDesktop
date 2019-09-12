@@ -38,16 +38,17 @@ namespace CRMDesktop.Pages.Customers
             if (dictionary.Count > 0)
             {
                 nameLabel.Text = dictionary["Name"][0];
-                for (int i = 0; i < dictionary["Index"].Count; i++)
+                for (int i = 0; i < dictionary["value"].Count; i++)
                 {
                     if (dictionary["Index"][i].Contains("hone"))
                     {
-                        phoneLabel.Text = dictionary["value"][i];
+                        phoneLabel.Text = FormatFunctions.PrettyDate(dictionary["value"][i]);
                     }
                     else if (dictionary["Index"][i].Contains("otes"))
                     {
-                        noteLabel.Text += dictionary["value"][i];
-                    }else if (dictionary["Index"][i].Contains("ookin"))
+                        noteLabel.Text = FormatFunctions.PrettyDate(dictionary["value"][i]);
+                    }
+                    else if (dictionary["Index"][i].Contains("ookin"))
                     {
                         BookingDate.Text = FormatFunctions.PrettyDate(dictionary["value"][i]);
                         scroll.Height = 0;
@@ -55,10 +56,10 @@ namespace CRMDesktop.Pages.Customers
                     else
                     {
                         DataPair dataPair = new DataPair(int.Parse(dictionary["FID"][i]), dictionary["value"][i], dictionary["Index"][i]);
-                        dataPair.Value.Text = dictionary["value"][i];
+                        dataPair.Value.Text = FormatFunctions.PrettyDate(dictionary["value"][i]);
                         dataPair.Value.ToolTip = "Value here";
                         dataPair.Value.Width = ClientData.mainFrame.Width *0.7-10;
-                        dataPair.Index.Text = dictionary["Index"][i];
+                        dataPair.Index.Text = FormatFunctions.PrettyDate(dictionary["Index"][i]);
                         dataPair.Index.ToolTip = "Index here";
                         dataPair.Index.Width = ClientData.mainFrame.Width *0.3-10;
                         StackPanel stackLayout = new StackPanel
@@ -71,7 +72,7 @@ namespace CRMDesktop.Pages.Customers
                         entryDict.Add(dataPair);
                         if (dictionary["Index"][i].Contains("dress"))
                         {
-                            address = dictionary["Value"][i];
+                            address = FormatFunctions.PrettyDate(dictionary["value"][i]);
                         }
                     }
                 }
@@ -103,24 +104,26 @@ namespace CRMDesktop.Pages.Customers
             {
                 if (dataPair.isNew)
                 {
-                    string s = "INSERT INTO cusfields (cusfields.Value,cusfields.Index,CusID) VALUES('" +dataPair.Value.Text + "','" + dataPair.Index.Text +"','" + this.customer +"')";
+                    string s = "INSERT INTO cusfields (cusfields.Value,cusfields.Index,CusID) VALUES('" + FormatFunctions.CleanDateNew(dataPair.Value.Text) + "','" + FormatFunctions.CleanDateNew(dataPair.Index.Text) +"','" + this.customer +"')";
                     batch.Add(s);
                     dataPair.isNew = false;
                 }
                 else if (!dataPair.Index.Text.Equals(dataPair.Index.GetInit()))
                 {
-                    string s= "UPDATE cusfields SET cusfields.Value = '"+ dataPair.Value.Text+ "',cusfields.Index='"+ dataPair.Index.Text+ "' WHERE (IDKey= '"+ dataPair.Index.GetInt()+ "');";
+                    string s= "UPDATE cusfields SET cusfields.Value = '"+ FormatFunctions.CleanDateNew(dataPair.Value.Text)+ "',cusfields.Index='"+ FormatFunctions.CleanDateNew(dataPair.Index.Text)+ "' WHERE (IDKey= '"+ dataPair.Index.GetInt()+ "');";
                     batch.Add(s);
                 }
             }
-            string sql = "UPDATE cusfields SET cusfields.value='" + noteLabel.Text + "' WHERE cusfields.Index LIKE'%otes%' AND CusID= '" + customer + "'";
+            string sql = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(noteLabel.Text) + "' WHERE cusfields.Index LIKE'%otes%' AND CusID= '" + customer + "'";
             batch.Add(sql);
-            string sql2 = "UPDATE cusindex SET Name='" + nameLabel.Text + "' WHERE IDKey= '" + customer + "'";
+            string sql2 = "UPDATE cusindex SET Name='" + FormatFunctions.CleanDateNew(nameLabel.Text) + "' WHERE IDKey= '" + customer + "'";
             batch.Add(sql2);
             string sql3 = "UPDATE cusfields SET cusfields.value='"+FormatFunctions.CleanDateNew(BookingDate.Text)+ "' WHERE cusfields.Index LIKE '%ookin%' AND CusID= '" + customer + "'";
             batch.Add(sql3);
-            string sql4 = "UPDATE cusfields SET cusfields.value='" + phoneLabel.Text + "' WHERE cusfields.Index LIKE '%hone%' AND CusID= '" + customer + "'";
+            string sql4 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(phoneLabel.Text) + "' WHERE cusfields.Index LIKE '%hone%' AND CusID= '" + customer + "'";
             batch.Add(sql4);
+            string sql5 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "' WHERE cusfields.Index LIKE '%odified On%' AND CusID= '" + customer + "'";//'Modified On','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "'
+            batch.Add(sql5);
             DatabaseFunctions.SendBatchToPHP(batch);
         }
         public void onClickAddFields(object sender, RoutedEventArgs e)

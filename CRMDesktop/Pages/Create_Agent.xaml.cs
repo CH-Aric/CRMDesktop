@@ -28,7 +28,7 @@ namespace CRMDesktop.Pages
         }
         public void onClicked(object sender, RoutedEventArgs e)
         {
-            string sql = "INSERT INTO agents (FName,LName,AgentNum,Username,Password,Active, Cpoints,Apoints, Email) VALUES ('"+AgentName.Text+"','"+AgentLName.Text+"','"+Username.Text+"','"+Password.Text+"','1','0','0','"+Email.Text+"')";
+            string sql = "INSERT INTO agents (FName,LName,AgentNum,Username,Password,Active, Cpoints,Apoints, Email) VALUES ('"+AgentName.Text+"','"+AgentLName.Text+"',''"+AgentNum.Text+"',"+Username.Text+"','"+Password.Text+"','1','0','0','"+Email.Text+"')";
             DatabaseFunctions.SendToPhp(sql);
             string statement = "SELECT IDKey FROM agents ORDER BY IDKey DESC LIMIT 1;";
             TaskCallback call = secondaryData;

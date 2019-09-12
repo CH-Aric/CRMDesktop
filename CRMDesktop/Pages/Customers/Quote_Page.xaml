@@ -21,8 +21,8 @@
                     <ColumnDefinition Width="10*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
                 <!--First row-->
                 <Rectangle Fill="White" Grid.Row="0" Grid.Column="0" Margin="2"/>
@@ -149,7 +149,7 @@
                     <ColumnDefinition Width="10*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
                 <!--First row-->
                 <Rectangle Fill="White" Grid.Row="0" Grid.Column="0" Margin="2"/>

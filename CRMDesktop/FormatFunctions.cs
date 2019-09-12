@@ -30,16 +30,18 @@ namespace CRMDesktop
         {
             if (Date != null)
             {
-                string s1 = Date.Replace(",", "@");
-                string s2 = s1.Replace(":", "!");
-                return s2;
+                string s1 = Date.Replace(",", "^");
+                string s2 = s1.Replace(":", "<");
+                string s3 = s2.Replace(",",">");
+                return s3;
             }
             return "";
         }
         public static string PrettyDate(string Date)
         {
-            string s1 = Date.Replace("@", ",");
-            string s2 = s1.Replace("!", ":");
+            string s1 = Date.Replace("^", ",");
+            string s2 = s1.Replace("<", ":");
+            string s3 = s2.Replace(">",",");
             return s2;
         }
         public static string[] CleanDate(string datein)

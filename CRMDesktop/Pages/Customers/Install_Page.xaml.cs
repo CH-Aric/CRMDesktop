@@ -59,7 +59,7 @@ namespace CRMDesktop.Pages.Customers
                 {
                     if (dictionary["Index"][i].Contains("hone"))
                     {
-                        phoneLabel.Content = dictionary["Value"][i];
+                        phoneLabel.Content = FormatFunctions.PrettyDate(dictionary["Value"][i]);
                     }
                     else if (dictionary["Index"][i].Contains("alesMan"))
                     {
@@ -67,18 +67,18 @@ namespace CRMDesktop.Pages.Customers
                     }
                     else if (dictionary["Index"][i].Contains("uoteTotal"))
                     {
-                        QuoteTotal.Text = dictionary["Value"][i];
+                        QuoteTotal.Text = FormatFunctions.PrettyDate(dictionary["Value"][i]);
                     }
                     else if (dictionary["Index"][i].Contains("ontactDate"))
                     {
-                        contactLabel.Text = dictionary["Value"][i];
+                        contactLabel.Text = FormatFunctions.PrettyDate(dictionary["Value"][i]);
                     }
                     else
                     {
                         DataPair dataPair = new DataPair(int.Parse(dictionary["FID"][i]), dictionary["Index"][i], dictionary["Value"][i]);
-                        dataPair.Value.Text = dictionary["Value"][i];
+                        dataPair.Value.Text = FormatFunctions.PrettyDate(dictionary["Value"][i]);
                         dataPair.Value.ToolTip = "Value here";
-                        dataPair.Index.Text = dictionary["Index"][i];
+                        dataPair.Index.Text = FormatFunctions.PrettyDate(dictionary["Index"][i]); ;
                         dataPair.Index.ToolTip = "Index here";
                         List<UIElement> list = new List<UIElement>() { dataPair.Index, dataPair.Value };
                         int[] j = new int[] { 2, 4 };
@@ -86,7 +86,7 @@ namespace CRMDesktop.Pages.Customers
                         entryDict.Add(dataPair);
                         if (dictionary["Index"][i].Contains("dress"))
                         {
-                            address = dictionary["Value"][i];
+                            address = FormatFunctions.PrettyDate(dictionary["Value"][i]);
                         }
                     }
                 }
@@ -138,9 +138,9 @@ namespace CRMDesktop.Pages.Customers
                     DatabaseFunctions.SendToPhp(string.Concat(new object[]
                     {
                         "INSERT INTO cusfields (cusfields.Value,cusfields.Index,CusID) VALUES('",
-                        dataPair.Value.Text,
+                        FormatFunctions.CleanDateNew(dataPair.Value.Text),
                         "','",
-                        dataPair.Index.Text,
+                        FormatFunctions.CleanDateNew(dataPair.Index.Text),
                         "','",
                         this.customer,
                         "')"
@@ -149,7 +149,7 @@ namespace CRMDesktop.Pages.Customers
                 }
                 else if (!dataPair.Index.Text.Equals(dataPair.Index.GetInit()))
                 {
-                    DatabaseFunctions.SendToPhp(string.Concat(new object[] { "UPDATE cusfields SET Value = '", dataPair.Value.Text, "',Index='", dataPair.Index.Text, "' WHERE (IDKey= '", dataPair.Index.GetInt(), "');" }));
+                    DatabaseFunctions.SendToPhp(string.Concat(new object[] { "UPDATE cusfields SET Value = '", FormatFunctions.CleanDateNew(dataPair.Value.Text), "',Index='", FormatFunctions.CleanDateNew(dataPair.Index.Text), "' WHERE (IDKey= '", dataPair.Index.GetInt(), "');" }));
                 }
             }
             string sql = "DELETE FROM cusfields WHERE CusID='" + customer + "' AND cusfields.Index='QUOTEFIELD'";
@@ -158,10 +158,12 @@ namespace CRMDesktop.Pages.Customers
             {
                 if (dp.Value.Text != "" && dp.Index.Text != "")
                 {
-                    string sql2 = "INSERT INTO cusfields(cusfields.Value,cusfields.Index,CusID,cusfields.AdvValue) VALUES ('" + dp.Value.Text + "','QUOTEFIELD','" + customer + "','" + dp.Index.Text + "')";
+                    string sql2 = "INSERT INTO cusfields(cusfields.Value,cusfields.Index,CusID,cusfields.AdvValue) VALUES ('" + FormatFunctions.CleanDateNew(dp.Value.Text) + "','QUOTEFIELD','" + customer + "','" + FormatFunctions.CleanDateNew(dp.Index.Text) + "')";
                     DatabaseFunctions.SendToPhp(sql2);
                 }
             }
+            string sql5 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "' WHERE cusfields.Index LIKE '%odified On%' AND CusID= '" + customer + "'";//'Modified On','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "'
+            DatabaseFunctions.SendToPhp(sql5);
             Quote_Page page = new Quote_Page(customer, stage);
             ClientData.mainFrame.Navigate(page);
         }
@@ -213,11 +215,11 @@ namespace CRMDesktop.Pages.Customers
         }
         public void onClickAddPrefilledFieldsQ(object sender, RoutedEventArgs e)
         {
-            DataPair dataPair = new DataPair(0, "", "");//TODO REWORK with Picker from the pricing guide!
+            DataPair dataPair = new DataPair(0, "", "");
             dataPair.setNew();
-            //dataPair.Index.Text = PriceGuidecombo.SelectedItem.ToString();
+            dataPair.Index.Text = PriceGuidecombo.SelectedItem.ToString();
             dataPair.Index.ToolTip = "Item";
-            //dataPair.Value.Text = prices[PriceGuidecombo.SelectedIndex];
+            dataPair.Value.Text = prices[PriceGuidecombo.SelectedIndex];
             dataPair.Value.ToolTip = "Amount";
             List<UIElement> list = new List<UIElement>() { dataPair.Index, dataPair.Value };
             int[] i = new int[] { 3, 3 };
@@ -236,7 +238,7 @@ namespace CRMDesktop.Pages.Customers
         public void populateCombo(string result)
         {
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
-            //PriceGuidecombo.ItemsSource = dictionary["v"];
+            PriceGuidecombo.ItemsSource = dictionary["v"];
             prices = dictionary["PriceSale"];
         }
         public void populateSalesCombo(string result)

@@ -21,8 +21,8 @@
                     <ColumnDefinition Width="10*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
                 <!--First row-->
                 <Rectangle Fill="White" Grid.Row="0" Grid.Column="0" Margin="2"/>
@@ -47,8 +47,10 @@
 
                 <Label Content="Invoice Total:" Grid.Row="1" Grid.Column="0" Margin="2" HorizontalAlignment="Right"/>
                 <TextBox x:Name="QuoteTotal" Grid.Row="1" Grid.Column="1" Margin="2"/>
-                
-                
+                <ComboBox x:Name="PriceGuidecombo" Grid.Row="1" Grid.Column="2"/>
+                <MainCRMV2:StyledButton Content="Add PriceGuide Item" Click="onClickAddPrefilledFieldsQ" Grid.Row="1" Grid.Column="3"/>
+                <MainCRMV2:StyledButton Content="Add Blank Item" Click="onClickAddFieldsQ" Grid.Row="1" Grid.Column="4"/>
+
                 <MainCRMV2:StyledButton Content="Save Changes" Click="onClicked" Grid.Row="1" Grid.Column="5"/>
             </Grid>
             <Grid Background="Black" x:Name="bottomStack">
@@ -61,7 +63,7 @@
                     <ColumnDefinition Width="10*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
                 <!--First row-->
                 <Rectangle Fill="White" Grid.Row="0" Grid.Column="0" Margin="2"/>

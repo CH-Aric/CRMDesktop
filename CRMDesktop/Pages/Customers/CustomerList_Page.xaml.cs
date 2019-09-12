@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -19,7 +20,7 @@ namespace CRMDesktop.Pages.Customers
         public void loadFromDatabase()
         {
             TaskCallback call = populateList;
-            string sql = "SELECT cusindex.Name,cusindex.IDKey,cusfields.Value,cusfields.Index,cusindex.Stage FROM cusindex INNER JOIN cusfields ON cusindex.IDKey=cusfields.CusID WHERE (cusfields.Index LIKE '%Address%' OR cusfields.Index LIKE '%Phone%')";
+            string sql = "SELECT cusindex.Name,cusindex.IDKey,cusfields.Value,cusfields.Index,cusindex.Stage FROM cusindex INNER JOIN cusfields ON cusindex.IDKey=cusfields.CusID WHERE ( cusfields.Index LIKE '%Phone%')";//cusfields.Index LIKE '%Address%' OR
             sql += appendPickerResult();
             DatabaseFunctions.SendToPhp(false, sql, call);
         }
@@ -105,7 +106,7 @@ namespace CRMDesktop.Pages.Customers
         public void onCreateStageSpecificData(string cusID)
         {
             List<string> batch = new List<string>();
-            string noteSQL = "INSERT INTO cusfields (cusfields.Index,cusfields.Value,CusID) VALUES ('Notes:','','" + cusID + "')";
+            string noteSQL = "INSERT INTO cusfields (cusfields.Index,cusfields.Value,CusID) VALUES ('Notes:','','" + cusID + "'),('Created On','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "','" + cusID + "'),('Modified On','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "','" + cusID + "')";//'"+ClientData.AgentIDK+"','"+FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss"))+"'
             batch.Add(noteSQL);
             if (NewPicker.SelectedIndex == 0)//For creating leads
             {

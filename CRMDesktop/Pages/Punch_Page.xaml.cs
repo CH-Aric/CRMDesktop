@@ -15,28 +15,55 @@ namespace CRMDesktop.Pages
         {
             InitializeComponent();
             scroll.Height = ClientData.FrameHeight - 100;
-            getCurrentPunchState();
             getPunches();
+            getCurrentPunchState(false);
         }
         public void onclick(object sender,RoutedEventArgs e)
         {
-            createPunchOnResult = true;
-            getCurrentPunchState();
             StyledButton x = (StyledButton)sender;
             x.Background = new SolidColorBrush(Colors.SlateGray);
+            createPunchOnResult = true;
+            getCurrentPunchState(true);
         }
         public void onClickStateless(object sender, RoutedEventArgs e)
         {
-            statelessPunch = true;
-            getCurrentPunchState();
             StyledButton x = (StyledButton)sender;
             x.Background = new SolidColorBrush(Colors.SlateGray);
+            statelessPunch = true;
+            getCurrentPunchState(true);
         }
-        public void getCurrentPunchState()
+        public void getCurrentPunchState(bool mode)
         {
             string sql = "SELECT State FROM punchclock WHERE AgentID='" + ClientData.AgentIDK + "' AND State!='less' ORDER BY IDKey DESC LIMIT 1";
-            TaskCallback call = writeState;
+            TaskCallback call;
+            if (mode)
+            {
+
+                 call= writeState;
+            }
+            else
+            {
+                call = renderState;
+            }
             DatabaseFunctions.SendToPhp(false,sql,call);
+        }
+        public void renderState(string result)
+        {
+            Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
+            if (dictionary.Count > 0)
+            {
+                PunchedIn = bool.Parse(dictionary["State"][0]);
+                if (PunchedIn)
+                {
+                    PunchButton.Background = new SolidColorBrush(ClientData.rotatingConfirmationColors[0]);
+                    ClockState.Content = "Current State: Clocked In";
+                }
+                else
+                {
+                    PunchButton.Background = new SolidColorBrush(ClientData.rotatingNegativeColors[0]);
+                    ClockState.Content = "Current State: Clocked Out";
+                }
+            }
         }
         public void writeState(string result)
         {
@@ -46,18 +73,19 @@ namespace CRMDesktop.Pages
                 PunchedIn = bool.Parse(dictionary["State"][0]);
                 if (((PunchedIn&&!createPunchOnResult) || (!PunchedIn&&createPunchOnResult))&&!statelessPunch)
                 {
-
+                    PunchButton.Background = new SolidColorBrush(ClientData.rotatingConfirmationColors[0]);
                     ClockState.Content = "Current State: Clocked In";
                 }
                 else if(!statelessPunch)
                 {
+                    PunchButton.Background = new SolidColorBrush(ClientData.rotatingNegativeColors[0]);
                     ClockState.Content = "Current State: Clocked Out";
                 }
             }
             if (createPunchOnResult)
             {
                 createPunchOnResult = false;
-                string sql = "INSERT INTO punchclock (AgentID,Timestamp,Coordinates,State) VALUES('"+ClientData.AgentIDK+"','"+FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss"))+"','Desktop','"+!PunchedIn+"')";
+                string sql = "INSERT INTO punchclock (AgentID,Timestamp,Coordinates,State,Note) VALUES('"+ClientData.AgentIDK+"','"+FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss"))+"','Desktop','"+!PunchedIn+"','"+TextEntry.Text+"')";
                 DatabaseFunctions.SendToPhp(sql);
             }
             if (statelessPunch)

@@ -119,9 +119,9 @@ namespace CRMDesktop.Pages.Customers
                 for (int i = 0; i < dictionary["Value"].Count; i++)
                 {
                     FlaggedDataPair dataPair = new FlaggedDataPair(0, dictionary["Value"][i], dictionary["AdvValue"][i],int.Parse(dictionary["TaskID"][i]));
-                    dataPair.Value.Text = dictionary["Value"][i];
+                    dataPair.Value.Text = FormatFunctions.PrettyDate(dictionary["Value"][i]);
                     dataPair.Value.ToolTip = "Item";
-                    dataPair.Index.Text = dictionary["AdvValue"][i];
+                    dataPair.Index.Text = FormatFunctions.PrettyDate(dictionary["AdvValue"][i]);
                     dataPair.Index.ToolTip = "Amount";
                     List<UIElement> list = new List<UIElement>() { dataPair.Index, dataPair.Value };
                     int[] j = new int[] { 2, 4 };
@@ -191,6 +191,8 @@ namespace CRMDesktop.Pages.Customers
             batch.Add(sql4);
             string sql6 = "UPDATE cusfields SET cusfields.value='" + salesmen[SalemanCombo.SelectedIndex] + "' WHERE cusfields.Index LIKE '%alesman%' AND CusID= '" + customer + "'";
             batch.Add(sql6);
+            string sql7 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "' WHERE cusfields.Index LIKE '%odified On%' AND CusID= '" + customer + "'";//'Modified On','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "'
+            batch.Add(sql7);
             DatabaseFunctions.SendBatchToPHP(batch);
             Quote_Page page = new Quote_Page(customer, stage);
             ClientData.mainFrame.Navigate(page);
@@ -258,7 +260,6 @@ namespace CRMDesktop.Pages.Customers
             {
                 GridFiller.rapidFillSpacedPremadeObjects(list, Option5, i, new bool[] { true, true });
             }
-
             entryDictQ.Add(dataPair);
         }
         public void onClickAddPrefilledFieldsQ(object sender, RoutedEventArgs e)

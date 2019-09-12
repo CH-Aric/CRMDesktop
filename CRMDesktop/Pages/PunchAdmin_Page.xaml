@@ -8,7 +8,6 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PunchAdmin_Page">
-
     <StackPanel>
         <Grid Background="Black" x:Name="quoteStack">
             <Grid.ColumnDefinitions>
@@ -23,6 +22,7 @@
                 <RowDefinition Height="25"/>
                 <RowDefinition Height="25"/>
             </Grid.RowDefinitions>
+            <!-- Row one-->
             <Rectangle Fill="White" Grid.ColumnSpan="2" Margin="2"/>
             <Rectangle Fill="White"  Margin="2" Grid.Column="2"/>
             <Rectangle Fill="White"  Margin="2" Grid.Column="3"/>
@@ -34,7 +34,19 @@
             <CheckBox Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" x:Name="LocCheck"/>
             <Label Content="Week Beginning:" Grid.Column="3"/>
             <DatePicker Grid.Column="4" x:Name="DayPicker"/>
-            <crmdesktop:StyledButton Grid.Column="5" Content="View"/>
+            <crmdesktop:StyledButton Grid.Column="5" Content="View" Click="onClick"/>
+
+            <!-- Row two-->
+            <Rectangle Fill="White" Margin="2" Grid.Column="0" Grid.Row="1"/>
+            <Rectangle Fill="White" Margin="2" Grid.Column="1" Grid.Row="1"/>
+            <Rectangle Fill="White" Margin="2" Grid.Column="2" Grid.Row="1"/>
+            <Rectangle Fill="White" Margin="2" Grid.Column="3" Grid.Row="1"/>
+            <Rectangle Fill="White" Margin="2" Grid.Column="4" Grid.Row="1"/>
+            <Rectangle Fill="White" Margin="2" Grid.Column="5" Grid.Row="1"/>
+
+            <Label Content="Total Hours:" x:Name="HourDisplay" Grid.Row="1"/>
+            <Label Content="Viewing:" x:Name="AgentDisplay" Grid.Row="1" Grid.Column="1"/>
+            <Label Content="Week of:" x:Name="WeekDisplay" Grid.Row="1" Grid.Column="2"/>
         </Grid>
         <ScrollViewer Height="400">
             <Grid x:Name="BodyGrid" Background="Black">
