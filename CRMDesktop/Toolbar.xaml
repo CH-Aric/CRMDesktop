@@ -41,5 +41,6 @@
         <local:StyledButton Grid.Row="1" Content="Role Assignment" Click="onClickAccess"/>
         <local:StyledButton Grid.Row="1" Content="Create Agent" Click="onClickAccess" Grid.Column="1"/>
         <local:StyledButton Grid.Row="1" Content="Punch Clock" Click="onClickAccess" Grid.Column="2"/>
+        <local:StyledButton Grid.Row="1" Content="Punch Admin" Click="onClickAccess" Grid.Column="3"/>
     </Grid>
 </Page>

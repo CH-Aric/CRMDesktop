@@ -178,5 +178,19 @@ namespace CRMDesktop
             }
             return returnList;
         }
+        public static string getRelevantDates(DateTime d)
+        {
+            string day = d.ToString("yyyy / M / d");
+            string[] x = day.Split(' ');
+            string r = "TimeStamp LIKE '%" + x[0] + "%'";
+            for (int i = 0; i < 6; i++)
+            {
+                d.AddDays(1);
+                day = d.ToString("yyyy / M / d");
+                x = day.Split(' ');
+                r += " OR TimeStamp LIKE '%" + x[0] + "%'";
+            }
+            return r;
+        }
     }
 }

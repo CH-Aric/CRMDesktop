@@ -1,6 +1,7 @@
 ﻿using CRMDesktop.Pages;
 using CRMDesktop.Pages.Customers;
 using CRMDesktop.Pages.Inventory;
+using System.Diagnostics;
 using System.Net;
 using System.Windows;
 

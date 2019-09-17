@@ -33,15 +33,15 @@ namespace CRMDesktop.Pages.Customers
         {
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
             entryDict = new List<DataPair>();
-            NameDisplay.Content = dictionary["Name"][0];
+            NameDisplay.Content = FormatFunctions.PrettyDate(dictionary["Name"][0]);
             if (dictionary.Count > 0)
             {
                 for (int i = 0; i < dictionary["Index"].Count; i++)
                 {
                     DataPair dataPair = new DataPair(int.Parse(dictionary["FID"][i]), dictionary["value"][i], dictionary["Index"][i]);
-                    dataPair.Value.Text = dictionary["value"][i];
+                    dataPair.Value.Text = FormatFunctions.PrettyDate(dictionary["value"][i]);
                     dataPair.Value.ToolTip = "Value here";
-                    dataPair.Index.Text = dictionary["Index"][i];
+                    dataPair.Index.Text = FormatFunctions.PrettyDate(dictionary["Index"][i]);
                     dataPair.Index.ToolTip = "Index here";
                     List<UIElement> list = new List<UIElement>() { dataPair.Index, dataPair.Value };
                     int[] space = new int[] { 2, 2 };
@@ -77,9 +77,9 @@ namespace CRMDesktop.Pages.Customers
                     DatabaseFunctions.SendToPhp(string.Concat(new object[]
                     {
                         "INSERT INTO cusfields (cusfields.Value,cusfields.Index,CusID) VALUES('",
-                        dataPair.Value.Text,
+                        FormatFunctions.CleanDateNew(dataPair.Value.Text),
                         "','",
-                        dataPair.Index.Text,
+                        FormatFunctions.CleanDateNew(dataPair.Index.Text),
                         "','",
                         this.customer,
                         "')"
@@ -91,9 +91,9 @@ namespace CRMDesktop.Pages.Customers
                     DatabaseFunctions.SendToPhp(string.Concat(new object[]
                     {
                         "UPDATE cusfields SET Value = '",
-                        dataPair.Value.Text,
+                        FormatFunctions.CleanDateNew(dataPair.Value.Text),
                         "',Index='",
-                        dataPair.Index.Text,
+                        FormatFunctions.CleanDateNew(dataPair.Index.Text),
                         "' WHERE (IDKey= '",
                         dataPair.Index.GetInt(),
                         "');"

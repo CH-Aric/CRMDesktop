@@ -41,7 +41,7 @@ namespace CRMDesktop.Pages.Customers
             TaskCallback call2 = populatePage;
             DatabaseFunctions.SendToPhp(false, "SELECT cusindex.Name,cusfields.IDKey AS FID,cusindex.IDKey,cusfields.Value,cusfields.Index FROM cusfields INNER JOIN cusindex ON cusfields.cusID=cusindex.IDKey WHERE cusfields.CusID='" + customer + "' AND cusfields.Index <> 'QUOTEFIELD';", call2);
             TaskCallback call3 = populateQuoteList;
-            DatabaseFunctions.SendToPhp(false, "SELECT cusfields.IDKey,cusfields.Value,cusfields.AdvValue FROM cusfields WHERE cusfields.CusID='" + customer + "' AND cusfields.Index='QUOTEFIELD';", call3);
+            DatabaseFunctions.SendToPhp(false, "SELECT cusfields.IDKey,cusfields.Value,cusfields.AdvValue FROM cusfields WHERE cusfields.CusID='" + customer + "' AND cusfields.Index='INVOICEFIELD';", call3);
         }
         public void onClickAdvance(object sender, RoutedEventArgs e)
         {
@@ -59,7 +59,7 @@ namespace CRMDesktop.Pages.Customers
                 {
                     if (dictionary["Index"][i].Contains("hone"))
                     {
-                        phoneLabel.Content = FormatFunctions.PrettyDate(dictionary["Value"][i]);
+                        phoneLabel.Text = FormatFunctions.PrettyDate(dictionary["Value"][i]);
                     }
                     else if (dictionary["Index"][i].Contains("alesMan"))
                     {
@@ -147,24 +147,35 @@ namespace CRMDesktop.Pages.Customers
                     }));
                     dataPair.isNew = false;
                 }
-                else if (!dataPair.Index.Text.Equals(dataPair.Index.GetInit()))
+                else if (!dataPair.Index.Text.Equals(dataPair.Index.GetInit()) || !dataPair.Value.Text.Equals(dataPair.Value.GetInit()))
                 {
                     DatabaseFunctions.SendToPhp(string.Concat(new object[] { "UPDATE cusfields SET Value = '", FormatFunctions.CleanDateNew(dataPair.Value.Text), "',Index='", FormatFunctions.CleanDateNew(dataPair.Index.Text), "' WHERE (IDKey= '", dataPair.Index.GetInt(), "');" }));
                 }
             }
-            string sql = "DELETE FROM cusfields WHERE CusID='" + customer + "' AND cusfields.Index='QUOTEFIELD'";
+            string sql = "DELETE FROM cusfields WHERE CusID='" + customer + "' AND cusfields.Index='INVOICEFIELD'";
             DatabaseFunctions.SendToPhp(sql);
             foreach (DataPair dp in entryDictQ)
             {
                 if (dp.Value.Text != "" && dp.Index.Text != "")
                 {
-                    string sql2 = "INSERT INTO cusfields(cusfields.Value,cusfields.Index,CusID,cusfields.AdvValue) VALUES ('" + FormatFunctions.CleanDateNew(dp.Value.Text) + "','QUOTEFIELD','" + customer + "','" + FormatFunctions.CleanDateNew(dp.Index.Text) + "')";
+                    string sql2 = "INSERT INTO cusfields(cusfields.Value,cusfields.Index,CusID,cusfields.AdvValue) VALUES ('" + FormatFunctions.CleanDateNew(dp.Value.Text) + "','INVOICEFIELD','" + customer + "','" + FormatFunctions.CleanDateNew(dp.Index.Text) + "')";
                     DatabaseFunctions.SendToPhp(sql2);
                 }
             }
+
+            List<string> batch = new List<string>();
             string sql5 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "' WHERE cusfields.Index LIKE '%odified On%' AND CusID= '" + customer + "'";//'Modified On','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "'
-            DatabaseFunctions.SendToPhp(sql5);
-            Quote_Page page = new Quote_Page(customer, stage);
+            batch.Add(sql5);
+            string sql3 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(contactLabel.Text) + "' WHERE cusfields.Index LIKE '%ookin%' AND CusID= '" + customer + "'";
+            batch.Add(sql3);
+            string sql4 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(phoneLabel.Text) + "' WHERE cusfields.Index LIKE '%hone%' AND CusID= '" + customer + "'";
+            batch.Add(sql4);
+            string sql6 = "UPDATE cusfields SET cusfields.value='" + salesmen[SalemanCombo.SelectedIndex] + "' WHERE cusfields.Index LIKE '%alesman%' AND CusID= '" + customer + "'";
+            batch.Add(sql6);
+            string sql7 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "' WHERE cusfields.Index LIKE '%odified On%' AND CusID= '" + customer + "'";//'Modified On','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "'
+            batch.Add(sql7);
+            DatabaseFunctions.SendBatchToPHP(batch);
+            Install_Page page = new Install_Page(customer, stage);
             ClientData.mainFrame.Navigate(page);
         }
         public void onClickAddFields(object sender, RoutedEventArgs e)

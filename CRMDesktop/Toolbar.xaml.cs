@@ -90,6 +90,11 @@ namespace CRMDesktop
                 Punch_Page page = new Punch_Page();
                 ClientData.mainFrame.Navigate(page);
             }
+            else if (sb.Content.Equals("Punch Admin"))
+            {
+                PunchAdmin_Page page = new PunchAdmin_Page();
+                ClientData.mainFrame.Navigate(page);
+            }
         }
     }//
 

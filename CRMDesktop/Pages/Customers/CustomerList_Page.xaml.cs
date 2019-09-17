@@ -87,7 +87,7 @@ namespace CRMDesktop.Pages.Customers
         public void onClickedSearch(object sender, RoutedEventArgs e)
         {
             string text = "%" + SearchEntry.Text + "%";
-            string statement = "SELECT DISTINCT cusindex.IDKey FROM cusindex INNER JOIN cusfields ON cusindex.IDKey=cusfields.CusID WHERE (cusfields.Value LIKE '" + text + "' OR cusindex.Name LIKE '" + text + "')";
+            string statement = "SELECT DISTINCT cusindex.IDKey FROM cusindex INNER JOIN cusfields ON cusindex.IDKey=cusfields.CusID WHERE (cusfields.Value LIKE '%" + text + "%' OR cusindex.Name LIKE '%" + text + "%')";
             statement += appendPickerResult();
             TaskCallback call = new TaskCallback(this.PerformSearch);
             DatabaseFunctions.SendToPhp(false, statement, call);

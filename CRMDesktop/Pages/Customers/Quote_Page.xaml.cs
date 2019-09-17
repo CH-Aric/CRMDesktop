@@ -60,7 +60,7 @@ namespace CRMDesktop.Pages.Customers
                 {
                     if (dictionary["Index"][i].Contains("hone"))
                     {
-                        phoneLabel.Text = dictionary["Value"][i];
+                        phoneLabel.Text = FormatFunctions.PrettyPhone(dictionary["Value"][i]);
                     }
                     else if (dictionary["Index"][i].Contains("alesman"))
                     {
@@ -68,7 +68,7 @@ namespace CRMDesktop.Pages.Customers
                     }
                     else if (dictionary["Index"][i].Contains("uoteTotal"))
                     {
-                        QuoteTotal.Text = dictionary["Value"][i];
+                        QuoteTotal.Text = FormatFunctions.PrettyDate(dictionary["Value"][i]);
                     }
                     else if (dictionary["Index"][i].Contains("ontactDate"))
                     {
@@ -77,9 +77,9 @@ namespace CRMDesktop.Pages.Customers
                     else
                     {
                         DataPair dataPair = new DataPair(int.Parse(dictionary["FID"][i]), dictionary["Index"][i], dictionary["Value"][i]);
-                        dataPair.Value.Text = dictionary["Value"][i];
+                        dataPair.Value.Text = FormatFunctions.PrettyDate(dictionary["Value"][i]);
                         dataPair.Value.ToolTip = "Value here";
-                        dataPair.Index.Text = dictionary["Index"][i];
+                        dataPair.Index.Text = FormatFunctions.PrettyDate(dictionary["Index"][i]);
                         dataPair.Index.ToolTip = "Index here";
                         List<UIElement> list = new List<UIElement>() { dataPair.Index, dataPair.Value };
                         int[] j = new int[] { 2, 4 };
@@ -87,7 +87,7 @@ namespace CRMDesktop.Pages.Customers
                         entryDict.Add(dataPair);
                         if (dictionary["Index"][i].Contains("dress"))
                         {
-                            address = dictionary["Value"][i];
+                            address = FormatFunctions.PrettyDate(dictionary["Value"][i]);
                         }
                     }
                 }
@@ -167,7 +167,7 @@ namespace CRMDesktop.Pages.Customers
                     }));
                     dataPair.isNew = false;
                 }
-                else if (!dataPair.Index.Text.Equals(dataPair.Index.GetInit()))
+                else if (!dataPair.Index.Text.Equals(dataPair.Index.GetInit()) || !dataPair.Value.Text.Equals(dataPair.Value.GetInit()))
                 {
                     DatabaseFunctions.SendToPhp(string.Concat(new object[] { "UPDATE cusfields SET cusfields.Value = '", FormatFunctions.CleanDateNew(dataPair.Value.Text), "',cusfields.Index='", FormatFunctions.CleanDateNew(dataPair.Index.Text), "' WHERE (IDKey= '", dataPair.Index.GetInt(), "');" }));
                 }

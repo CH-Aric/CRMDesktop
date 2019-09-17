@@ -159,7 +159,7 @@
                 <Rectangle Fill="White" Grid.Row="0" Grid.Column="4" Margin="2"/>
                 <Rectangle Fill="White" Grid.Row="0" Grid.Column="5" Margin="2"/>
 
-                <MainCRMV2:StyledButton Content="Add Row" Click="onClickAddFields" x:Name="row"/>
+                <MainCRMV2:StyledButton Content="Add Field" Click="onClickAddFields" x:Name="row"/>
                 <MainCRMV2:StyledButton Content="Add Signature" Click="onClickAddFields" x:Name="sig" Grid.Row="0" Grid.Column="1"/>
                 <MainCRMV2:StyledButton Content="Add Deposit Field" Click="onClickAddFields" x:Name="fie" Grid.Row="0" Grid.Column="2"/>
                 <MainCRMV2:StyledButton Content="Add Payment Method" Click="onClickAddFields" x:Name="met" Grid.Row="0" Grid.Column="3"/>

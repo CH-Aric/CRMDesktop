@@ -112,7 +112,7 @@ namespace CRMDesktop.Pages.Customers
                     batch.Add(s);
                     dataPair.isNew = false;
                 }
-                else if (!dataPair.Index.Text.Equals(dataPair.Index.GetInit()))
+                else if (!dataPair.Index.Text.Equals(dataPair.Index.GetInit())|| !dataPair.Value.Text.Equals(dataPair.Value.GetInit()))
                 {
                     string s = "UPDATE cusfields SET cusfields.Value = '" + FormatFunctions.CleanDateNew(dataPair.Value.Text) + "',cusfields.Index='" + FormatFunctions.CleanDateNew(dataPair.Index.Text) + "' WHERE (IDKey= '" + dataPair.Index.GetInt() + "');";
                     batch.Add(s);

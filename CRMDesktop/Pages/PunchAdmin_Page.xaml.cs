@@ -31,8 +31,14 @@ namespace CRMDesktop.Pages
 
         public void onClick(object sender,RoutedEventArgs e)
         {
-            string sql = "SELECT * FROM punchclock WHERE AgentID='"+agents[Agent.SelectedIndex]+"' AND ("+ getRelevantDates()+ ")";
-
+            DateTime d = (DateTime)DayPicker.SelectedDate;
+            string sql = "SELECT * FROM punchclock WHERE AgentID='"+agents[Agent.SelectedIndex]+"' AND ("+ FormatFunctions.getRelevantDates(d)+ ")";
+            if ((bool)!LocCheck.IsChecked)
+            {
+                sql += " AND (State='True' OR State='False')";
+            }
+            TaskCallback call = populateStamps;
+            DatabaseFunctions.SendToPhp(false, sql, call);
         }
         public void populate()
         {
@@ -48,30 +54,59 @@ namespace CRMDesktop.Pages
         }
         public void populateStamps(string result)
         {
+            GridFiller.PurgeHeader(BodyGrid);
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
+            List<string> clockin = new List<string>();
+            List<string> clockout = new List<string>();
             if (dictionary.Count > 0)
             {
                 for(int i = 0; i < dictionary["IDKey"].Count; i++)
                 {
                     string[] y = new string[4];
-                    y[0] = dictionary["TimeStamp"][i];
-                    y[1] = dictionary["Coordinates"][i];
-                    y[2] = dictionary["Note"][i];
-                    y[3] = dictionary["State"][i];
-                    GridFiller.rapidFill(y, BodyGrid);
+                    y[0] = FormatFunctions.PrettyDate(dictionary["TimeStamp"][i]);
+                    y[1] = FormatFunctions.PrettyDate(dictionary["Coordinates"][i]);
+                    y[2] = FormatFunctions.PrettyDate(dictionary["Note"][i]);
+                    y[3] = FormatFunctions.PrettyDate(dictionary["State"][i]);
+                    if (dictionary["State"][i] == "True")
+                    {
+                        GridFiller.rapidFillColorized(y,BodyGrid,true);
+                        clockin.Add(FormatFunctions.PrettyDate(dictionary["TimeStamp"][i]));
+                    }
+                    else if (dictionary["State"][i] == "False")
+                    {
+                        GridFiller.rapidFillColorized(y, BodyGrid, false);
+                        clockout.Add(FormatFunctions.PrettyDate(dictionary["TimeStamp"][i]));
+                    }
+                    else
+                    {
+                        GridFiller.rapidFill(y, BodyGrid);
+                    }
                 }
+                double x = calculateHours(clockin, clockout) / 60;
+                HourDisplay.Content = "Total Hours: " + x;
+                AgentDisplay.Content = "Viewing: " + Agent.SelectedValue;
+                WeekDisplay.Content = "Week of: " + DayPicker.SelectedDate;
             }
         }
-        public string getRelevantDates()
+        public double calculateHours(List<string> starts,List<string> ends)
         {
-            DateTime d =(DateTime) DayPicker.SelectedDate;
-            string r = "TimeStamp LIKE '%"+DayPicker.SelectedDate+"%'";
-            for(int i = 0; i < 6; i++)
+            double output = 0;
+            List<DateTime> s = new List<DateTime>();
+            List<DateTime> e = new List<DateTime>();
+            foreach (string i in starts)
             {
-                d.AddDays(1);
-                r += " OR TimeStamp LIKE '%" + d + "%'";
+                s.Add(Convert.ToDateTime(i));
             }
-            return r;
+            foreach (string i in ends)
+            {
+                e.Add(Convert.ToDateTime(i));
+            }
+            for(int i = 0; i < Math.Min(e.Count, s.Count); i++)
+            {
+                System.TimeSpan diff = e[i].Subtract(s[i]);
+                output += diff.TotalMinutes;
+            }
+            return output;
         }
     }
 }

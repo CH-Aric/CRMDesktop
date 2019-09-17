@@ -63,10 +63,10 @@
                 <Rectangle Fill="White"  Margin="1" Grid.Column="1"/>
                 <Rectangle Fill="White"  Margin="1" Grid.Column="2"/>
                 <Rectangle Fill="White"  Margin="1" Grid.Column="3"/>
-                <Label Content="Day"/>
-                <Label Content="Hours" Grid.Column="1"/>
-                <Label Content="Start Time" Grid.Column="2"/>
-                <Label Content="End Time" Grid.Column="3"/>
+                <Label Content="Time"/>
+                <Label Content="Location" Grid.Column="1"/>
+                <Label Content="Notes" Grid.Column="2"/>
+                <Label Content="In/Out" Grid.Column="3"/>
             </Grid>
         </ScrollViewer>
     </StackPanel>

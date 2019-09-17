@@ -49,7 +49,7 @@ namespace CRMDesktop
                 SolidColorBrush myBrush2 = new SolidColorBrush(rotatingConfirmationColors[LastColor]);
                 return myBrush2;
             }
-            SolidColorBrush myBrush = new SolidColorBrush(rotatingConfirmationColors[LastColor]);
+            SolidColorBrush myBrush = new SolidColorBrush(rotatingNegativeColors[LastColor]);
             return myBrush;
         }
         public void loadUserDatafromFile()
@@ -138,7 +138,11 @@ namespace CRMDesktop
         public void loadSecurityKeys(string result)
         {
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
-            SecurityKeys = dictionary["PermissionGranted"];
+            SecurityKeys = new List<string>();
+            if (dictionary.Count > 0)
+            {
+                SecurityKeys = dictionary["PermissionGranted"];
+            }
         }
         public static bool hasSecurityKey(string Key)
         {
