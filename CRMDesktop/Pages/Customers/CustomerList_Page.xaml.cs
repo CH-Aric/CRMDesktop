@@ -20,7 +20,7 @@ namespace CRMDesktop.Pages.Customers
         public void loadFromDatabase()
         {
             TaskCallback call = populateList;
-            string sql = "SELECT cusindex.Name,cusindex.IDKey,cusfields.Value,cusfields.Index,cusindex.Stage FROM cusindex INNER JOIN cusfields ON cusindex.IDKey=cusfields.CusID WHERE ( cusfields.Index LIKE '%Phone%')";//cusfields.Index LIKE '%Address%' OR
+            string sql = "SELECT cusindex.Name,cusindex.IDKey,cusfields.Value,cusfields.Index,cusindex.Stage FROM cusindex INNER JOIN cusfields ON cusindex.IDKey=cusfields.CusID WHERE ( cusfields.Index LIKE '%hone%')";//cusfields.Index LIKE '%Address%' OR
             sql += appendPickerResult();
             DatabaseFunctions.SendToPhp(false, sql, call);
         }
@@ -58,7 +58,7 @@ namespace CRMDesktop.Pages.Customers
         public void onClicked(object sender, RoutedEventArgs e)
         {
             SecurityButton dataButton = (SecurityButton)sender;
-            if (dataButton.GetInt2() == 0 || dataButton.GetInt2() == 10)
+            if (dataButton.GetInt2() == 0 || dataButton.GetInt2() == 10 || dataButton.GetInt2() == 9)
             {
                 CustomerDetail_Page page = new CustomerDetail_Page(dataButton.Integer);
                 ClientData.mainFrame.Navigate(page);
@@ -214,7 +214,7 @@ namespace CRMDesktop.Pages.Customers
             }
             else if (s == "Clients")
             {
-                sql += " AND cusindex.Stage='8' ORDER BY cusindex.IDKey DESC";
+                sql += " AND cusindex.Stage='9' ORDER BY cusindex.IDKey DESC";
             }
             else if (s == "Archived")
             {
