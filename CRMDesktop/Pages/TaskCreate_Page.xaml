@@ -31,14 +31,13 @@
             <Rectangle Fill="White" Grid.Row="0" Grid.Column="4" Margin="2"/>
             <Rectangle Fill="White" Grid.Row="0" Grid.Column="5" Margin="2"/>
 
-
             <Label Grid.Row="0" Grid.Column="0" Content="Template:" HorizontalAlignment="Right"/>
             <ComboBox x:Name="templatePicker" Grid.Row="0" Grid.Column="1" Margin="2" Background="LightGray"/>
             <maincrmv2:StyledButton Click="onClickedLoadTemplate" Content="Load From Template" Grid.Row="0" Grid.Column="2"/>
             <Label Grid.Row="0" Grid.Column="3" Content="Save Task As:" HorizontalAlignment="Right"/>
-            <TextBox Text="" ToolTip="SaveAs" x:Name="taskName" Margin="2" Grid.Row="0" Grid.Column="4" Background="LightGray"/>
+            <TextBox Text="" ToolTip="SaveAs" x:Name="taskName" Margin="1,2,3,2" Grid.Row="0" Grid.Column="4" Background="LightGray"/>
             <maincrmv2:StyledButton Click="onClickedCreate" Content="Create Task" Grid.Row="0" Grid.Column="5"/>
-            
+
             <!--Second row-->
             <Rectangle Fill="White" Grid.Row="1" Grid.Column="0" Margin="2"/>
             <Rectangle Fill="White" Grid.Row="1" Grid.Column="1" Margin="2"/>

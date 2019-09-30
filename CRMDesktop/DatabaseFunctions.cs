@@ -20,11 +20,11 @@ namespace CRMDesktop
                 string requestUriString;
                 if (PBX)
                 {
-                    requestUriString = "http://coolheatcrm.duckdns.org/CRM-2/accessPBX.php";
+                    requestUriString = "http://coolheatcrm.duckdns.org/accessPBX.php";
                 }
                 else
                 {
-                    requestUriString = "http://coolheatcrm.duckdns.org/CRM-2/access.php";
+                    requestUriString = "http://coolheatcrm.duckdns.org/access.php";
                 }
                 string text = JsonClass.JSONSerialize<DatabaseFunctions.data>(d);
                 byte[] bytes = Encoding.UTF8.GetBytes(text);
@@ -53,7 +53,7 @@ namespace CRMDesktop
                 {
                     df_text1 = statement
                 });
-                HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://coolheatcrm.duckdns.org/CRM-2/access.php");
+                HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://coolheatcrm.duckdns.org/access.php");
                 httpWebRequest.Method = "POST";
                 string s = text;
                 byte[] bytes = Encoding.UTF8.GetBytes(s);
@@ -77,7 +77,7 @@ namespace CRMDesktop
                     BatchLength= statements.Length,
                     statements = statements
                 });
-                HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://coolheatcrm.duckdns.org/CRM-2/accessBatched.php");
+                HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://coolheatcrm.duckdns.org/accessBatched.php");
                 httpWebRequest.Method = "POST";
                 string s = text;
                 byte[] bytes = Encoding.UTF8.GetBytes(s);
@@ -102,11 +102,11 @@ namespace CRMDesktop
                     string requestUriString;
                     if (PBX)
                     {
-                        requestUriString = "http://coolheatcrm.duckdns.org/CRM-2/accessPBX.php";
+                        requestUriString = "http://coolheatcrm.duckdns.org/accessPBX.php";
                     }
                     else
                     {
-                        requestUriString = "http://coolheatcrm.duckdns.org/CRM-2/access.php";
+                        requestUriString = "http://coolheatcrm.duckdns.org/access.php";
                     }
                     string text = JsonClass.JSONSerialize<DatabaseFunctions.data>(d);
                     byte[] bytes = Encoding.UTF8.GetBytes(text);
@@ -134,7 +134,7 @@ namespace CRMDesktop
             {
                 df_text1 = name
             });
-            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://coolheatcrm.duckdns.org/CRM-2/getCusFolders.php");
+            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://coolheatcrm.duckdns.org/getCusFolders.php");
             httpWebRequest.Method = "POST";
             byte[] bytes = Encoding.UTF8.GetBytes(s);
             httpWebRequest.ContentType = "application/x-www-form-urlencoded";
@@ -170,7 +170,7 @@ namespace CRMDesktop
                 df_text1 = df_text
             });
             byte[] bytes = Encoding.UTF8.GetBytes(s);
-            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://coolheatcrm.duckdns.org/crm-2/getCusFile.php");
+            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://coolheatcrm.duckdns.org/getCusFile.php");
             httpWebRequest.Method = "POST";
             httpWebRequest.ContentType = "application/x-www-form-urlencoded";
             httpWebRequest.ContentLength = (long)bytes.Length;

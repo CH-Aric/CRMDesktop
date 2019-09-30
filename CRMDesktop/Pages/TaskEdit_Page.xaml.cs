@@ -34,10 +34,10 @@ namespace CRMDesktop.Pages
             {
                 for (int i = 0; i < dictionary["Index"].Count; i++)
                 {
-                    DataPair dataPair = new DataPair(int.Parse(dictionary["IDKey"][i]), dictionary["Value"][i], dictionary["Index"][i]);
-                    dataPair.Value.Text = dictionary["Value"][i];
+                    DataPair dataPair = new DataPair(int.Parse(dictionary["IDKey"][i]), FormatFunctions.CleanDateNew(dictionary["Value"][i]), FormatFunctions.CleanDateNew(dictionary["Index"][i]));
+                    dataPair.Value.Text = FormatFunctions.CleanDateNew(dictionary["Value"][i]);
                     dataPair.Value.ToolTip = "Value here";
-                    dataPair.Index.Text = dictionary["Index"][i];
+                    dataPair.Index.Text = FormatFunctions.CleanDateNew(dictionary["Index"][i]);
                     dataPair.Index.ToolTip = "Index here";
                     this.entryDict.Add(dataPair);
 
@@ -55,12 +55,12 @@ namespace CRMDesktop.Pages
                 if (dataPair.isNew)
                 {
                     DatabaseFunctions.SendToPhp(
-                        "INSERT INTO taskfields (taskfields.Value,taskfields.Index,TaskID) VALUES('" + dataPair.Value.Text + "','" + dataPair.Index.Text + "','" + this.task + "')");
+                        "INSERT INTO taskfields (taskfields.Value,taskfields.Index,TaskID) VALUES('" + FormatFunctions.CleanDateNew(dataPair.Value.Text) + "','" + FormatFunctions.CleanDateNew(dataPair.Index.Text) + "','" + this.task + "')");
                     dataPair.isNew = false;
                 }
-                else if (dataPair.Index.Text != dataPair.Index.GetInit())
+                else if (dataPair.Index.Text != dataPair.Index.GetInit()|| dataPair.Value.Text != dataPair.Value.GetInit())
                 {
-                    DatabaseFunctions.SendToPhp("UPDATE taskfields SET Value = '" + dataPair.Value.Text + "',Index='" + dataPair.Index.Text + "' WHERE (IDKey= '" + dataPair.Index.GetInt() + "');");
+                    DatabaseFunctions.SendToPhp("UPDATE taskfields SET taskfields.Value = '" + FormatFunctions.CleanDateNew(dataPair.Value.Text) + "', taskfields.Index='" + FormatFunctions.CleanDateNew(dataPair.Index.Text) + "' WHERE (IDKey= '" + dataPair.Index.GetInt() + "');");
                 }
             }
         }
