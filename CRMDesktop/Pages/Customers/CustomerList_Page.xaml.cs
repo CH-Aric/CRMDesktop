@@ -158,7 +158,7 @@ namespace CRMDesktop.Pages.Customers
             TaskCallback call = new TaskCallback(this.populateList);
             if (dictionary.Count > 0)
             {
-                string text = "SELECT cusindex.Name,cusindex.IDKey,cusfields.Value,cusfields.Index,cusindex.Stage FROM cusindex INNER JOIN cusfields ON cusindex.IDKey=cusfields.CusID WHERE (cusfields.Index LIKE '%Address%' OR cusfields.Index LIKE '%Phone%') AND (";
+                string text = "SELECT cusindex.Name,cusindex.IDKey,cusfields.Value,cusfields.Index,cusindex.Stage FROM cusindex INNER JOIN cusfields ON cusindex.IDKey=cusfields.CusID WHERE ( cusfields.Index LIKE '%Phone%') AND (";//cusfields.Index LIKE '%Address%' OR
                 foreach (string str in dictionary["IDKey"])
                 {
                     text = text + " cusindex.IDKey='" + str + "' OR";

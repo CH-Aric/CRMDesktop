@@ -168,7 +168,7 @@ namespace CRMDesktop.Pages.Customers
             batch.Add(sql5);
             string sql3 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(contactLabel.Text) + "' WHERE cusfields.Index LIKE '%ookin%' AND CusID= '" + customer + "'";
             batch.Add(sql3);
-            string sql4 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(phoneLabel.Text) + "' WHERE cusfields.Index LIKE '%hone%' AND CusID= '" + customer + "'";
+            string sql4 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanPhone(phoneLabel.Text) + "' WHERE cusfields.Index LIKE '%hone%' AND CusID= '" + customer + "'";
             batch.Add(sql4);
             string sql6 = "UPDATE cusfields SET cusfields.value='" + salesmen[SalemanCombo.SelectedIndex] + "' WHERE cusfields.Index LIKE '%alesman%' AND CusID= '" + customer + "'";
             batch.Add(sql6);

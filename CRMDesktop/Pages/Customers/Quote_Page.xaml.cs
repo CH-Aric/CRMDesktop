@@ -93,23 +93,6 @@ namespace CRMDesktop.Pages.Customers
                 }
             }
         }
-        public void populateFileList()
-        {
-            string[] customerFileList = DatabaseFunctions.getCustomerFileList(nameLabel.Text);
-            foreach (string text in customerFileList)
-            {
-                if ((text != "." || text != "..") && customerFileList.Length > 1)
-                {
-                    SecurityButton dataButton = new SecurityButton(nameLabel.Text + "/" + text, new string[] { "Sales" })
-                    {
-                        Content = text
-                    };
-                    dataButton.Click += onFileButton;
-                    List<UIElement> list = new List<UIElement>() { dataButton };
-                    GridFiller.rapidFillPremadeObjects(list, fileGrid, new bool[] { true, true });
-                }
-            }
-        }
         public void populateQuoteList(string result)
         {
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
@@ -158,9 +141,9 @@ namespace CRMDesktop.Pages.Customers
                     DatabaseFunctions.SendToPhp(string.Concat(new object[]
                     {
                         "INSERT INTO cusfields (cusfields.Value,cusfields.Index,CusID) VALUES('",
-                        dataPair.Value.Text,
+                        FormatFunctions.CleanDateNew(dataPair.Value.Text),
                         "','",
-                        dataPair.Index.Text,
+                        FormatFunctions.CleanDateNew(dataPair.Index.Text),
                         "','",
                         this.customer,
                         "')"
@@ -176,7 +159,7 @@ namespace CRMDesktop.Pages.Customers
             DatabaseFunctions.SendToPhp(sql);
             foreach (FlaggedDataPair dp in entryDictQ)
             {
-                if (dp.Value.Text != "" && dp.Index.Text != "")
+                if (dp.Value.Text != "" || dp.Index.Text != "")
                 {
                     string sql2 = "INSERT INTO cusfields(cusfields.Value,cusfields.Index,CusID,cusfields.AdvValue,TaskID) VALUES ('" + FormatFunctions.CleanDateNew(dp.Value.Text) + "','QUOTEFIELD','" + customer + "','" + FormatFunctions.CleanDateNew(dp.Index.Text) + "','"+dp.Flag+"')";
                     DatabaseFunctions.SendToPhp(sql2);
@@ -187,7 +170,7 @@ namespace CRMDesktop.Pages.Customers
             batch.Add(sql5);
             string sql3 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(contactLabel.Text) + "' WHERE cusfields.Index LIKE '%ookin%' AND CusID= '" + customer + "'";
             batch.Add(sql3);
-            string sql4 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(phoneLabel.Text) + "' WHERE cusfields.Index LIKE '%hone%' AND CusID= '" + customer + "'";
+            string sql4 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanPhone(phoneLabel.Text) + "' WHERE cusfields.Index LIKE '%hone%' AND CusID= '" + customer + "'";
             batch.Add(sql4);
             string sql6 = "UPDATE cusfields SET cusfields.value='" + salesmen[SalemanCombo.SelectedIndex] + "' WHERE cusfields.Index LIKE '%alesman%' AND CusID= '" + customer + "'";
             batch.Add(sql6);
