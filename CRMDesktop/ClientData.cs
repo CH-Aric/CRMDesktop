@@ -27,6 +27,7 @@ namespace CRMDesktop
         public static double FrameHeight;
         public static double FrameWidth;
         public static Frame mainFrame,sideFrame,toolFrame;
+        public static string googleAPIKey="AIzaSyBSIb2IGKKiikgGDdzFQPbHPSwEvEMoa1g";
         public static Brush getGridColor()
         {
             LastColor++;

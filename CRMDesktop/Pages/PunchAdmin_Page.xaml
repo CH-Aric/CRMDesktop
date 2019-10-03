@@ -8,66 +8,142 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PunchAdmin_Page">
-    <StackPanel>
-        <Grid Background="Black" x:Name="quoteStack">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10*"/>
-                <ColumnDefinition Width="10*"/>
-                <ColumnDefinition Width="10*"/>
-                <ColumnDefinition Width="10*"/>
-                <ColumnDefinition Width="10*"/>
-                <ColumnDefinition Width="10*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
-            </Grid.RowDefinitions>
-            <!-- Row one-->
-            <Rectangle Fill="White" Grid.ColumnSpan="2" Margin="2"/>
-            <Rectangle Fill="White"  Margin="2" Grid.Column="2"/>
-            <Rectangle Fill="White"  Margin="2" Grid.Column="3"/>
-            <Rectangle Fill="White" Grid.Column="4" Margin="2"/>
-            <Rectangle Fill="White" Grid.Column="5" Margin="2"/>
-            <Label Content="Agent To View:" HorizontalAlignment="Right"/>
-            <ComboBox x:Name="Agent" Grid.Column="1"/>
-            <Label Content="View Location Punches:" Grid.Column="2"/>
-            <CheckBox Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" x:Name="LocCheck"/>
-            <Label Content="Week Beginning:" Grid.Column="3"/>
-            <DatePicker Grid.Column="4" x:Name="DayPicker"/>
-            <crmdesktop:StyledButton Grid.Column="5" Content="View" Click="onClick"/>
+    <TabControl>
+        <TabItem Header="Hour Calculator">
+            <StackPanel>
+                <Grid Background="Black" x:Name="quoteStack">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                    </Grid.RowDefinitions>
+                    <!-- Row one-->
+                    <Rectangle Fill="White" Grid.ColumnSpan="2" Margin="2"/>
+                    <Rectangle Fill="White"  Margin="2" Grid.Column="2"/>
+                    <Rectangle Fill="White"  Margin="2" Grid.Column="3"/>
+                    <Rectangle Fill="White" Grid.Column="4" Margin="2"/>
+                    <Rectangle Fill="White" Grid.Column="5" Margin="2"/>
+                    <Label Content="Agent To View:" HorizontalAlignment="Right"/>
+                    <ComboBox x:Name="Agent" Grid.Column="1"/>
+                    <Label Content="View Location Punches:" Grid.Column="2"/>
+                    <CheckBox Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" x:Name="LocCheck"/>
+                    <Label Content="Week Beginning:" Grid.Column="3"/>
+                    <DatePicker Grid.Column="4" x:Name="DayPicker"/>
+                    <crmdesktop:StyledButton Grid.Column="5" Content="View" Click="onClick"/>
 
-            <!-- Row two-->
-            <Rectangle Fill="White" Margin="2" Grid.Column="0" Grid.Row="1"/>
-            <Rectangle Fill="White" Margin="2" Grid.Column="1" Grid.Row="1"/>
-            <Rectangle Fill="White" Margin="2" Grid.Column="2" Grid.Row="1"/>
-            <Rectangle Fill="White" Margin="2" Grid.Column="3" Grid.Row="1"/>
-            <Rectangle Fill="White" Margin="2" Grid.Column="4" Grid.Row="1"/>
-            <Rectangle Fill="White" Margin="2" Grid.Column="5" Grid.Row="1"/>
+                    <!-- Row two-->
+                    <Rectangle Fill="White" Margin="2" Grid.Column="0" Grid.Row="1"/>
+                    <Rectangle Fill="White" Margin="2" Grid.Column="1" Grid.Row="1"/>
+                    <Rectangle Fill="White" Margin="2" Grid.Column="2" Grid.Row="1"/>
+                    <Rectangle Fill="White" Margin="2" Grid.Column="3" Grid.Row="1"/>
+                    <Rectangle Fill="White" Margin="2" Grid.Column="4" Grid.Row="1"/>
+                    <Rectangle Fill="White" Margin="2" Grid.Column="5" Grid.Row="1"/>
 
-            <Label Content="Total Hours:" x:Name="HourDisplay" Grid.Row="1"/>
-            <Label Content="Viewing:" x:Name="AgentDisplay" Grid.Row="1" Grid.Column="1"/>
-            <Label Content="Week of:" x:Name="WeekDisplay" Grid.Row="1" Grid.Column="2"/>
-        </Grid>
-        <ScrollViewer Height="400">
-            <Grid x:Name="BodyGrid" Background="Black">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="10*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="25"/>
-                </Grid.RowDefinitions>
-                <Rectangle Fill="White"  Margin="1"/>
-                <Rectangle Fill="White"  Margin="1" Grid.Column="1"/>
-                <Rectangle Fill="White"  Margin="1" Grid.Column="2"/>
-                <Rectangle Fill="White"  Margin="1" Grid.Column="3"/>
-                <Label Content="Time"/>
-                <Label Content="Location" Grid.Column="1"/>
-                <Label Content="Notes" Grid.Column="2"/>
-                <Label Content="In/Out" Grid.Column="3"/>
-            </Grid>
-        </ScrollViewer>
-    </StackPanel>
+                    <Label Content="Total Hours:" x:Name="HourDisplay" Grid.Row="1"/>
+                    <Label Content="Viewing:" x:Name="AgentDisplay" Grid.Row="1" Grid.Column="1"/>
+                    <Label Content="Week of:" x:Name="WeekDisplay" Grid.Row="1" Grid.Column="2"/>
+                </Grid>
+                <ScrollViewer Height="400">
+                    <Grid x:Name="BodyGrid" Background="Black">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="10*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                        </Grid.RowDefinitions>
+                        <Rectangle Fill="White"  Margin="1"/>
+                        <Rectangle Fill="White"  Margin="1" Grid.Column="1"/>
+                        <Rectangle Fill="White"  Margin="1" Grid.Column="2"/>
+                        <Rectangle Fill="White"  Margin="1" Grid.Column="3"/>
+                        <Label Content="Time"/>
+                        <Label Content="Location" Grid.Column="1"/>
+                        <Label Content="Notes" Grid.Column="2"/>
+                        <Label Content="In/Out" Grid.Column="3"/>
+                    </Grid>
+                </ScrollViewer>
+            </StackPanel>
+        </TabItem>
+        <TabItem Header="Live Feed">
+            <StackPanel>
+                <Grid Background="Black">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="2.5*"/>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="14*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                    </Grid.RowDefinitions>
+                    <Rectangle Fill="White" Margin="2"/>
+                    <Rectangle Fill="White" Grid.Column="1" Margin="2"/>
+                    <Rectangle Fill="White" Margin="2" Grid.Column="2"/>
+                    <Rectangle Fill="White" Margin="2" Grid.Column="3"/>
+                    <Rectangle Fill="White" Grid.Column="4" Margin="2"/>
+                    <Rectangle Fill="White" Grid.Column="5" Margin="2"/>
+
+                    <Label Content="Name:" Grid.Column="0" HorizontalAlignment="Center"/>
+                    <Label Content="State:" Grid.Column="1" HorizontalAlignment="Center"/>
+                    <Label Content="Location:" Grid.Column="2" HorizontalAlignment="Center"/>
+                    <Label Content="Time of Punch:" Grid.Column="3" HorizontalAlignment="Center"/>
+                    <Label Content="Age of Punch:" Grid.Column="4" HorizontalAlignment="Center"/>
+                    <Label Content="Notes:" Grid.Column="5" HorizontalAlignment="Center"/>
+                </Grid>
+                <ScrollViewer x:Name="scroll">
+                    <Grid Background="Black" x:Name="LiveBody">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="7*"/>
+                            <ColumnDefinition Width="2.5*"/>
+                            <ColumnDefinition Width="7*"/>
+                            <ColumnDefinition Width="7*"/>
+                            <ColumnDefinition Width="7*"/>
+                            <ColumnDefinition Width="14*"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ScrollViewer>
+            </StackPanel>
+        </TabItem>
+        <TabItem Header="Agent Details">
+            <StackPanel>
+                <Grid Background="Black">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                    </Grid.RowDefinitions>
+                    <!-- Row one-->
+                    <Rectangle Fill="White" Grid.ColumnSpan="2" Margin="2"/>
+                    <Rectangle Fill="White"  Margin="2" Grid.Column="2"/>
+                    <Rectangle Fill="White"  Margin="2" Grid.Column="3"/>
+                    <Rectangle Fill="White" Grid.Column="4" Margin="2"/>
+                    <Rectangle Fill="White" Grid.Column="5" Margin="2"/>
+                    <Label Content="Agent To View:" HorizontalAlignment="Right"/>
+                    <ComboBox x:Name="Agent2" Grid.Column="1"/>
+                    <DatePicker Grid.Column="4" x:Name="DayPicker2"/>
+                    <crmdesktop:StyledButton Grid.Column="5" Content="View" Click="onClick"/>
+
+
+                </Grid>
+            </StackPanel>
+        </TabItem>
+    </TabControl>
+   
 </Page>

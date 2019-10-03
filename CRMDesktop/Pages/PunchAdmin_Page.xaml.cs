@@ -45,12 +45,30 @@ namespace CRMDesktop.Pages
             string sql2 = "SELECT agents.FName,agents.IDKey FROM agents WHERE Active='1'";
             TaskCallback call3 = populateSalesCombo;
             DatabaseFunctions.SendToPhp(false, sql2, call3);
+            
+        }
+        public void populateLiveFeed(string result)
+        {
+            Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
+            if (dictionary.Count > 0)
+            {
+                string[] s = new string[] { dictionary["FName"][0], convertState(dictionary["State"][0]), dictionary["Coordinates"][0], FormatFunctions.PrettyDate(dictionary["TimeStamp"][0]), FormatFunctions.getAgeOfTimestamp(FormatFunctions.PrettyDate(dictionary["TimeStamp"][0])), dictionary["Note"][0]};
+                GridFiller.rapidFill(s,LiveBody);
+            }
         }
         public void populateSalesCombo(string result)
         {
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
             Agent.ItemsSource = dictionary["FName"];
             agents = dictionary["IDKey"];
+
+            //Use agents list to populate other pages!
+            foreach(string s in agents)
+            {
+                string sql3 = "SELECT agents.FName,punchclock.State,punchclock.Coordinates,punchclock.TimeStamp,punchclock.Note FROM agents INNER JOIN punchclock ON agents.IDKey = punchclock.AgentID WHERE punchclock.AgentID='"+s+"' ORDER BY punchclock.IDKey DESC";
+                TaskCallback call2 = populateLiveFeed;
+                DatabaseFunctions.SendToPhp(false, sql3, call2);
+            }
         }
         public void populateStamps(string result)
         {
@@ -66,7 +84,7 @@ namespace CRMDesktop.Pages
                     y[0] = FormatFunctions.PrettyDate(dictionary["TimeStamp"][i]);
                     y[1] = FormatFunctions.PrettyDate(dictionary["Coordinates"][i]);
                     y[2] = FormatFunctions.PrettyDate(dictionary["Note"][i]);
-                    y[3] = FormatFunctions.PrettyDate(dictionary["State"][i]);
+                    y[3] = convertState(dictionary["State"][i]);
                     if (dictionary["State"][i] == "True")
                     {
                         GridFiller.rapidFillColorized(y,BodyGrid,true);
@@ -107,6 +125,18 @@ namespace CRMDesktop.Pages
                 output += diff.TotalMinutes;
             }
             return output;
+        }
+        public string convertState(string intake)
+        {
+            if (intake == "True")
+            {
+                return "Punched In";
+            }
+            else if (intake == "False")
+            {
+                return "Punched Out";
+            }
+            return "";
         }
     }
 }
