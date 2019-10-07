@@ -85,13 +85,13 @@ namespace CRMDesktop.Pages
             if (createPunchOnResult)
             {
                 createPunchOnResult = false;
-                string sql = "INSERT INTO punchclock (AgentID,Timestamp,Coordinates,State,Note) VALUES('"+ClientData.AgentIDK+"','"+FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss"))+"','Desktop','"+!PunchedIn+"','"+TextEntry.Text+"')";
+                string sql = "INSERT INTO punchclock (AgentID,Timestamp,Coordinates,State,Note) VALUES('"+ClientData.AgentIDK+"','"+FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d HH:mm:ss"))+"','Desktop','"+!PunchedIn+"','"+TextEntry.Text+"')";
                 DatabaseFunctions.SendToPhp(sql);
             }
             if (statelessPunch)
             {
                 statelessPunch = false;
-                string sql = "INSERT INTO punchclock (AgentID,Timestamp,Coordinates,State,Note) VALUES('" + ClientData.AgentIDK + "','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "','Desktop','less','"+ TextEntry.Text+ "')";
+                string sql = "INSERT INTO punchclock (AgentID,Timestamp,Coordinates,State,Note) VALUES('" + ClientData.AgentIDK + "','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d HH:mm:ss")) + "','Desktop','less','"+ TextEntry.Text+ "')";
                 DatabaseFunctions.SendToPhp(sql);
             }
             getPunches();
