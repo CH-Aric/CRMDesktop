@@ -28,24 +28,28 @@ namespace CRMDesktop.Pages
         }
         public void onClicked(object sender, RoutedEventArgs e)
         {
-            string sql = "INSERT INTO agents (FName,LName,AgentNum,Username,Password,Active, Cpoints,Apoints, Email) VALUES ('"+AgentName.Text+"','"+AgentLName.Text+"',''"+AgentNum.Text+"',"+Username.Text+"','"+Password.Text+"','1','0','0','"+Email.Text+"')";
+            string sql = "INSERT INTO agents (FName,LName,AgentNum,Username,Password,Active, Cpoints,Apoints, Email) VALUES ('"+AgentName.Text+"','"+AgentLName.Text+"','"+AgentNum.Text+"','"+Username.Text+"','"+Password.Text+"','1','0','0','"+Email.Text+"')";
             DatabaseFunctions.SendToPhp(sql);
             string statement = "SELECT IDKey FROM agents ORDER BY IDKey DESC LIMIT 1;";
             TaskCallback call = secondaryData;
             DatabaseFunctions.SendToPhp(false, statement, call);
+            MessageBox.Show("Agent Created Successfully!");
         }
         public void secondaryData(string result)
         {
             string text = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result))["IDKey"][0];
-            List<string> list = new List<string>();
-            string sql2 = "INSERT INTO groupmembers (MemberID,GroupID,GroupName) VALUES ("+text+",'"+ groups[GroupPicker.SelectedIndex] + "','"+GroupPicker.SelectedItem+"')";
-            list.Add(sql2);
-            if (Role.SelectedIndex != 2)
+            if (GroupPicker.SelectedIndex>-1)
             {
-                string sql3 = "INSERT INTO agentroles (AgentID,AgentRole) VALUES ('" + text + "','" + Role.SelectedIndex + "')";
-                list.Add(sql3);
+                List<string> list = new List<string>();
+                string sql2 = "INSERT INTO groupmembers (MemberID,GroupID,GroupName) VALUES (" + text + ",'" + groups[GroupPicker.SelectedIndex] + "','" + GroupPicker.SelectedItem + "')";
+                list.Add(sql2);
+                if (Role.SelectedIndex != 2)
+                {
+                    string sql3 = "INSERT INTO agentroles (AgentID,AgentRole) VALUES ('" + text + "','" + Role.SelectedIndex + "')";
+                    list.Add(sql3);
+                }
+                DatabaseFunctions.SendBatchToPHP(list);
             }
-            DatabaseFunctions.SendBatchToPHP(list);
         }
         public void getGroups()
         {

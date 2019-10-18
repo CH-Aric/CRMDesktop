@@ -34,7 +34,7 @@ namespace CRMDesktop.Pages.Customers
                 {
                     if (!dictionary2.ContainsKey(dictionary["IDKey"][i]))
                     {
-                        string text = dictionary["Name"][i] + " ," + dictionary["Value"][i];
+                        string text = FormatFunctions.PrettyDate(dictionary["Name"][i]) + " ," + FormatFunctions.PrettyDate(dictionary["Value"][i]);
                         SecurityButton dataButton = new SecurityButton(int.Parse(dictionary["IDKey"][i]), new string[] { "Employee" })
                         {
                             Content = text,

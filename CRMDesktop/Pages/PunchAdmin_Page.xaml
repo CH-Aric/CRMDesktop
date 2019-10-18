@@ -78,7 +78,7 @@
                 <Grid Background="Black">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="7*"/>
-                        <ColumnDefinition Width="2.5*"/>
+                        <ColumnDefinition Width="5*"/>
                         <ColumnDefinition Width="7*"/>
                         <ColumnDefinition Width="7*"/>
                         <ColumnDefinition Width="7*"/>
@@ -105,7 +105,7 @@
                     <Grid Background="Black" x:Name="LiveBody">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="7*"/>
-                            <ColumnDefinition Width="2.5*"/>
+                            <ColumnDefinition Width="5*"/>
                             <ColumnDefinition Width="7*"/>
                             <ColumnDefinition Width="7*"/>
                             <ColumnDefinition Width="7*"/>
@@ -139,9 +139,19 @@
                     <ComboBox x:Name="Agent2" Grid.Column="1"/>
                     <DatePicker Grid.Column="4" x:Name="DayPicker2"/>
                     <crmdesktop:StyledButton Grid.Column="5" Content="View" Click="onClick"/>
-
-
                 </Grid>
+                <ScrollViewer x:Name="scroll3">
+                    <Grid Background="Black" x:Name="DetailBody">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="7*"/>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="7*"/>
+                            <ColumnDefinition Width="7*"/>
+                            <ColumnDefinition Width="7*"/>
+                            <ColumnDefinition Width="14*"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ScrollViewer>
             </StackPanel>
         </TabItem>
     </TabControl>

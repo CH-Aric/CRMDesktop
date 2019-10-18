@@ -94,7 +94,7 @@ namespace CRMDesktop.Pages
                 else if (!dd.getState() && dd.hasChanged())
                 {
                     num2++;
-                    text2 += "(TargetID='" + dd.getSecondInt() + "' AND AgentID='" + dd.GetInt() + "') OR ";
+                    text2 += "(AgentRole='" + dd.getSecondInt() + "' AND AgentID='" + dd.GetInt() + "') OR ";
                 }
             }
             if (num > 0)
@@ -108,6 +108,9 @@ namespace CRMDesktop.Pages
                 text2 += " AgentID=-1";
                 DatabaseFunctions.SendToPhp(text2);
             }
+
+            RoleAssignment_Page page = new RoleAssignment_Page();
+            ClientData.sideFrame.Navigate(page);
         }
     }
 }

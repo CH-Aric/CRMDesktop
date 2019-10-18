@@ -54,7 +54,7 @@ namespace CRMDesktop.Pages.Customers
             entryDict = new List<DataPair>();
             if (dictionary.Count > 0)
             {
-                nameLabel.Text = dictionary["Name"][0];
+                nameLabel.Text = FormatFunctions.PrettyDate(dictionary["Name"][0]);
                 for (int i = 0; i < dictionary["Index"].Count; i++)
                 {
                     if (dictionary["Index"][i].Contains("hone"))
@@ -174,6 +174,8 @@ namespace CRMDesktop.Pages.Customers
             batch.Add(sql6);
             string sql7 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "' WHERE cusfields.Index LIKE '%odified On%' AND CusID= '" + customer + "'";//'Modified On','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "'
             batch.Add(sql7);
+            string sql8 = "UPDATE cusindex SET Name='"+FormatFunctions.CleanDateNew(nameLabel.Text)+"' WHERE IDKey='"+customer+"'";
+            batch.Add(sql8);
             DatabaseFunctions.SendBatchToPHP(batch);
             Install_Page page = new Install_Page(customer, stage);
             ClientData.mainFrame.Navigate(page);

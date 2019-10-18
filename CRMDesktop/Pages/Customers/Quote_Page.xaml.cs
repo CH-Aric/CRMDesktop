@@ -55,7 +55,7 @@ namespace CRMDesktop.Pages.Customers
             entryDict = new List<DataPair>();
             if (dictionary.Count > 0)
             {
-                nameLabel.Text = dictionary["Name"][0];
+                nameLabel.Text = FormatFunctions.PrettyDate(dictionary["Name"][0]);
                 for (int i = 0; i < dictionary["Index"].Count; i++)
                 {
                     if (dictionary["Index"][i].Contains("hone"))

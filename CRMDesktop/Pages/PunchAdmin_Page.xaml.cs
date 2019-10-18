@@ -26,9 +26,7 @@ namespace CRMDesktop.Pages
         {
             InitializeComponent();
             populate();
-
         }
-
         public void onClick(object sender,RoutedEventArgs e)
         {
             DateTime d = (DateTime)DayPicker.SelectedDate;
@@ -45,7 +43,6 @@ namespace CRMDesktop.Pages
             string sql2 = "SELECT agents.FName,agents.IDKey FROM agents WHERE Active='1'";
             TaskCallback call3 = populateSalesCombo;
             DatabaseFunctions.SendToPhp(false, sql2, call3);
-            
         }
         public void populateLiveFeed(string result)
         {

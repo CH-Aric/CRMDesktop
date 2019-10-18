@@ -32,7 +32,7 @@ namespace CRMDesktop
             {
                 string s1 = Date.Replace(",", "^");
                 string s2 = s1.Replace(":", "<");
-                string s3 = s2.Replace(",",">");
+                string s3 = s2.Replace("'",">");
                 return s3;
             }
             return "";
@@ -41,8 +41,8 @@ namespace CRMDesktop
         {
             string s1 = Date.Replace("^", ",");
             string s2 = s1.Replace("<", ":");
-            string s3 = s2.Replace(">",",");
-            return s2;
+            string s3 = s2.Replace(">","'");
+            return s3;
         }
         public static string[] CleanDate(string datein)
         {
@@ -181,14 +181,18 @@ namespace CRMDesktop
         public static string getRelevantDates(DateTime d)
         {
             string day = d.ToString("yyyy/M/d");
+            string dayalt = d.ToString("yyyy-M-d");
             string[] x = day.Split(' ');
-            string r = "TimeStamp LIKE '%" + x[0] + "%'";
+            string[] y = dayalt.Split(' ');
+            string r = "TimeStamp LIKE '%" + x[0] + " %' OR TimeStamp LIKE '%" + y[0] + " %'";
             for (int i = 0; i < 6; i++)
             {
                 d=d.AddDays(1);
                 day = d.ToString("yyyy/M/d");
+                dayalt = d.ToString("yyyy-M-d");
                 x = day.Split(' ');
-                r += " OR TimeStamp LIKE '%" + x[0] + "%'";
+                y = dayalt.Split(' ');
+                r += " OR TimeStamp LIKE '%" + x[0] + " %' OR TimeStamp LIKE '%" + y[0] + " %'";
             }
             return r;
         }
@@ -232,7 +236,6 @@ namespace CRMDesktop
                     String.Format("about {0} years ago", timeSpan.Days / 365) :
                     "about a year ago";
             }
-
             return result;
         }
     }
