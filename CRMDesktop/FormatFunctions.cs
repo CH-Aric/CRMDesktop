@@ -44,6 +44,10 @@ namespace CRMDesktop
             string s3 = s2.Replace(">","'");
             return s3;
         }
+        public static string JustDay(string datein)
+        {
+            return CleanDate(datein)[0];
+        }
         public static string[] CleanDate(string datein)
         {
             return datein.Split(' ')[0].Split('-');

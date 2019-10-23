@@ -58,9 +58,10 @@ namespace CRMDesktop.Pages
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
             Agent.ItemsSource = dictionary["FName"];
             agents = dictionary["IDKey"];
-
+            Agent2.ItemsSource = dictionary["FName"];
+            Agent3.ItemsSource = dictionary["FName"];
             //Use agents list to populate other pages!
-            foreach(string s in agents)
+            foreach (string s in agents)
             {
                 string sql3 = "SELECT agents.FName,punchclock.State,punchclock.Coordinates,punchclock.TimeStamp,punchclock.Note FROM agents INNER JOIN punchclock ON agents.IDKey = punchclock.AgentID WHERE punchclock.AgentID='"+s+"' ORDER BY punchclock.IDKey DESC";
                 TaskCallback call2 = populateLiveFeed;
@@ -134,6 +135,131 @@ namespace CRMDesktop.Pages
                 return "Punched Out";
             }
             return "";
+        }
+        //Start of Pending Tab Code
+        public void onClickPend(object sender, RoutedEventArgs e)
+        {
+            TaskCallback call = populatePend;
+            DateTime d = (DateTime)DayPicker2.SelectedDate;
+            string sql = "SELECT * FROM punchclock WHERE AgentID='" + agents[Agent2.SelectedIndex] + "' AND (" + FormatFunctions.getRelevantDates(d) + ")";
+            if ((bool)Pending.IsChecked)
+            {
+                sql += " AND Approved != '1'";
+            }
+            DatabaseFunctions.SendToPhp(false,sql,call);
+        }
+        public void populatePend(string result)
+        {
+            GridFiller.PurgeHeader(DetailBody);
+            Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
+            if (dictionary.Count > 0)
+            {
+                for(int i = 0; i < dictionary["IDKey"].Count; i++)
+                {
+                    DataButton b = new DataButton();
+                    b.Content = "Approve";
+                    b.Integer = int.Parse(dictionary["IDKey"][i]);
+                    b.Integer2 = int.Parse(dictionary["Approved"][i]);
+                    if (dictionary["Approved"][i] == "1")
+                    {
+                        b.Background = new SolidColorBrush(ClientData.rotatingConfirmationColors[0]);
+                        b.Content = "Disapprove";
+                    }
+                    else
+                    {
+                        b.Background = new SolidColorBrush(ClientData.rotatingNegativeColors[0]);
+                    }
+                    b.Click += onClickApprove;
+                    DataButton b2 = new DataButton();
+                    b2.Content = "Add Note";
+                    b2.Integer = int.Parse(dictionary["IDKey"][i]);
+                    b2.Click += onClickANote;
+                    Label T = new Label();
+                    T.Content = FormatFunctions.PrettyDate(dictionary["TimeStamp"][i]);
+                    Label L = new Label();
+                    L.Content = FormatFunctions.PrettyDate(dictionary["Coordinates"][i]);
+                    Label I = new Label();
+                    I.Content = convertState(dictionary["State"][i]);
+                    Label N = new Label();
+                    N.Content = FormatFunctions.PrettyDate(dictionary["Note"][i]);
+                    List<UIElement> list = new List<UIElement>() { b,b2,T,L,I,N};
+                    GridFiller.rapidFillPremadeObjects(list, DetailBody, new bool[] { false, false, true, true, true, true });
+                }
+            }
+        }
+        public void onClickApprove(object sender, RoutedEventArgs e)
+        {
+            DataButton b = (DataButton)sender;
+            b.Background= ClientData.getGridColorCC(true);
+            string sql;
+            if (b.GetInt2()== 1)
+            {
+                b.Background = new SolidColorBrush(ClientData.rotatingConfirmationColors[0]);
+                b.Content = "Approve";
+                b.Integer2 = 0;
+                sql = "UPDATE punchclock SET Approved='0' WHERE IDKey='"+b.GetInt()+"'";
+            }
+            else
+            {
+                b.Content = "Disapprove";
+                b.Background = new SolidColorBrush(ClientData.rotatingNegativeColors[0]);
+                b.Integer2 = 1;
+                sql = "UPDATE punchclock SET Approved='1' WHERE IDKey='" + b.GetInt() + "'";
+            }
+            DatabaseFunctions.SendToPhp(sql);
+        }
+        public void onClickANote(object sender, RoutedEventArgs e)
+        {
+            DataButton b = (DataButton)sender;
+            string sql = "UPDATE punchclock SET AdminNote='"+AdminNote.Text+"' WHERE IDKey='"+b.GetInt()+"'";
+            DatabaseFunctions.SendToPhp(sql);
+            b.Background = new SolidColorBrush(Color.FromRgb(213, 213, 213));
+        }
+        //Start of Tardiness tab code
+        public void onClickTardy(object sender, RoutedEventArgs e)
+        {
+            populateTardiGridBypass();
+        }
+        public void populateTardiGridBypass()
+        {
+            TaskCallback call = populateTardiGrid;
+            string sql = "SELECT * FROM agentrecords WHERE AgentID='" + agents[Agent3.SelectedIndex] + "'";
+            DatabaseFunctions.SendToPhp(false, sql, call);
+        }
+        public void populateTardiGrid(string result)
+        {
+            GridFiller.PurgeHeader(TardiGrid);
+            Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
+            int sick = 0;
+            int tardy = 0;
+            if (dictionary["IDKey"].Count > 0)
+            {
+                for(int i = 0; i < dictionary["IDKey"].Count; i++)
+                {
+                    GridFiller.rapidFill(new string[] { dictionary["RecordType"][i], dictionary["Date"][i], dictionary["Note"][i] }, TardiGrid);
+                    if (dictionary["RecordType"][i] == "Sick")
+                    {
+                        sick++;
+                    }else if (dictionary["RecordType"][i] == "Tardy")
+                    {
+                        tardy++;
+                    }
+                }
+            }
+            Sick.Content = "Sick Days: " + sick;
+            Late.Content = "Late Days: " + tardy;
+        }
+        public void onClickSick(object sender, RoutedEventArgs e)
+        {
+            string sql = "INSERT INTO agentrecords (AgentID,Note,Date,RecordType) VALUES ('"+agents[Agent3.SelectedIndex]+"','"+AdminNote.Text+"','"+ DayPicker3.SelectedDate.Value.ToString("yyyy/M/d") + "','Sick')";
+            DatabaseFunctions.SendToPhp(sql);
+            populateTardiGridBypass();
+        }
+        public void onClickLate(object sender, RoutedEventArgs e)
+        {
+            string sql = "INSERT INTO agentrecords (AgentID,Note,Date,RecordType) VALUES ('" + agents[Agent3.SelectedIndex] + "','" + AdminNote.Text + "','" + DayPicker3.SelectedDate.Value.ToString("yyyy/M/d") + "','Tardy')";
+            DatabaseFunctions.SendToPhp(sql);
+            populateTardiGridBypass();
         }
     }
 }

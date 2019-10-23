@@ -13,42 +13,47 @@
             <StackPanel>
                 <Grid Background="Black" x:Name="quoteStack">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="10*"/>
-                        <ColumnDefinition Width="10*"/>
-                        <ColumnDefinition Width="10*"/>
-                        <ColumnDefinition Width="10*"/>
-                        <ColumnDefinition Width="10*"/>
-                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="132*"/>
+                        <ColumnDefinition Width="96*"/>
+                        <ColumnDefinition Width="36*"/>
+                        <ColumnDefinition Width="132*"/>
+                        <ColumnDefinition Width="131*"/>
+                        <ColumnDefinition Width="132*"/>
+                        <ColumnDefinition Width="131*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="25"/>
                         <RowDefinition Height="25"/>
                     </Grid.RowDefinitions>
                     <!-- Row one-->
-                    <Rectangle Fill="White" Grid.ColumnSpan="2" Margin="2"/>
-                    <Rectangle Fill="White"  Margin="2" Grid.Column="2"/>
+                    <Rectangle Fill="White" Grid.ColumnSpan="3" Margin="2"/>
                     <Rectangle Fill="White"  Margin="2" Grid.Column="3"/>
-                    <Rectangle Fill="White" Grid.Column="4" Margin="2"/>
+                    <Rectangle Fill="White"  Margin="2" Grid.Column="4"/>
                     <Rectangle Fill="White" Grid.Column="5" Margin="2"/>
+                    <Rectangle Fill="White" Grid.Column="6" Margin="2"/>
                     <Label Content="Agent To View:" HorizontalAlignment="Right"/>
-                    <ComboBox x:Name="Agent" Grid.Column="1"/>
-                    <Label Content="View Location Punches:" Grid.Column="2"/>
-                    <CheckBox Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" x:Name="LocCheck"/>
-                    <Label Content="Week Beginning:" Grid.Column="3"/>
-                    <DatePicker Grid.Column="4" x:Name="DayPicker"/>
-                    <crmdesktop:StyledButton Grid.Column="5" Content="View" Click="onClick"/>
+                    <ComboBox x:Name="Agent" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <Label Content="Week Beginning:" Grid.Column="4"/>
+                    <DatePicker Grid.Column="5" x:Name="DayPicker"/>
+                    <crmdesktop:StyledButton Grid.Column="6" Content="View" Click="onClick"/>
 
                     <!-- Row two-->
                     <Rectangle Fill="White" Margin="2" Grid.Column="0" Grid.Row="1"/>
-                    <Rectangle Fill="White" Margin="2" Grid.Column="1" Grid.Row="1"/>
-                    <Rectangle Fill="White" Margin="2" Grid.Column="2" Grid.Row="1"/>
+                    <Rectangle Fill="White" Margin="2" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"/>
                     <Rectangle Fill="White" Margin="2" Grid.Column="3" Grid.Row="1"/>
                     <Rectangle Fill="White" Margin="2" Grid.Column="4" Grid.Row="1"/>
                     <Rectangle Fill="White" Margin="2" Grid.Column="5" Grid.Row="1"/>
+                    <Rectangle Fill="White" Margin="2" Grid.Column="6" Grid.Row="1"/>
 
                     <Label Content="Total Hours:" x:Name="HourDisplay" Grid.Row="1"/>
-                    <Label Content="Viewing:" x:Name="AgentDisplay" Grid.Row="1" Grid.Column="1"/>
-                    <Label Content="Week of:" x:Name="WeekDisplay" Grid.Row="1" Grid.Column="2"/>
+                    <Label Content="Viewing:" x:Name="AgentDisplay" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <Label Content="Week of:" x:Name="WeekDisplay" Grid.Row="1" Grid.Column="3"/>
+                    <Label Content="Tardy/Sick:" Grid.Column="4" Grid.Row="1"/>
+                    <CheckBox Grid.Column="4" Grid.Row="1"  HorizontalAlignment="Right" VerticalAlignment="Center" x:Name="tarCheck" Margin="6,0"/>
+                    <Label Content="Location Punches:" Grid.Column="5" Grid.Row="1"/>
+                    <CheckBox Grid.Column="5" Grid.Row="1"  HorizontalAlignment="Right" VerticalAlignment="Center" x:Name="LocCheck" Margin="6,0"/>
+                    <Label Content="Approved Only:" Grid.Row="1" Grid.Column="6"/>
+                    <CheckBox x:Name="AppCheck" Margin="6,0" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="6"/>
                 </Grid>
                 <ScrollViewer Height="400">
                     <Grid x:Name="BodyGrid" Background="Black">
@@ -115,7 +120,7 @@
                 </ScrollViewer>
             </StackPanel>
         </TabItem>
-        <TabItem Header="Agent Details">
+        <TabItem Header="Punch Approval">
             <StackPanel>
                 <Grid Background="Black">
                     <Grid.ColumnDefinitions>
@@ -128,6 +133,7 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
                     </Grid.RowDefinitions>
                     <!-- Row one-->
                     <Rectangle Fill="White" Grid.ColumnSpan="2" Margin="2"/>
@@ -137,23 +143,105 @@
                     <Rectangle Fill="White" Grid.Column="5" Margin="2"/>
                     <Label Content="Agent To View:" HorizontalAlignment="Right"/>
                     <ComboBox x:Name="Agent2" Grid.Column="1"/>
+                    <Label Content="Pending Only?" Grid.Column="2"/>
+                    <CheckBox Grid.Column="2" x:Name="Pending" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="4"/>
                     <DatePicker Grid.Column="4" x:Name="DayPicker2"/>
-                    <crmdesktop:StyledButton Grid.Column="5" Content="View" Click="onClick"/>
+                    <Label Content="Week Of" Grid.Column="3" HorizontalAlignment="Right"/>
+                    <crmdesktop:StyledButton Grid.Column="5" Content="View" Click="onClickPend"/>
+
+                    <!-- Row two-->
+                    <Rectangle Fill="White" Grid.Row="1" Margin="1"/>
+                    <Rectangle Fill="White" Grid.Row="1" Margin="1" Grid.Column="1" Grid.ColumnSpan="5"/>
+                    <Label Content="Admin Note:" Grid.Row="1" HorizontalAlignment="Right"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5" Margin="2" x:Name="AdminNote"/>
                 </Grid>
                 <ScrollViewer x:Name="scroll3">
                     <Grid Background="Black" x:Name="DetailBody">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="7*"/>
+                            <ColumnDefinition Width="5*"/>
                             <ColumnDefinition Width="5*"/>
                             <ColumnDefinition Width="7*"/>
                             <ColumnDefinition Width="7*"/>
-                            <ColumnDefinition Width="7*"/>
+                            <ColumnDefinition Width="5*"/>
                             <ColumnDefinition Width="14*"/>
                         </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                        </Grid.RowDefinitions>
+
+                        <Rectangle Fill="White" Margin="2"/>
+                        <Rectangle Fill="White" Margin="2" Grid.Column="1"/>
+                        <Rectangle Fill="White" Margin="2" Grid.Column="2"/>
+                        <Rectangle Fill="White" Margin="2" Grid.Column="3"/>
+                        <Rectangle Fill="White" Margin="2" Grid.Column="4"/>
+                        <Rectangle Fill="White" Margin="2" Grid.Column="5"/>
+                        <Label Content="Approve" Grid.Column="0"/>
+                        <Label Content="Admin Note" Grid.Column="1"/>
+                        <Label Content="Time" Grid.Column="2"/>
+                        <Label Content="Location" Grid.Column="3"/>
+                        <Label Content="In/Out" Grid.Column="4"/>
+                        <Label Content="Note" Grid.Column="5"/>
+                    </Grid>
+                </ScrollViewer>
+            </StackPanel>
+        </TabItem>
+        <TabItem Header="Tardiness">
+            <StackPanel Orientation="Vertical">
+                <Grid Background="Black">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="38*"/>
+                        <ColumnDefinition Width="94*"/>
+                        <ColumnDefinition Width="132*"/>
+                        <ColumnDefinition Width="131*"/>
+                        <ColumnDefinition Width="132*"/>
+                        <ColumnDefinition Width="131*"/>
+                        <ColumnDefinition Width="66*"/>
+                        <ColumnDefinition Width="66*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                    </Grid.RowDefinitions>
+
+                    <Rectangle Fill="White" Margin="2" Grid.ColumnSpan="2"/>
+                    <Rectangle Fill="White" Margin="2" Grid.Column="2"/>
+                    <Rectangle Fill="White" Margin="2" Grid.Column="3"/>
+                    <Rectangle Fill="White" Margin="2" Grid.Column="4"/>
+                    <Rectangle Fill="White" Margin="2" Grid.Column="5"/>
+                    <Rectangle Fill="White" Margin="2" Grid.Column="6"/>
+                    <Rectangle Fill="White" Margin="2" Grid.Column="7"/>
+                    <Rectangle Fill="White" Margin="2" Grid.ColumnSpan="6" Grid.Column="2" Grid.Row="1"/>
+                    <Rectangle Fill="White" Margin="2" Grid.Row="1" Grid.ColumnSpan="2"/>
+                    <ComboBox x:Name="Agent3" Grid.ColumnSpan="2"/>
+                    <crmdesktop:StyledButton Click="onClickTardy" Grid.Column="2" Content="View"/>
+                    <Label Grid.Column="3" Content="Sick Days:" x:Name="Sick"/>
+                    <Label Grid.Column="4" Content="Late Days:" x:Name="Late"/>
+                    <DatePicker Grid.Column="5" x:Name="DayPicker3"/>
+                    <crmdesktop:StyledButton Grid.Column="6" Content="New Sick" Click="onClickSick"/>
+                    <crmdesktop:StyledButton Grid.Column="7" Content="New Late" Click="onClickLate"/>
+                    <Label Grid.Column="1" Grid.Row="1" Content="Admin Note:" HorizontalAlignment="Right"/>
+                    <TextBox Grid.Row="1" Grid.ColumnSpan="6" x:Name="SickNote" Grid.Column="2"/>
+                </Grid>
+                <ScrollViewer>
+                    <Grid x:Name="TardiGrid" Background="Black">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="12*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                        </Grid.RowDefinitions>
+                        <Rectangle Fill="White" Margin="2"/>
+                        <Rectangle Fill="White" Margin="2" Grid.Column="1"/>
+                        <Rectangle Fill="White" Margin="2" Grid.Column="2"/>
+                        <Label Content="State"/>
+                        <Label Content="Date" Grid.Column="1"/>
+                        <Label Content="Note" Grid.Column="2"/>
                     </Grid>
                 </ScrollViewer>
             </StackPanel>
         </TabItem>
     </TabControl>
-   
+
 </Page>
