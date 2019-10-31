@@ -1,17 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CRMDesktop.Pages
 {
@@ -30,13 +21,43 @@ namespace CRMDesktop.Pages
         public void onClick(object sender,RoutedEventArgs e)
         {
             DateTime d = (DateTime)DayPicker.SelectedDate;
-            string sql = "SELECT * FROM punchclock WHERE AgentID='"+agents[Agent.SelectedIndex]+"' AND ("+ FormatFunctions.getRelevantDates(d)+ ")";
+            string sql = "SELECT * FROM punchclock WHERE AgentID='"+agents[Agent.SelectedIndex]+"' AND ("+ FormatFunctions.getRelevantDates(d,"TimeStamp")+ ")";
+            if ((bool)AppCheck.IsChecked)
+            {
+                sql += " AND Approved='1'";
+            }
             if ((bool)!LocCheck.IsChecked)
             {
                 sql += " AND (State='True' OR State='False')";
             }
+            sql += " ORDER BY IDKey ASC";
             TaskCallback call = populateStamps;
             DatabaseFunctions.SendToPhp(false, sql, call);
+
+            if ((bool)tarCheck.IsChecked)
+            {
+                string sql4 = "SELECT * FROM agentrecords WHERE AgentID='" + agents[Agent.SelectedIndex] + "' AND (" + FormatFunctions.getRelevantDates(d, "Date") + ")  ORDER BY IDKey DESC";
+                TaskCallback call3 = populateTardiness;
+                DatabaseFunctions.SendToPhp(false, sql4, call3);
+            }
+        }
+        public void populateTardiness(string result)
+        {
+            Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
+            List<string> clockin = new List<string>();
+            List<string> clockout = new List<string>();
+            if (dictionary.Count > 0)
+            {
+                for (int i = 0; i < dictionary["IDKey"].Count; i++)
+                {
+                    string[] y = new string[4];
+                    y[0] = FormatFunctions.PrettyDate(dictionary["Date"][i]);
+                    y[1] = "";
+                    y[2] = FormatFunctions.PrettyDate(dictionary["Note"][i]);
+                    y[3] = FormatFunctions.PrettyDate(dictionary["RecordType"][i]);
+                    GridFiller.rapidFill(y, BodyGrid);
+                }
+            }
         }
         public void populate()
         {
@@ -141,11 +162,12 @@ namespace CRMDesktop.Pages
         {
             TaskCallback call = populatePend;
             DateTime d = (DateTime)DayPicker2.SelectedDate;
-            string sql = "SELECT * FROM punchclock WHERE AgentID='" + agents[Agent2.SelectedIndex] + "' AND (" + FormatFunctions.getRelevantDates(d) + ")";
+            string sql = "SELECT * FROM punchclock WHERE AgentID='" + agents[Agent2.SelectedIndex] + "' AND (" + FormatFunctions.getRelevantDates(d,"TimeStamp") + ")";
             if ((bool)Pending.IsChecked)
             {
                 sql += " AND Approved != '1'";
             }
+            sql += " ORDER BY IDKey DESC";
             DatabaseFunctions.SendToPhp(false,sql,call);
         }
         public void populatePend(string result)
@@ -251,13 +273,13 @@ namespace CRMDesktop.Pages
         }
         public void onClickSick(object sender, RoutedEventArgs e)
         {
-            string sql = "INSERT INTO agentrecords (AgentID,Note,Date,RecordType) VALUES ('"+agents[Agent3.SelectedIndex]+"','"+AdminNote.Text+"','"+ DayPicker3.SelectedDate.Value.ToString("yyyy/M/d") + "','Sick')";
+            string sql = "INSERT INTO agentrecords (AgentID,Note,Date,RecordType) VALUES ('"+agents[Agent3.SelectedIndex]+"','"+ SickNote.Text+"','"+ DayPicker3.SelectedDate.Value.ToString("yyyy/M/d") + "','Sick')";
             DatabaseFunctions.SendToPhp(sql);
             populateTardiGridBypass();
         }
         public void onClickLate(object sender, RoutedEventArgs e)
         {
-            string sql = "INSERT INTO agentrecords (AgentID,Note,Date,RecordType) VALUES ('" + agents[Agent3.SelectedIndex] + "','" + AdminNote.Text + "','" + DayPicker3.SelectedDate.Value.ToString("yyyy/M/d") + "','Tardy')";
+            string sql = "INSERT INTO agentrecords (AgentID,Note,Date,RecordType) VALUES ('" + agents[Agent3.SelectedIndex] + "','" + SickNote.Text + "','" + DayPicker3.SelectedDate.Value.ToString("yyyy/M/d") + "','Tardy')";
             DatabaseFunctions.SendToPhp(sql);
             populateTardiGridBypass();
         }

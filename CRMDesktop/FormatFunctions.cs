@@ -182,13 +182,13 @@ namespace CRMDesktop
             }
             return returnList;
         }
-        public static string getRelevantDates(DateTime d)
+        public static string getRelevantDates(DateTime d,string fieldname)
         {
             string day = d.ToString("yyyy/M/d");
             string dayalt = d.ToString("yyyy-M-d");
             string[] x = day.Split(' ');
             string[] y = dayalt.Split(' ');
-            string r = "TimeStamp LIKE '%" + x[0] + " %' OR TimeStamp LIKE '%" + y[0] + " %'";
+            string r = fieldname + " LIKE '%" + x[0] + " %' OR "+fieldname+" LIKE '%" + y[0] + " %'";
             for (int i = 0; i < 6; i++)
             {
                 d=d.AddDays(1);
@@ -196,7 +196,7 @@ namespace CRMDesktop
                 dayalt = d.ToString("yyyy-M-d");
                 x = day.Split(' ');
                 y = dayalt.Split(' ');
-                r += " OR TimeStamp LIKE '%" + x[0] + " %' OR TimeStamp LIKE '%" + y[0] + " %'";
+                r += " OR " + fieldname + " LIKE '%" + x[0] + " %' OR " + fieldname + " LIKE '%" + y[0] + " %'";
             }
             return r;
         }

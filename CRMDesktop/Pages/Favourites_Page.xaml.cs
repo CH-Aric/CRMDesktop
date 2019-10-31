@@ -8,8 +8,6 @@ namespace CRMDesktop.Pages
     {
         private List<DataSwitch> Favorites;
         private List<DataSwitch> Group;
-        private ComboBox GroupSelector;
-        private TextBox GroupEntry;
         private IDictionary<string, List<string>> pickerIndex;
         public Favourites_Page()
         {
@@ -18,7 +16,6 @@ namespace CRMDesktop.Pages
             this.Group = new List<DataSwitch>();
             this.getAgents();
             this.getFavorites();
-            this.renderLowerUI();
             this.getGroups();
             scroll.Height = ClientData.mainFrame.Height-TopBar.Height;
         }
@@ -78,51 +75,8 @@ namespace CRMDesktop.Pages
         {
             string[] input = FormatFunctions.SplitToPairs(result);
             this.pickerIndex = FormatFunctions.createValuePairs(input);
-            this.GroupSelector.ItemsSource = this.pickerIndex["GroupName"];
-            this.GroupSelector.SelectedItem = 1;
-        }
-        public void renderLowerUI()
-        {
-            this.GroupSelector = new ComboBox
-            {
-                ToolTip = "Group To Modify"
-            };
-            Button button = new Button
-            {
-                Content = "Add"
-            };
-            button.Click += this.onClickAddToGroup;
-            Button button2 = new Button
-            {
-                Content = "Remove"
-            };
-            button2.Click += this.onClickRemoveFromGroup;
-            Button button3 = new Button
-            {
-                Content = "Create"
-            };
-            button3.Click += this.onClickCreateGroup;
-            Button button4 = new Button
-            {
-                Content = "Leave"
-            };
-            button4.Click += this.onClickDeleteGroup;
-            Button button5 = new Button
-            {
-                Content = "Save Changes To Favorites"
-            };
-            button5.Click += this.onClickSaveFavorite;
-            this.GroupEntry = new TextBox
-            {
-                ToolTip = "Group Name",
-            };
-            TopBar.Children.Add(this.GroupSelector);
-            TopBar.Children.Add(button);
-            TopBar.Children.Add(button2);
-            TopBar.Children.Add(this.GroupEntry);
-            TopBar.Children.Add(button3);
-            TopBar.Children.Add(button4);
-            TopBar.Children.Add(button5);
+            GroupSelector.ItemsSource = this.pickerIndex["GroupName"];
+            GroupSelector.SelectedItem = 1;
         }
         public void onClickAddToGroup(object sender, RoutedEventArgs e)
         {
@@ -189,7 +143,7 @@ namespace CRMDesktop.Pages
                 "INSERT INTO groupmembers (MemberID,Admin,GroupName,GroupID) VALUES ('",
                 ClientData.AgentIDK,
                 "','1','",
-                this.GroupEntry.Text,
+                GroupEntry.Text,
                 "','",
                 num,
                 "');"

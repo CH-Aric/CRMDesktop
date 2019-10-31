@@ -149,7 +149,7 @@ namespace CRMDesktop.Pages.Customers
                 }
                 else if (!dataPair.Index.Text.Equals(dataPair.Index.GetInit()) || !dataPair.Value.Text.Equals(dataPair.Value.GetInit()))
                 {
-                    DatabaseFunctions.SendToPhp(string.Concat(new object[] { "UPDATE cusfields SET Value = '", FormatFunctions.CleanDateNew(dataPair.Value.Text), "',Index='", FormatFunctions.CleanDateNew(dataPair.Index.Text), "' WHERE (IDKey= '", dataPair.Index.GetInt(), "');" }));
+                    DatabaseFunctions.SendToPhp(string.Concat(new object[] { "UPDATE cusfields SET Value = '", FormatFunctions.CleanDateNew(dataPair.Value.Text), "', Cusfields.Index='", FormatFunctions.CleanDateNew(dataPair.Index.Text), "' WHERE (IDKey= '", dataPair.Index.GetInt(), "');" }));
                 }
             }
             string sql = "DELETE FROM cusfields WHERE CusID='" + customer + "' AND cusfields.Index='INVOICEFIELD'";
