@@ -83,3 +83,5 @@ D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\CRMDesktop.application
 D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\CRMDesktop.csproj.CopyComplete
 D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\CRMDesktop.exe
 D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\CRMDesktop.pdb
+D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\ActivityLog.g.cs
+D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\ActivityLog.baml

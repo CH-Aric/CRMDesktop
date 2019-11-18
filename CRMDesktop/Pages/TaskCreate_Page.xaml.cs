@@ -23,6 +23,7 @@ namespace CRMDesktop.Pages
         private List<DataEntry> Names;
         private List<DataEntry> Values;
         private Dictionary<string, List<string>> templates;
+        int highestTID=0;
         public TaskCreate_Page()
         {
             InitializeComponent();
@@ -44,19 +45,20 @@ namespace CRMDesktop.Pages
             {
                 this.templatePicker.ItemsSource = this.templates["Name"];
             }
+            highestTID=int.Parse(templates["IDKey"][templates["IDKey"].Count-1]);
         }
         public void populateFields(string result)
         {
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
-            for (int i = 0; i < dictionary["Name"].Count; i++)
+            for (int i = 0; i < dictionary["IDKey"].Count; i++)
             {
                 DataEntry item = new DataEntry(int.Parse(dictionary["IDKey"][i]), dictionary["Value"][i])
                 {
-                    Text = dictionary["Value"][i]
+                    Text = FormatFunctions.PrettyDate(dictionary["Value"][i])
                 };
                 DataEntry item2 = new DataEntry(int.Parse(dictionary["IDKey"][i]), dictionary["Index"][i])
                 {
-                    Text = dictionary["Name"][i]
+                    Text = FormatFunctions.PrettyDate(dictionary["Index"][i])
                 };
                 List<UIElement> list = new List<UIElement>() { item, item2 };
                 int[] j = new int[] { 3, 3 };
@@ -67,42 +69,26 @@ namespace CRMDesktop.Pages
         }
         public void onClickedSaveTemplate(object sender, RoutedEventArgs e)
         {
-            DatabaseFunctions.SendToPhp(string.Concat(new string[]
-            {
-                "INSERT INTO tasktemplates (Name,Description) VALUES ('",
-                templateName.Text,
-                "','",
-                descField.Text,
-                "');"
-            }));
+            DatabaseFunctions.SendToPhp("INSERT INTO tasktemplates (Name,Description,IDKey) VALUES ('"+templateName.Text+"','"+descField.Text+"','"+highestTID+1+"');");
             string statement = "SELECT IDKey FROM tasktemplates ORDER BY IDKey DESC LIMIT 1;";
-            TaskCallback call = new TaskCallback(this.saveTemplateFields);
+            TaskCallback call = saveTemplateFields;
             DatabaseFunctions.SendToPhp(false, statement, call);
         }
         public void saveTemplateFields(string result)
         {
             string text = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result))["IDKey"][0];
             string text2 = "INSERT INTO taskfields (taskfields.Index,taskfields.Value,TemplateID) VALUES ";
+            int ID = highestTID + 1;
             for (int i = 0; i < this.Names.Count; i++)
             {
                 if (!string.IsNullOrEmpty(this.Names[i].Text))
                 {
-                    string stripped1 = FormatFunctions.stripper(Names[i].Text);
-                    string stripped2 = FormatFunctions.stripper(Values[i].Text);
-                    text2 = string.Concat(new string[]
-                    {
-                        text2,
-                        "('",
-                        stripped1,
-                        "', '",
-                        stripped2,
-                        "', '",
-                        text,
-                        "'),"
-                    });
+                    string stripped1 = FormatFunctions.CleanDateNew(Names[i].Text);
+                    string stripped2 = FormatFunctions.CleanDateNew(Values[i].Text);
+                    text2 = text2+ "('"+ stripped1+  "', '"+ stripped2+ "', '"+ ID+ "'),";
                 }
             }
-            text2 = text2 + "('', '', '" + text + "')";
+            text2 = text2 + "('', '', '" + ID + "')";
             DatabaseFunctions.SendToPhp(text2);
             Tasks_Page page = new Tasks_Page();
             ClientData.mainFrame.Navigate(page);
@@ -120,7 +106,7 @@ namespace CRMDesktop.Pages
                 DatabaseFunctions.SendToPhp(string.Concat(new object[]
                 {
                     "INSERT INTO tasks (Name,AgentID) VALUES ('",
-                    taskName.Text,
+                    FormatFunctions.CleanDateNew(taskName.Text),
                     "','",
                     ClientData.AgentIDK,
                     "');"
@@ -136,8 +122,8 @@ namespace CRMDesktop.Pages
             {
                 if (!string.IsNullOrEmpty(this.Names[i].Text))
                 {
-                    string stripped1 = FormatFunctions.stripper(Names[i].Text);
-                    string stripped2 = FormatFunctions.stripper(Values[i].Text);
+                    string stripped1 = FormatFunctions.CleanDateNew(Names[i].Text);
+                    string stripped2 = FormatFunctions.CleanDateNew(Values[i].Text);
                     text2 = string.Concat(new string[]
                     {
                         text2,

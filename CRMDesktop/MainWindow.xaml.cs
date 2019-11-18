@@ -16,7 +16,7 @@ namespace CRMDesktop
         {
             InitializeComponent();
             ServicePointManager.DefaultConnectionLimit = 25;
-            mainFrame.Height = SystemParameters.MaximizedPrimaryScreenHeight-topFrame.Height;
+            mainFrame.Height = SystemParameters.MaximizedPrimaryScreenHeight-topFrame.Height*2;
             sideFrame.Height = mainFrame.Height;
             mainFrame.Width = SystemParameters.PrimaryScreenWidth*0.8;
             sideFrame.Width = SystemParameters.PrimaryScreenWidth * 0.2;

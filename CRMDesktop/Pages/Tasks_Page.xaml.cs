@@ -1,17 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CRMDesktop.Pages
 {
@@ -167,12 +157,14 @@ namespace CRMDesktop.Pages
             gMode = !gMode;
             if (gMode)
             {
-                agentPicker.ToolTip = "Select Group";
+                Toggle.Content = "Select Group:";
                 agentPicker.ItemsSource = groups["GroupName"];
-                return;
             }
-            agentPicker.ToolTip = "Select Agent";
-            agentPicker.ItemsSource = agents["FName"];
+            else
+            {
+                Toggle.Content = "Select Agent:";
+                agentPicker.ItemsSource = agents["FName"];
+            }
         }
     }
 }

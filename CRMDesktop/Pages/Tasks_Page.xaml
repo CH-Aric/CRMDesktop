@@ -9,7 +9,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Tasks_Page">
     <StackPanel>
-        <Grid Background="Black">
+        <Grid Background="Black" x:Name="topGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="40*"/>
@@ -26,7 +26,7 @@
             <Rectangle Fill="White" Margin="1" Grid.Column="3" Grid.Row="0"/>
             <Rectangle Fill="White" Margin="1" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"/>
             <Rectangle Fill="White" Margin="1" Grid.Column="3" Grid.Row="1"/>
-            <ToggleButton Checked="onToggledGroup" Grid.Column="0" Grid.Row="0"/>
+            <local1:StyledButton Click="onToggledGroup" Grid.Column="0" Grid.Row="0" Content="Select Agent:" x:Name="Toggle"/>
             <ComboBox x:Name="agentPicker" ToolTip="Agent" Grid.Column="1" Grid.Row="0"/>
             <local1:StyledButton Click="onClickedAssign" Content="Transfer" Grid.Column="2" Grid.Row="0"/>
             <local1:StyledButton Click="onClickedCreate" Content="Create" Grid.Column="3" Grid.Row="0"/>
