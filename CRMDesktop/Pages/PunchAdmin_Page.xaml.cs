@@ -17,6 +17,10 @@ namespace CRMDesktop.Pages
         {
             InitializeComponent();
             populate();
+            HourScroll.Height = ClientData.mainFrame.Height - quoteStack.Height;
+            scroll.Height = ClientData.mainFrame.Height - LiveGrid.Height;
+            scroll3.Height = ClientData.mainFrame.Height - AppGrid.Height;
+            TardyScroll.Height = ClientData.mainFrame.Height - TardyGrid.Height;
         }
         public void onClick(object sender,RoutedEventArgs e)
         {
