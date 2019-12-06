@@ -118,6 +118,13 @@
     <Compile Include="Pages\Customers\Customer_Base.xaml.cs">
       <DependentUpon>Customer_Base.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Customers\Evolving_Page.xaml.cs">
+      <DependentUpon>Evolving_Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Evolving_Parts.cs" />
+    <Compile Include="Pages\Job_Page.xaml.cs">
+      <DependentUpon>Job_Page.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PunchAdmin_Page.xaml.cs">
       <DependentUpon>PunchAdmin_Page.xaml</DependentUpon>
     </Compile>
@@ -203,6 +210,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Customers\Evolving_Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Customers\Quote_Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -216,6 +227,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Inventory\Items_Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Job_Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
