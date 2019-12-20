@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -200,6 +201,10 @@ namespace CRMDesktop.Pages
                     b2.Content = "Add Note";
                     b2.Integer = int.Parse(dictionary["IDKey"][i]);
                     b2.Click += onClickANote;
+                    DataButton b3 = new DataButton();
+                    b3.Content = "Alter";
+                    b3.Integer = int.Parse(dictionary["IDKey"][i]);
+                    b3.Click += onClickOverrideTime;
                     Label T = new Label();
                     T.Content = FormatFunctions.PrettyDate(dictionary["TimeStamp"][i]);
                     Label L = new Label();
@@ -208,8 +213,8 @@ namespace CRMDesktop.Pages
                     I.Content = convertState(dictionary["State"][i]);
                     Label N = new Label();
                     N.Content = FormatFunctions.PrettyDate(dictionary["Note"][i]);
-                    List<UIElement> list = new List<UIElement>() { b,b2,T,L,I,N};
-                    GridFiller.rapidFillPremadeObjects(list, DetailBody, new bool[] { false, false, true, true, true, true });
+                    List<UIElement> list = new List<UIElement>() { b,b2,b3,T,L,I,N};
+                    GridFiller.rapidFillPremadeObjects(list, DetailBody, new bool[] { false, false,false, true, true, true, true });
                 }
             }
         }
@@ -245,6 +250,13 @@ namespace CRMDesktop.Pages
         public void onClickTardy(object sender, RoutedEventArgs e)
         {
             populateTardiGridBypass();
+        }
+        public void onClickOverrideTime(object sender, RoutedEventArgs e)
+        {
+            DataButton b = (DataButton)sender;
+            string sql = "UPDATE punchclock SET TimeStamp='"+ FormatFunctions.CleanDateNew(Timepick.Text) + "' WHERE IDKey='"+b.GetInt()+"'";
+            DatabaseFunctions.SendToPhp(sql);
+            b.Background = new SolidColorBrush(Color.FromRgb(213, 213, 213));
         }
         public void populateTardiGridBypass()
         {

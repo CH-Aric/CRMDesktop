@@ -125,7 +125,7 @@ namespace CRMDesktop
             int i = 0;
             int r = 0;
             Brush c = ClientData.getGridColor();
-            g.RowDefinitions.Add(new RowDefinition { Height = new GridLength(10, GridUnitType.Star) });
+            g.RowDefinitions.Add(new RowDefinition { Height = new GridLength(25, GridUnitType.Pixel) });
             foreach (UIElement s in Objects)
             {
                 if (boxoff[r])
