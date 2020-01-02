@@ -116,23 +116,23 @@ namespace CRMDesktop.Pages
         public void onClickAddJob(object sender, EventArgs e)
         {
             string sql = "INSERT INTO jobindex (CusID,Stage) VALUES ('"+CusID+"','0')";
-
+            DatabaseFunctions.SendToPhp(sql);
         }
         public void onClickSave(object sender, EventArgs e)
         {
-            string sql =  "UPDATE cusfields SET Value='" + FormatFunctions.CleanDateNew(Address.Text) + "' WHERE Index LIKE '%Address%' AND CusID='" + CusID + "'";
-            string sql2 = "UPDATE cusfields SET Value='" + FormatFunctions.CleanDateNew(Phone.Text) + "' WHERE Index LIKE '%Phone%' AND CusID='" + CusID + "'";
-            string sql3 = "UPDATE cusfields SET Value='" + FormatFunctions.CleanDateNew(Email.Text) + "' WHERE Index LIKE '%Email%' AND CusID='" + CusID + "'";
-            string sql4 = "UPDATE cusfields SET Value='" + FormatFunctions.CleanDateNew(Region.Text) + "' WHERE Index LIKE '%Region%' AND CusID='" + CusID + "'";
-            string sql5 = "UPDATE cusfields SET Value='" + FormatFunctions.CleanDateNew(LastContact.SelectedDate.ToString()) + "' WHERE Index LIKE '%Address%' AND CusID='" + CusID + "'";
+            string sql =  "UPDATE cusfields SET cusfields.Value='" + FormatFunctions.CleanDateNew(Address.Text) + "' WHERE cusfields.Index LIKE '%Address%' AND CusID='" + CusID + "'";
+            string sql2 = "UPDATE cusfields SET cusfields.Value='" + FormatFunctions.CleanPhone(Phone.Text) + "' WHERE cusfields.Index LIKE '%Phone%' AND CusID='" + CusID + "'";
+            string sql3 = "UPDATE cusfields SET cusfields.Value='" + FormatFunctions.CleanDateNew(Email.Text) + "' WHERE cusfields.Index LIKE '%Email%' AND CusID='" + CusID + "'";
+            string sql4 = "UPDATE cusfields SET cusfields.Value='" + FormatFunctions.CleanDateNew(Region.Text) + "' WHERE cusfields.Index LIKE '%Region%' AND CusID='" + CusID + "'";
+            string sql5 = "UPDATE cusfields SET cusfields.Value='" + FormatFunctions.CleanDateNew(LastContact.SelectedDate.ToString()) + "' WHERE cusfields.Index LIKE '%Address%' AND CusID='" + CusID + "'";
             string sql6 = "UPDATE cusindex SET Name='" + NameEntry.Text + "' WHERE IDKey='" + CusID + "'";
-            string sql7 = "UPDATE cusfields SET Value='" + FormatFunctions.CleanDateNew(Source.Text) + "' WHERE Index LIKE '%Source%' AND CusID='" + CusID + "'";
+            string sql7 = "UPDATE cusfields SET cusfields.Value='" + FormatFunctions.CleanDateNew(Source.Text) + "' WHERE cusfields.Index LIKE '%Source%' AND CusID='" + CusID + "'";
             string sql8 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "' WHERE cusfields.Index LIKE '%odified On%' AND CusID= '" + CusID + "'";//'Modified On','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "'
 
             List<string> batch = new List<string>() { sql, sql2, sql3, sql4, sql5, sql6, sql7, sql8};
             DatabaseFunctions.SendBatchToPHP(batch);
 
-            foreach (DataPair dataPair in this.dp)
+            /*foreach (DataPair dataPair in dp)//dp must be initialized
             {
                 if (dataPair.isNew)
                 {
@@ -152,7 +152,7 @@ namespace CRMDesktop.Pages
                 {
                     DatabaseFunctions.SendToPhp(string.Concat(new object[] { "UPDATE cusfields SET Value = '", dataPair.Value.Text, "',Index='", dataPair.Index.Text, "' WHERE (IDKey= '", dataPair.Index.GetInt(), "');" }));
                 }
-            }
+            }*/
         }
         public void onClickAddFields(object sender, EventArgs e)
         {
@@ -220,6 +220,8 @@ namespace CRMDesktop.Pages
                 {
                     DataPair d = new DataPair(int.Parse(dictionary["IDKey"][i]), dictionary["Index"][i], dictionary["Value"][i]);
                     List<UIElement> list = new List<UIElement>() { d.Index, d.Value };
+                    d.Index.Text = dictionary["Index"][i];
+                    d.Value.Text = dictionary["Value"][i];
                     GridFiller.rapidFillPremadeObjects(list, bodyGrid, new bool[] { true, true });
                     dp.Add(d);
                 }
@@ -245,7 +247,7 @@ namespace CRMDesktop.Pages
                 }
                 else if (dataPair.Index.Text != dataPair.Index.GetInit() || dataPair.Value.Text != dataPair.Value.GetInit())
                 {
-                    DatabaseFunctions.SendToPhp(string.Concat(new object[] { "UPDATE jobfields SET Value = '", dataPair.Value.Text, "',Index='", dataPair.Index.Text, "' WHERE (IDKey= '", dataPair.Index.GetInt(), "');" }));
+                    DatabaseFunctions.SendToPhp(string.Concat(new object[] { "UPDATE jobfields SET jobfields.Value = '", dataPair.Value.Text, "',jobfields.Index='", dataPair.Index.Text, "' WHERE (IDKey= '", dataPair.Index.GetInt(), "');" }));
                 }
             }
         }
