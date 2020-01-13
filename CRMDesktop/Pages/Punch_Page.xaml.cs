@@ -98,7 +98,7 @@ namespace CRMDesktop.Pages
         }
         public void getPunches()
         {
-            string sql = "SELECT * FROM punchclock WHERE AgentID='"+ClientData.AgentIDK+ "' ORDER BY IDKey DESC";
+            string sql = "SELECT * FROM punchclock WHERE AgentID='"+ClientData.AgentIDK+ "' ORDER BY IDKey DESC LIMIT 10";
             TaskCallback call = populatePunches;
             DatabaseFunctions.SendToPhp(false, sql, call);
         }
