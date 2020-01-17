@@ -58,10 +58,8 @@ namespace CRMDesktop.Pages.Customers
         public void onClicked(object sender, RoutedEventArgs e)
         {
             SecurityButton dataButton = (SecurityButton)sender;
-            
-                Evolving_Page page = new Evolving_Page(dataButton.Integer);
-                ClientData.mainFrame.Navigate(page);
-            
+            Evolving_Page page = new Evolving_Page(dataButton.Integer);
+            ClientData.mainFrame.Navigate(page);
         }
         public void onClickedSearch(object sender, RoutedEventArgs e)
         {
@@ -73,7 +71,7 @@ namespace CRMDesktop.Pages.Customers
         }
         public void onClickedCreate(object sender, RoutedEventArgs e)
         {
-            string sql = "INSERT INTO cusindex (Stage) VALUES ('" + (NewPicker.SelectedIndex + 1) + "')";
+            string sql = "INSERT INTO cusindex (Stage,Name) VALUES ('" + (NewPicker.SelectedIndex + 1) + "','x')";
             DatabaseFunctions.SendToPhp(sql);
             System.Threading.Thread.Sleep(500);
             string sql2 = "SELECT IDKey,Stage FROM cusindex ORDER BY IDKey Desc LIMIT 1";
@@ -126,9 +124,8 @@ namespace CRMDesktop.Pages.Customers
         public void OpenPage(string result)
         {
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
-
             string sqlj = "INSERT INTO jobindex (Stage,CusID) VALUES ('" + (NewPicker.SelectedIndex + 1) + "','" + dictionary["IDKey"][0] + "')";
-            string sqlf = "INSERT INTO cusfields (CusID,Index,Value) VALUES ('" + dictionary["IDKey"][0] + "','Phone',''),('" + dictionary["IDKey"][0] + "','Address',''),('" + dictionary["IDKey"][0] + "','Email',''),('" + dictionary["IDKey"][0] + "','Created On',''),('" + dictionary["IDKey"][0] + "','Region',''),('" + dictionary["IDKey"][0] + "','Notes',''),('" + dictionary["IDKey"][0] + "','Modified On',''),('" + dictionary["IDKey"][0] + "','Source','')";
+            string sqlf = "INSERT INTO cusfields (CusID,cusfields.Index,cusfields.Value) VALUES ('" + dictionary["IDKey"][0] + "','Phone',''),('" + dictionary["IDKey"][0] + "','Address',''),('" + dictionary["IDKey"][0] + "','Email',''),('" + dictionary["IDKey"][0] + "','Created On',''),('" + dictionary["IDKey"][0] + "','Region','Ottawa'),('" + dictionary["IDKey"][0] + "','Notes',''),('" + dictionary["IDKey"][0] + "','Modified On',''),('" + dictionary["IDKey"][0] + "','Source',''),('" + dictionary["IDKey"][0] + "','Last Contact','2020/03/01 00<00<00')";
             DatabaseFunctions.SendToPhp(sqlj);
             DatabaseFunctions.SendToPhp(sqlf);
             SecurityButton x = new SecurityButton(int.Parse(dictionary["IDKey"][0]), new string[] { "Employee" }) { Integer2 = int.Parse(dictionary["Stage"][0]) };
@@ -138,13 +135,13 @@ namespace CRMDesktop.Pages.Customers
         public void PerformSearch(string result)
         {
             Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
-            TaskCallback call = new TaskCallback(this.populateList);
+            TaskCallback call = populateList;
             if (dictionary.Count > 0)
             {
-                string text = "SELECT cusindex.Name,jobindex.IDKey,cusfields.Value,cusfields.Index,cusindex.Stage FROM cusindex INNER JOIN cusfields ON cusindex.IDKey=cusfields.CusID INNER JOIN jobindex ON cusindex.IDKey=jobindex.CusID WHERE (cusfields.Index LIKE '%Phone%') AND (";
+                string text = "SELECT cusindex.Name,cusindex.IDKey,cusfields.Value,cusfields.Index,cusindex.Stage FROM cusindex INNER JOIN cusfields ON cusindex.IDKey=cusfields.CusID INNER JOIN jobindex ON cusindex.IDKey=jobindex.CusID WHERE (cusfields.Index LIKE '%Phone%') AND (";
                 foreach (string str in dictionary["IDKey"])
                 {
-                    text = text + " jobindex.IDKey='" + str + "' OR";
+                    text = text + " cusindex.IDKey='" + str + "' OR";
                 }
                 text += " cusindex.IDKey='0');";
                 this.PurgeCells();
@@ -158,67 +155,68 @@ namespace CRMDesktop.Pages.Customers
         public string appendPickerResult()
         {
             string sql = "";
-            if ((string)NewPicker.SelectedItem == "All")
+            string s = NewPicker.Text;
+            if (s == "All")
             {
                 sql += "ORDER BY cusindex.IDKey DESC";
             }
-            else if ((string)NewPicker.SelectedItem == "Leads")
+            else if (s == "Lead")
             {
                 sql += " AND jobindex.Stage='1' ORDER BY cusindex.IDKey DESC";
             }
-            else if ((string)NewPicker.SelectedItem == "Booked")
+            else if (s == "Booked")
             {
                 sql += " AND jobindex.Stage='2' ORDER BY cusindex.IDKey DESC";
             }
-            else if ((string)NewPicker.SelectedItem == "Quoted")
+            else if (s == "Quoted")
             {
                 sql += " AND jobindex.Stage='3' ORDER BY cusindex.IDKey DESC";
             }
-            else if ((string)NewPicker.SelectedItem == "Follow Up With")
+            else if (s == "Follow Up With")
             {
                 sql += " AND jobindex.Stage='3' ORDER BY cusindex.IDKey DESC";
             }
-            else if ((string)NewPicker.SelectedItem == "Sold")
+            else if (s == "Sold")
             {
                 sql += " AND jobindex.Stage='4' ORDER BY cusindex.IDKey DESC";
             }
-            else if ((string)NewPicker.SelectedItem == "Installs")
+            else if (s == "Install")
             {
                 sql += " AND jobindex.Stage='5' ORDER BY cusindex.IDKey DESC";
             }
-            else if ((string)NewPicker.SelectedItem == "Installing")
+            else if (s == "Installing")
             {
                 sql += " AND jobindex.Stage='6' ORDER BY cusindex.IDKey DESC";
             }
-            else if ((string)NewPicker.SelectedItem == "QA")
+            else if (s == "QA")
             {
                 sql += " AND jobindex.Stage='7' ORDER BY cusindex.IDKey DESC";
             }
-            else if ((string)NewPicker.SelectedItem == "Clients")
+            else if (s == "Clients")
             {
                 sql += " AND jobindex.Stage='8' ORDER BY cusindex.IDKey DESC";
             }
-            else if ((string)NewPicker.SelectedItem == "Archived")
+            else if (s == "Archived")
             {
                 sql += " AND jobindex.Stage='9' ORDER BY cusindex.IDKey DESC";
             }
-            else if ((string)NewPicker.SelectedItem == "Service Lead")
+            else if (s == "Service Lead")
             {
                 sql += " AND jobindex.Stage='10' ORDER BY cusindex.IDKey DESC";
             }
-            else if ((string)NewPicker.SelectedItem == "Service Appointment")
+            else if (s == "Service Appointment")
             {
                 sql += " AND jobindex.Stage='11' ORDER BY cusindex.IDKey DESC";
             }
-            else if ((string)NewPicker.SelectedItem == "Serviced")
+            else if (s == "Serviced")
             {
                 sql += " AND jobindex.Stage='12' ORDER BY cusindex.IDKey DESC";
             }
-            else if ((string)NewPicker.SelectedItem == "Maintenance Appointment")
+            else if (s == "Maintenance Appointment")
             {
                 sql += " AND jobindex.Stage='14' ORDER BY cusindex.IDKey DESC";
             }
-            else if ((string)NewPicker.SelectedItem == "Maintenance")
+            else if (s == "Maintenance")
             {
                 sql += " AND jobindex.Stage='15' ORDER BY cusindex.IDKey DESC";
             }

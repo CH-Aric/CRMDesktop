@@ -27,7 +27,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>67</ApplicationRevision>
+    <ApplicationRevision>80</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -110,6 +110,7 @@
     <Compile Include="blank.xaml.cs">
       <DependentUpon>blank.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OldDataImport.cs" />
     <Compile Include="Pages\ActivityLog.xaml.cs">
       <DependentUpon>ActivityLog.xaml</DependentUpon>
     </Compile>

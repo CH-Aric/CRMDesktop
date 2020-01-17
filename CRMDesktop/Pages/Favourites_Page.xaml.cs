@@ -82,7 +82,7 @@ namespace CRMDesktop.Pages
         {
             string text = "INSERT INTO groupmembers (GroupName,GroupID,MemberID) VALUES ";
             int num = 0;
-            foreach (DataSwitch dataSwitch in this.Group)
+            foreach (DataSwitch dataSwitch in Group)
             {
                 if (dataSwitch.getState())
                 {

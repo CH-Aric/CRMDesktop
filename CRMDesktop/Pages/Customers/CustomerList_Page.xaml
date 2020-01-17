@@ -21,21 +21,7 @@
                 <RowDefinition Height="25"/>
             </Grid.RowDefinitions>
             <TextBox x:Name="SearchEntry" Grid.Column="0" Grid.Row="0"/>
-            <maincrmv2:StyledButton Click="onClickedSearch" Content="Search" Grid.Column="1" Grid.Row="0"/>
-            <ComboBox ToolTip="Category" x:Name="picker"  Grid.Column="2" Grid.Row="0" SelectedValuePath="Content">
-                
-                <ComboBoxItem>All            </ComboBoxItem>
-                <ComboBoxItem>Leads          </ComboBoxItem>
-                <ComboBoxItem>Booked         </ComboBoxItem>
-                <ComboBoxItem>Quoted         </ComboBoxItem>
-                <ComboBoxItem>Follow Up With </ComboBoxItem>
-                <ComboBoxItem>Sold           </ComboBoxItem>
-                <ComboBoxItem>Installs       </ComboBoxItem>
-                <ComboBoxItem>Installing     </ComboBoxItem>
-                <ComboBoxItem>QA             </ComboBoxItem>
-                <ComboBoxItem>Clients        </ComboBoxItem>
-                <ComboBoxItem>Archived       </ComboBoxItem>
-            </ComboBox>
+            <maincrmv2:StyledButton Click="onClickedSearch" Content="Search" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2"/>
             <ComboBox ToolTip="Starting Stage" x:Name="NewPicker"   Grid.Column="0" Grid.Row="1" SelectedValuePath="Content">
 
                 <ComboBoxItem>Lead</ComboBoxItem>

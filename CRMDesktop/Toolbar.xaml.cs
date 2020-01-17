@@ -95,6 +95,11 @@ namespace CRMDesktop
                 PunchAdmin_Page page = new PunchAdmin_Page();
                 ClientData.mainFrame.Navigate(page);
             }
+            else if (sb.Content.Equals("Import"))
+            {
+                OldDataImport ol = new OldDataImport();
+                ol.import();
+            }
         }
     }//
 
