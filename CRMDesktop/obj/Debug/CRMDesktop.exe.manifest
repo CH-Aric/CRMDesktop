@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CRMDesktop.exe" size="290296">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CRMDesktop.exe" size="291320">
       <assemblyIdentity name="CRMDesktop" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>eKCsIN2qlq/PX5+KTiGj40VaUr+OKEt07sCBNI9mGQY=</dsig:DigestValue>
+        <dsig:DigestValue>w7hhQd2CBTmcQTjxs5mv9xGkO+xDt1WvRG4ZJhFMlQA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

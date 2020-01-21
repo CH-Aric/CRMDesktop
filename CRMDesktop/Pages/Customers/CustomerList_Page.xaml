@@ -33,7 +33,11 @@
                 <ComboBoxItem>Installing</ComboBoxItem>
                 <ComboBoxItem>QA</ComboBoxItem>
                 <ComboBoxItem>Clients</ComboBoxItem>
-                <ComboBoxItem>Archived</ComboBoxItem>
+                <ComboBoxItem>Service Lead</ComboBoxItem>
+                <ComboBoxItem>Service Appointment</ComboBoxItem>
+                <ComboBoxItem>Serviced</ComboBoxItem>
+                <ComboBoxItem>Maintenance Appointment</ComboBoxItem>
+                <ComboBoxItem>Maintenance</ComboBoxItem>
             </ComboBox>
             <maincrmv2:StyledButton Click="onClickedCreate" Content="Create New File" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"/>
         </Grid>

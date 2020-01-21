@@ -92,7 +92,42 @@ namespace CRMDesktop.Pages.Customers
             }
             if (Stage < 9)
             {
-                SecurityButton l = new SecurityButton(9, new string[] { "Employee" }) {  Content = "Archive" };
+                SecurityButton l = new SecurityButton(9, new string[] { "Employee" }) { Content = "Archive" };
+                l.Click += onClicked;
+                Buttons.Add(l);
+                list.Add(l);
+            }
+            if (Stage < 10)
+            {
+                SecurityButton l = new SecurityButton(10, new string[] { "Employee" }) { Content = "Service Lead" };
+                l.Click += onClicked;
+                Buttons.Add(l);
+                list.Add(l);
+            }
+            if (Stage < 11)
+            {
+                SecurityButton l = new SecurityButton(11, new string[] { "Employee" }) { Content = "Service Appointment" };
+                l.Click += onClicked;
+                Buttons.Add(l);
+                list.Add(l);
+            }
+            if (Stage < 12)
+            {
+                SecurityButton l = new SecurityButton(12, new string[] { "Employee" }) { Content = "Serviced" };
+                l.Click += onClicked;
+                Buttons.Add(l);
+                list.Add(l);
+            }
+            if (Stage < 13)
+            {
+                SecurityButton l = new SecurityButton(13, new string[] { "Employee" }) { Content = "Maintenance Appointment" };
+                l.Click += onClicked;
+                Buttons.Add(l);
+                list.Add(l);
+            }
+            if (Stage < 14)
+            {
+                SecurityButton l = new SecurityButton(14, new string[] { "Employee" }) { Content = "Maintenance" };
                 l.Click += onClicked;
                 Buttons.Add(l);
                 list.Add(l);
