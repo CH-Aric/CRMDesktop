@@ -56,7 +56,7 @@
                     <Label Content="Approved Only:" Grid.Row="1" Grid.Column="6"/>
                     <CheckBox x:Name="AppCheck" Margin="6,0" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="6"/>
                 </Grid>
-                <ScrollViewer x:Name="HourScroll">
+                <ScrollViewer x:Name="HourScroll" VerticalScrollBarVisibility="Visible">
                     <Grid x:Name="BodyGrid" Background="Black">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="10*"/>

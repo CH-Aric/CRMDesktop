@@ -137,8 +137,8 @@ namespace CRMDesktop.Pages
             string sql2 = "UPDATE cusfields SET cusfields.Value='" + FormatFunctions.CleanPhone(Phone.Text) + "' WHERE cusfields.Index LIKE '%Phone%' AND CusID='" + CusID + "'";
             string sql3 = "UPDATE cusfields SET cusfields.Value='" + FormatFunctions.CleanDateNew(Email.Text) + "' WHERE cusfields.Index LIKE '%Email%' AND CusID='" + CusID + "'";
             string sql4 = "UPDATE cusfields SET cusfields.Value='" + FormatFunctions.CleanDateNew(Region.Text) + "' WHERE cusfields.Index LIKE '%Region%' AND CusID='" + CusID + "'";
-            string sql5 = "UPDATE cusfields SET cusfields.Value='" + FormatFunctions.CleanDateNew(LastContact.SelectedDate.ToString()) + "' WHERE cusfields.Index LIKE '%ast Contac%' AND CusID='" + CusID + "'";
-            string sql6 = "UPDATE cusindex SET Name='" + NameEntry.Text + "' WHERE IDKey='" + CusID + "'";
+            string sql5 = "UPDATE cusfields SET cusfields.Value='" + FormatFunctions.CleanDateNew(LastContact.Text) + "' WHERE cusfields.Index LIKE '%ast Contac%' AND CusID='" + CusID + "'";
+            string sql6 = "UPDATE cusindex SET Name='" + FormatFunctions.CleanDateNew(NameEntry.Text) + "' WHERE IDKey='" + CusID + "'";
             string sql7 = "UPDATE cusfields SET cusfields.Value='" + FormatFunctions.CleanDateNew(Source.Text) + "' WHERE cusfields.Index LIKE '%Source%' AND CusID='" + CusID + "'";
             string sql8 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "' WHERE cusfields.Index LIKE '%odified On%' AND CusID= '" + CusID + "'";//'Modified On','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "'
             string sql9 = "UPDATE cusfields SET cusfields.Value='" + FormatFunctions.CleanDateNew(Postal.Text) + "' WHERE cusfields.Index LIKE '%Postal%' AND CusID='" + CusID + "'";

@@ -23,7 +23,7 @@
             <TextBox x:Name="SearchEntry" Grid.Column="0" Grid.Row="0"/>
             <maincrmv2:StyledButton Click="onClickedSearch" Content="Search" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2"/>
             <ComboBox ToolTip="Starting Stage" x:Name="NewPicker"   Grid.Column="0" Grid.Row="1" SelectedValuePath="Content">
-
+                <ComboBoxItem>All</ComboBoxItem>
                 <ComboBoxItem>Lead</ComboBoxItem>
                 <ComboBoxItem>Booked</ComboBoxItem>
                 <ComboBoxItem>Quoted</ComboBoxItem>
