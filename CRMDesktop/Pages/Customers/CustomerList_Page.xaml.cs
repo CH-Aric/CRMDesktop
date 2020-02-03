@@ -11,7 +11,6 @@ namespace CRMDesktop.Pages.Customers
     /// </summary>
     public partial class CustomerList_Page : Page
     {
-        int stageSearch = 0;
         public CustomerList_Page()
         {
             this.InitializeComponent();
@@ -20,7 +19,7 @@ namespace CRMDesktop.Pages.Customers
         public void loadFromDatabase()
         {
             TaskCallback call = populateList;
-            string sql = "SELECT cusindex.Name,cusindex.IDKey,cusfields.Value,cusfields.Index,jobindex.Stage FROM cusindex INNER JOIN cusfields ON cusindex.IDKey=cusfields.CusID INNER JOIN jobindex ON cusindex.IDKey=jobindex.CusID WHERE (cusfields.Index LIKE '%Phone%')";
+            string sql = "SELECT cusindex.Name,DISTINCT cusindex.IDKey,cusfields.Value,cusfields.Index,jobindex.Stage FROM cusindex INNER JOIN cusfields ON cusindex.IDKey=cusfields.CusID INNER JOIN jobindex ON cusindex.IDKey=jobindex.CusID WHERE (cusfields.Index LIKE '%Phone%')";
             sql += appendPickerResult();
             DatabaseFunctions.SendToPhp(false, sql, call);
         }
@@ -138,7 +137,7 @@ namespace CRMDesktop.Pages.Customers
             TaskCallback call = populateList;
             if (dictionary.Count > 0)
             {
-                string text = "SELECT cusindex.Name,cusindex.IDKey,cusfields.Value,cusfields.Index,cusindex.Stage FROM cusindex INNER JOIN cusfields ON cusindex.IDKey=cusfields.CusID INNER JOIN jobindex ON cusindex.IDKey=jobindex.CusID WHERE (cusfields.Index LIKE '%Phone%') AND (";
+                string text = "SELECT DISTINCT cusindex.Name, cusindex.IDKey,cusfields.Value,cusfields.Index,cusindex.Stage FROM cusindex INNER JOIN cusfields ON cusindex.IDKey=cusfields.CusID INNER JOIN jobindex ON cusindex.IDKey=jobindex.CusID WHERE (cusfields.Index LIKE '%Phone%') AND (";
                 foreach (string str in dictionary["IDKey"])
                 {
                     text = text + " cusindex.IDKey='" + str + "' OR";

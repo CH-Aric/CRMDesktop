@@ -89,3 +89,5 @@ D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\Customers\Evolving
 D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\Job_Page.g.cs
 D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\Customers\Evolving_Page.baml
 D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\Job_Page.baml
+D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\Calendar_Page.g.cs
+D:\Workshop\VB-Projects\CRMDesktop\CRMDesktop\obj\Debug\Pages\Calendar_Page.baml

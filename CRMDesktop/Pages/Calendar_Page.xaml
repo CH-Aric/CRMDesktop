@@ -1,0 +1,146 @@
+﻿<Page x:Class="CRMDesktop.Pages.Calendar_Page"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CRMDesktop.Pages"
+      xmlns:crmdesktop="clr-namespace:CRMDesktop"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Calendar_Page">
+    <StackPanel>
+        
+        <Grid Height="25">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+
+            <Rectangle Fill="White" Margin="1" Grid.Column="2" Grid.Row="0"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="3" Grid.Row="0"/>
+            <crmdesktop:StyledButton Content="&lt;"/>
+            <crmdesktop:StyledButton Content="&gt;" Grid.Column="1"/>
+            <Label Content="JANUARY???" Grid.Column="2" x:Name="MonthDisplay"/>
+            <DatePicker Grid.Column="3" x:Name="Datepick"/>
+            <crmdesktop:StyledButton Grid.Column="4" Content="View Selected"/>
+        </Grid>
+        <Grid Height="425">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+            <Rectangle Fill="White" Margin="1" Grid.Row="0"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="1" Grid.Row="0"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="2" Grid.Row="0"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="3" Grid.Row="0"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="4" Grid.Row="0"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="5" Grid.Row="0"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="6" Grid.Row="0"/>
+        
+            <Rectangle Fill="WhiteSmoke" Margin="1" Grid.Row="1"/>
+            <Rectangle Fill="WhiteSmoke" Margin="1" Grid.Column="1" Grid.Row="1"/>
+            <Rectangle Fill="WhiteSmoke" Margin="1" Grid.Column="2" Grid.Row="1"/>
+            <Rectangle Fill="WhiteSmoke" Margin="1" Grid.Column="3" Grid.Row="1"/>
+            <Rectangle Fill="WhiteSmoke" Margin="1" Grid.Column="4" Grid.Row="1"/>
+            <Rectangle Fill="WhiteSmoke" Margin="1" Grid.Column="5" Grid.Row="1"/>
+            <Rectangle Fill="WhiteSmoke" Margin="1" Grid.Column="6" Grid.Row="1"/>
+        
+            <Rectangle Fill="White" Margin="1" Grid.Row="2"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="1" Grid.Row="2"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="2" Grid.Row="2"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="3" Grid.Row="2"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="4" Grid.Row="2"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="5" Grid.Row="2"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="6" Grid.Row="2"/>
+        
+            <Rectangle Fill="WhiteSmoke" Margin="1" Grid.Row="3"/>
+            <Rectangle Fill="WhiteSmoke" Margin="1" Grid.Column="1" Grid.Row="3"/>
+            <Rectangle Fill="WhiteSmoke" Margin="1" Grid.Column="2" Grid.Row="3"/>
+            <Rectangle Fill="WhiteSmoke" Margin="1" Grid.Column="3" Grid.Row="3"/>
+            <Rectangle Fill="WhiteSmoke" Margin="1" Grid.Column="4" Grid.Row="3"/>
+            <Rectangle Fill="WhiteSmoke" Margin="1" Grid.Column="5" Grid.Row="3"/>
+            <Rectangle Fill="WhiteSmoke" Margin="1" Grid.Column="6" Grid.Row="3"/>
+        
+            <Rectangle Fill="White" Margin="1" Grid.Row="4"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="1" Grid.Row="4"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="2" Grid.Row="4"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="3" Grid.Row="4"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="4" Grid.Row="4"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="5" Grid.Row="4"/>
+            <Rectangle Fill="White" Margin="1" Grid.Column="6" Grid.Row="4"/>
+        
+            <Rectangle Fill="WhiteSmoke" Margin="1" Grid.Row="5"/>
+            <Rectangle Fill="WhiteSmoke" Margin="1" Grid.Column="1" Grid.Row="5"/>
+            <Rectangle Fill="WhiteSmoke" Margin="1" Grid.Column="2" Grid.Row="5"/>
+            <Rectangle Fill="WhiteSmoke" Margin="1" Grid.Column="3" Grid.Row="5"/>
+            <Rectangle Fill="WhiteSmoke" Margin="1" Grid.Column="4" Grid.Row="5"/>
+            <Rectangle Fill="WhiteSmoke" Margin="1" Grid.Column="5" Grid.Row="5"/>
+            <Rectangle Fill="WhiteSmoke" Margin="1" Grid.Column="6" Grid.Row="5"/>
+        
+            <Label HorizontalAlignment="Center" Content="Sunday"/>
+            <Label HorizontalAlignment="Center" Content="Monday" Grid.Column="1"/>
+            <Label HorizontalAlignment="Center" Content="Tuesday" Grid.Column="2"/>
+            <Label HorizontalAlignment="Center" Content="Wednesday" Grid.Column="3"/>
+            <Label HorizontalAlignment="Center" Content="Thursday" Grid.Column="4"/>
+            <Label HorizontalAlignment="Center" Content="Friday" Grid.Column="5"/>
+            <Label HorizontalAlignment="Center" Content="Saturday" Grid.Column="6"/>
+        
+            <StackPanel Grid.Column="0" Grid.Row="1" x:Name="s01" Orientation="Vertical"/>
+            <StackPanel Grid.Column="1" Grid.Row="1" x:Name="s11" Orientation="Vertical"/>
+            <StackPanel Grid.Column="2" Grid.Row="1" x:Name="s21" Orientation="Vertical"/>
+            <StackPanel Grid.Column="3" Grid.Row="1" x:Name="s31" Orientation="Vertical"/>
+            <StackPanel Grid.Column="4" Grid.Row="1" x:Name="s41" Orientation="Vertical"/>
+            <StackPanel Grid.Column="5" Grid.Row="1" x:Name="s51" Orientation="Vertical"/>
+            <StackPanel Grid.Column="6" Grid.Row="1" x:Name="s61" Orientation="Vertical"/>
+        
+            <StackPanel Grid.Column="0" Grid.Row="2" x:Name="s02" Orientation="Vertical"/>
+            <StackPanel Grid.Column="1" Grid.Row="2" x:Name="s12" Orientation="Vertical"/>
+            <StackPanel Grid.Column="2" Grid.Row="2" x:Name="s22" Orientation="Vertical"/>
+            <StackPanel Grid.Column="3" Grid.Row="2" x:Name="s32" Orientation="Vertical"/>
+            <StackPanel Grid.Column="4" Grid.Row="2" x:Name="s42" Orientation="Vertical"/>
+            <StackPanel Grid.Column="5" Grid.Row="2" x:Name="s52" Orientation="Vertical"/>
+            <StackPanel Grid.Column="6" Grid.Row="2" x:Name="s62" Orientation="Vertical"/>
+        
+            <StackPanel Grid.Column="0" Grid.Row="3" x:Name="s03" Orientation="Vertical"/>
+            <StackPanel Grid.Column="1" Grid.Row="3" x:Name="s13" Orientation="Vertical"/>
+            <StackPanel Grid.Column="2" Grid.Row="3" x:Name="s23" Orientation="Vertical"/>
+            <StackPanel Grid.Column="3" Grid.Row="3" x:Name="s33" Orientation="Vertical"/>
+            <StackPanel Grid.Column="4" Grid.Row="3" x:Name="s43" Orientation="Vertical"/>
+            <StackPanel Grid.Column="5" Grid.Row="3" x:Name="s53" Orientation="Vertical"/>
+            <StackPanel Grid.Column="6" Grid.Row="3" x:Name="s63" Orientation="Vertical"/>
+        
+            <StackPanel Grid.Column="0" Grid.Row="4" x:Name="s04" Orientation="Vertical"/>
+            <StackPanel Grid.Column="1" Grid.Row="4" x:Name="s14" Orientation="Vertical"/>
+            <StackPanel Grid.Column="2" Grid.Row="4" x:Name="s24" Orientation="Vertical"/>
+            <StackPanel Grid.Column="3" Grid.Row="4" x:Name="s34" Orientation="Vertical"/>
+            <StackPanel Grid.Column="4" Grid.Row="4" x:Name="s44" Orientation="Vertical"/>
+            <StackPanel Grid.Column="5" Grid.Row="4" x:Name="s54" Orientation="Vertical"/>
+            <StackPanel Grid.Column="6" Grid.Row="4" x:Name="s64" Orientation="Vertical"/>
+        
+            <StackPanel Grid.Column="0" Grid.Row="5" x:Name="s05" Orientation="Vertical"/>
+            <StackPanel Grid.Column="1" Grid.Row="5" x:Name="s15" Orientation="Vertical"/>
+            <StackPanel Grid.Column="2" Grid.Row="5" x:Name="s25" Orientation="Vertical"/>
+            <StackPanel Grid.Column="3" Grid.Row="5" x:Name="s35" Orientation="Vertical"/>
+            <StackPanel Grid.Column="4" Grid.Row="5" x:Name="s45" Orientation="Vertical"/>
+            <StackPanel Grid.Column="5" Grid.Row="5" x:Name="s55" Orientation="Vertical"/>
+            <StackPanel Grid.Column="6" Grid.Row="5" x:Name="s65" Orientation="Vertical"/>
+
+        </Grid>
+    </StackPanel>
+</Page>

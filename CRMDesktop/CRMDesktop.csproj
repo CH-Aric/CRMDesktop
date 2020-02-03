@@ -27,7 +27,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>83</ApplicationRevision>
+    <ApplicationRevision>86</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -114,6 +114,9 @@
     <Compile Include="Pages\ActivityLog.xaml.cs">
       <DependentUpon>ActivityLog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Calendar_Page.xaml.cs">
+      <DependentUpon>Calendar_Page.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Create_Agent.xaml.cs">
       <DependentUpon>Create_Agent.xaml</DependentUpon>
     </Compile>
@@ -165,6 +168,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages\ActivityLog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Calendar_Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -14,6 +14,7 @@ namespace CRMDesktop
         private static Regex digitsOnly = new Regex("[^\\d]");
         static bool Responded = false;
         static Dictionary<string, List<string>> dict;
+        static Dictionary<string,List<string>> AgentDictionary;
         public static string CleanPhone(string phone)
         {
             return FormatFunctions.digitsOnly.Replace(phone, "");
@@ -241,6 +242,160 @@ namespace CRMDesktop
                     "about a year ago";
             }
             return result;
+        }
+        public static string StageTranslate(int intake)
+        {
+            if (intake == 1)
+            {
+                return "Lead";
+            }
+            else if (intake == 2)
+            {
+                return "Booking";
+            }
+            else if (intake == 3)
+            {
+                return "Quote";
+            }
+            else if (intake == 4)
+            {
+                return "Sold";
+            }
+            else if (intake == 5)
+            {
+                return "Install Preperation";
+            }
+            else if (intake == 6)
+            {
+                return "Installing";
+            }
+            else if (intake == 7)
+            {
+                return "Quality Assurance";
+            }
+            else if (intake == 8)
+            {
+                return "Client";
+            }
+            else if (intake == 9)
+            {
+                return "Archived";
+            }
+            else if (intake == 10)
+            {
+                return "Service Lead";
+            }
+            else if (intake == 11)
+            {
+                return "Service Appointment";
+            }
+            else if (intake == 12)
+            {
+                return "Completed Service";
+            }
+            else if (intake == 13)
+            {
+                return "Maintenance Appointment";
+            }
+            else if (intake == 14)
+            {
+                return "Maintenance";
+            }
+            return "Classification Error: Contact IT with the Client Name and this:"+intake;
+        }
+        public static int StageTranslate(string intake)
+        {
+            if (intake == "Lead")
+            {
+                return 1;
+            }
+            else if (intake == "Booking")
+            {
+                return 2;
+            }
+            else if (intake == "Quote")
+            {
+                return 3;
+            }
+            else if (intake == "Sold")
+            {
+                return 4;
+            }
+            else if (intake == "Install Preperation")
+            {
+                return 5;
+            }
+            else if (intake == "Installing")
+            {
+                return 6;
+            }
+            else if (intake == "Quality Assurance")
+            {
+                return 7;
+            }
+            else if (intake == "Client")
+            {
+                return 8;
+            }
+            else if (intake == "Archived")
+            {
+                return 9;
+            }
+            else if (intake == "Service Lead")
+            {
+                return 10;
+            }
+            else if (intake == "Service Appointment")
+            {
+                return 11;
+            }
+            else if (intake == "Completed Service")
+            {
+                return 12;
+            }
+            else if (intake == "Maintenance Appointment")
+            {
+                return 13;
+            }
+            else if (intake == "Maintenance")
+            {
+                return 14;
+            }
+            return 99;
+        }
+        public static void LoadAgentDictionary()
+        {
+            string sql = "SELECT IDKey, FName FROM agents WHERE Active='1'";
+            TaskCallback call = populateDictionary;
+            DatabaseFunctions.SendToPhp(false, sql, call);
+        }
+        static void populateDictionary(string results)
+        {
+            AgentDictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(results));
+            int x = 0;
+        }
+        public static int lookupAgentID(string intake)
+        {
+            for(int i = 0; i < AgentDictionary["IDKey"].Count; i++)
+            {
+                if (AgentDictionary["FName"][i] == intake)
+                {
+                    return int.Parse(AgentDictionary["IDKey"][i]);
+                }
+            }
+            return 0;
+        }
+        public static string lookupAgentName(int intake)
+        {
+            string intakeS = intake + "";
+            for (int i = 0; i < AgentDictionary["IDKey"].Count; i++)
+            {
+                if (AgentDictionary["IDKey"][i] == intakeS)
+                {
+                    return AgentDictionary["FName"][i];
+                }
+            }
+            return "Unknown Agent #"+intake;
         }
     }
 }

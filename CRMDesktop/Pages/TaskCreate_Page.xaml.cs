@@ -102,15 +102,8 @@ namespace CRMDesktop.Pages
         }
         public void onClickedCreate(object sender, RoutedEventArgs e)
         {
-                
-                DatabaseFunctions.SendToPhp(string.Concat(new object[]
-                {
-                    "INSERT INTO tasks (Name,AgentID) VALUES ('",
-                    FormatFunctions.CleanDateNew(taskName.Text),
-                    "','",
-                    ClientData.AgentIDK,
-                    "');"
-                }));
+            string sql = "INSERT INTO tasks (Name,AgentID,Start) VALUES ('"+ FormatFunctions.CleanDateNew(taskName.Text)+ "','"+ agent.getSelectID() + "','"+Datepick.Text+");";
+                DatabaseFunctions.SendToPhp(sql);
                 DatabaseFunctions.SendToPhp(false, "SELECT IDKey FROM tasks ORDER BY IDKey DESC LIMIT 1;", new TaskCallback(this.saveTaskFields));
             
         }

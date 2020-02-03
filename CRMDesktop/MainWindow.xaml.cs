@@ -27,6 +27,7 @@ namespace CRMDesktop
             ClientData.sideFrame = sideFrame;
             ClientData.toolFrame = topFrame;
             Login_Page page = new Login_Page();
+            FormatFunctions.LoadAgentDictionary();
             mainFrame.Navigate(page);
         }
     }

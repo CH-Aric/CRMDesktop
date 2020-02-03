@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -33,7 +30,6 @@ namespace CRMDesktop.Pages
             TaskCallback call = TombstonePrinter;
             DatabaseFunctions.SendToPhp(false, sql, call);
         }
-
         public void Initialize()
         {
             holder = new StackPanel();
@@ -145,28 +141,6 @@ namespace CRMDesktop.Pages
 
             List<string> batch = new List<string>() { sql, sql2, sql3, sql4, sql5, sql6, sql7, sql8, sql9};
             DatabaseFunctions.SendBatchToPHP(batch);
-
-            /*foreach (DataPair dataPair in dp)//dp must be initialized
-            {
-                if (dataPair.isNew)
-                {
-                    DatabaseFunctions.SendToPhp(string.Concat(new object[]
-                    {
-                        "INSERT INTO cusfields (cusfields.Value,cusfields.Index,CusID) VALUES('",
-                        dataPair.Value.Text,
-                        "','",
-                        dataPair.Index.Text,
-                        "','",
-                        this.CusID,
-                        "')"
-                    }));
-                    dataPair.isNew = false;
-                }
-                else if (dataPair.Index.Text != dataPair.Index.GetInit() || dataPair.Value.Text != dataPair.Value.GetInit())
-                {
-                    DatabaseFunctions.SendToPhp(string.Concat(new object[] { "UPDATE cusfields SET Value = '", dataPair.Value.Text, "',Index='", dataPair.Index.Text, "' WHERE (IDKey= '", dataPair.Index.GetInt(), "');" }));
-                }
-            }*/
         }
         public void onClickAddFields(object sender, EventArgs e)
         {
@@ -190,11 +164,10 @@ namespace CRMDesktop.Pages
         int JobID;
         Grid controlGrid,bodyGrid;
         Button Save, Add, Advance;
-        Label Index, Value, NameLabel, StageLabel;
+        Label NameLabel, StageLabel;
         TextBox NameBox;
         StackPanel holder;
         List<DataPair> dp;
-
         public Job_Tab(int job) :base()
         {
             InitializeComponent();
@@ -251,7 +224,14 @@ namespace CRMDesktop.Pages
                     DataPair d = new DataPair(int.Parse(dictionary["IDKey"][i]), dictionary["Index"][i], dictionary["Value"][i]);
                     List<UIElement> list = new List<UIElement>() { d.Index, d.Value };
                     d.Index.Text = FormatFunctions.PrettyDate(dictionary["Index"][i]);
-                    d.Value.Text = FormatFunctions.PrettyDate(dictionary["Value"][i]);
+                    if (d.Index.Text.Contains("~"))
+                    {
+                        d.Value.Text = FormatFunctions.lookupAgentName(int.Parse(dictionary["Value"][i]));
+                    }
+                    else
+                    {
+                        d.Value.Text = FormatFunctions.PrettyDate(dictionary["Value"][i]);
+                    }
                     GridFiller.rapidFillPremadeObjects(list, bodyGrid, new bool[] { true, true });
                     dp.Add(d);
                 }
@@ -263,7 +243,7 @@ namespace CRMDesktop.Pages
             if (dictionary.Count > 0)
             {
                 NameBox.Text = dictionary["Name"][0];
-                StageLabel.Content="Stage: "+dictionary["Stage"][0];
+                StageLabel.Content="Stage: "+FormatFunctions.StageTranslate(int.Parse(dictionary["Stage"][0]));
             }
         }
         public void onClickSave(object sender, EventArgs e)
@@ -272,16 +252,8 @@ namespace CRMDesktop.Pages
             {
                 if (dataPair.isNew)
                 {
-                    DatabaseFunctions.SendToPhp(string.Concat(new object[]
-                    {
-                        "INSERT INTO jobfields (jobfields.Value,jobfields.Index,JobID) VALUES('",
-                        FormatFunctions.CleanDateNew(dataPair.Value.Text),
-                        "','",
-                        FormatFunctions.CleanDateNew(dataPair.Index.Text),
-                        "','",
-                        this.JobID,
-                        "')"
-                    }));
+                    string sql = "INSERT INTO jobfields (jobfields.Value,jobfields.Index,JobID) VALUES('"+FormatFunctions.CleanDateNew(dataPair.Value.Text)+"','"+FormatFunctions.CleanDateNew(dataPair.Index.Text)+"','"+this.JobID+"')";
+                    DatabaseFunctions.SendToPhp(sql);
                     dataPair.isNew = false;
                 }
                 else if (dataPair.Index.Text != dataPair.Index.GetInit() || dataPair.Value.Text != dataPair.Value.GetInit())

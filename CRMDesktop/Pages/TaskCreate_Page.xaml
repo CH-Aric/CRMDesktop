@@ -22,36 +22,46 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="25"/>
                 <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
             </Grid.RowDefinitions>
             <!--First row-->
-            <Rectangle Fill="White" Grid.Row="0" Grid.Column="0" Margin="2"/>
-            <Rectangle Fill="White" Grid.Row="0" Grid.Column="1" Margin="2"/>
-            <Rectangle Fill="White" Grid.Row="0" Grid.Column="2" Margin="2"/>
-            <Rectangle Fill="White" Grid.Row="0" Grid.Column="3" Margin="2"/>
-            <Rectangle Fill="White" Grid.Row="0" Grid.Column="4" Margin="2"/>
-            <Rectangle Fill="White" Grid.Row="0" Grid.Column="5" Margin="2"/>
+            <Rectangle Fill="White" Grid.Row="0" Grid.Column="0" Margin="1"/>
+            <Rectangle Fill="White" Grid.Row="0" Grid.Column="1" Margin="1"/>
+            <Rectangle Fill="White" Grid.Row="0" Grid.Column="2" Margin="1"/>
+            <Rectangle Fill="White" Grid.Row="0" Grid.Column="3" Margin="1"/>
+            <Rectangle Fill="White" Grid.Row="0" Grid.Column="4" Margin="1"/>
+            <Rectangle Fill="White" Grid.Row="0" Grid.Column="5" Margin="1"/>
 
             <Label Grid.Row="0" Grid.Column="0" Content="Template:" HorizontalAlignment="Right"/>
-            <ComboBox x:Name="templatePicker" Grid.Row="0" Grid.Column="1" Margin="2" Background="LightGray"/>
+            <ComboBox x:Name="templatePicker" Grid.Row="0" Grid.Column="1" Margin="1" Background="WhiteSmoke"/>
             <maincrmv2:StyledButton Click="onClickedLoadTemplate" Content="Load From Template" Grid.Row="0" Grid.Column="2"/>
-            <Label Grid.Row="0" Grid.Column="3" Content="Save Task As:" HorizontalAlignment="Right"/>
-            <TextBox Text="" ToolTip="SaveAs" x:Name="taskName" Margin="1,2,3,2" Grid.Row="0" Grid.Column="4" Background="LightGray"/>
-            <maincrmv2:StyledButton Click="onClickedCreate" Content="Create Task" Grid.Row="0" Grid.Column="5"/>
-
+            <maincrmv2:StyledButton Click="onClickedSaveTemplate" Content="Save as Template" Grid.Row="0" Grid.Column="3"/>
+            
             <!--Second row-->
-            <Rectangle Fill="White" Grid.Row="1" Grid.Column="0" Margin="2"/>
-            <Rectangle Fill="White" Grid.Row="1" Grid.Column="1" Margin="2"/>
-            <Rectangle Fill="White" Grid.Row="1" Grid.Column="2" Margin="2"/>
-            <Rectangle Fill="White" Grid.Row="1" Grid.Column="3" Margin="2"/>
-            <Rectangle Fill="White" Grid.Row="1" Grid.Column="4" Margin="2"/>
-            <Rectangle Fill="White" Grid.Row="1" Grid.Column="5" Margin="2"/>
+            <Rectangle Fill="White" Grid.Row="1" Grid.Column="0" Margin="1"/>
+            <Rectangle Fill="White" Grid.Row="1" Grid.Column="1" Margin="1"/>
+            <Rectangle Fill="White" Grid.Row="1" Grid.Column="2" Margin="1"/>
+            <Rectangle Fill="White" Grid.Row="1" Grid.Column="3" Margin="1"/>
+            <Rectangle Fill="White" Grid.Row="1" Grid.Column="4" Margin="1"/>
+            <Rectangle Fill="White" Grid.Row="1" Grid.Column="5" Margin="1"/>
 
             <Label Grid.Row="1" Grid.Column="0" Content="Save Template As:" HorizontalAlignment="Right"/>
-            <TextBox Text="" ToolTip="SaveAs" x:Name="templateName" Margin="2" Grid.Row="1" Grid.Column="1" Background="LightGray"/>
-            <maincrmv2:StyledButton Click="onClickedSaveTemplate" Content="Save as Template" Grid.Row="1" Grid.Column="4"/>
+            <TextBox Text="" ToolTip="SaveAs" x:Name="templateName" Margin="1" Grid.Row="1" Grid.Column="1" Background="WhiteSmoke"/>
             <Label Grid.Row="1" Grid.Column="2" Content="Template Description:" HorizontalAlignment="Right"/>
-            <TextBox Text="" ToolTip="SaveAs" x:Name="descField" Margin="2" Grid.Row="1" Grid.Column="3" Background="LightGray"/>
-            <maincrmv2:StyledButton Click="onClickAddFields" Content="Add Fields" Grid.Row="1" Grid.Column="5"/>
+            <TextBox Text="" ToolTip="SaveAs" x:Name="descField" Margin="1" Grid.Row="1" Grid.Column="3" Background="WhiteSmoke"/>
+            <Label Grid.Row="1" Grid.Column="4" Content="Save Task As:" HorizontalAlignment="Right"/>
+            <TextBox Text="" ToolTip="SaveAs" x:Name="taskName" Margin="1,2,3,2" Grid.Row="1" Grid.Column="5" Background="WhiteSmoke"/>
+            <!-- Third Row-->
+            <Rectangle Fill="White" Grid.Row="2" Grid.Column="0" Margin="1"/>
+            <Rectangle Fill="White" Grid.Row="2" Grid.Column="1" Margin="1"/>
+            <Rectangle Fill="White" Grid.Row="2" Grid.Column="2" Margin="1"/>
+            <Rectangle Fill="White" Grid.Row="2" Grid.Column="3" Margin="1"/>
+            <Label Content="Agent To Assign to:" HorizontalAlignment="Right" Grid.Row="2"/>
+            <maincrmv2:AgentPicker Grid.Column="1" Grid.Row="2" x:Name="agent" Margin="1"/>
+            <Label Content="Start Date of Task:" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="2"/>
+            <DatePicker x:Name="Datepick" Grid.Column="3" Grid.Row="2"/>
+            <maincrmv2:StyledButton Click="onClickAddFields" Content="Add Fields" Grid.Row="2" Grid.Column="4"/>
+            <maincrmv2:StyledButton Click="onClickedCreate" Content="Create Task" Grid.Row="2" Grid.Column="5"/>
         </Grid>
     </ScrollViewer>
 </Page>
