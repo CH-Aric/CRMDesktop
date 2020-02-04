@@ -95,7 +95,6 @@ namespace CRMDesktop.Pages
             SecurityButton dataButton = (SecurityButton)sender;
             TaskCallback call = new TaskCallback(this.openFile);
             string loadedfile = DatabaseFunctions.getFile(dataButton.String, dataButton.String2, call);
-            //await PopupNavigation.Instance.PushAsync(new Audio_Popup(loadedfile), true); //TODO Make this work in Mobile
         }
         public void onClickedSearch(object sender, RoutedEventArgs e)
         {

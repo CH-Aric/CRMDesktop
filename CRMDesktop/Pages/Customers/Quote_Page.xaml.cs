@@ -64,7 +64,7 @@ namespace CRMDesktop.Pages.Customers
                     }
                     else if (dictionary["Index"][i].Contains("alesman"))
                     {
-                        SalemanCombo.SelectedIndex = DatabaseFunctions.findIndexInList(salesmen, dictionary["Value"][i]);//TODO UPDATE with proper index checking
+                        SalemanCombo.SelectedIndex = DatabaseFunctions.findIndexInList(salesmen, dictionary["Value"][i]);
                     }
                     else if (dictionary["Index"][i].Contains("uoteTotal"))
                     {

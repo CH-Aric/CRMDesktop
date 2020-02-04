@@ -55,12 +55,6 @@ namespace CRMDesktop
         }
         public void loadUserDatafromFile()
         {
-            //TODO REWRITE FOR DESKTOP
-            /*if (Application.Current.Properties.ContainsKey("UN"))
-            {
-                Username = (Application.Current.Properties["UN"] as string);
-                Password = (Application.Current.Properties["PW"] as string);
-            }*/
             Username = (Properties.Settings.Default.UN);
             Password = (Properties.Settings.Default.PW);
         }
@@ -69,7 +63,6 @@ namespace CRMDesktop
             Properties.Settings.Default.UN = u;
             Properties.Settings.Default.PW = p;
             Properties.Settings.Default.Save();
-            //TODO REWRITE FOR DESKTOP
         }
         public void wipeUserDataFromFile()
         {

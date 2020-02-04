@@ -209,7 +209,6 @@ namespace CRMDesktop.Pages
             Label l2 = new Label() { Content = "Value" };
             uIs = new List<UIElement>() {l1,l2};
             GridFiller.rapidFillSpacedPremadeObjects(uIs,controlGrid,new int[] { 1, 2},new bool[] { true, true });
-
             bodyGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(10, GridUnitType.Star)});
             bodyGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(20, GridUnitType.Star)});
         }
