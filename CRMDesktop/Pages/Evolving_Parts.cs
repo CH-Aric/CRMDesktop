@@ -129,16 +129,16 @@ namespace CRMDesktop.Pages
         }
         public void onClickSave(object sender, EventArgs e)
         {
+            DateTime x = Convert.ToDateTime(LastContact.Text);
             string sql =  "UPDATE cusfields SET cusfields.Value='" + FormatFunctions.CleanDateNew(Address.Text) + "' WHERE cusfields.Index LIKE '%Address%' AND CusID='" + CusID + "'";
             string sql2 = "UPDATE cusfields SET cusfields.Value='" + FormatFunctions.CleanPhone(Phone.Text) + "' WHERE cusfields.Index LIKE '%Phone%' AND CusID='" + CusID + "'";
             string sql3 = "UPDATE cusfields SET cusfields.Value='" + FormatFunctions.CleanDateNew(Email.Text) + "' WHERE cusfields.Index LIKE '%Email%' AND CusID='" + CusID + "'";
             string sql4 = "UPDATE cusfields SET cusfields.Value='" + FormatFunctions.CleanDateNew(Region.Text) + "' WHERE cusfields.Index LIKE '%Region%' AND CusID='" + CusID + "'";
-            string sql5 = "UPDATE cusfields SET cusfields.Value='" + FormatFunctions.CleanDateNew(LastContact.Text) + "' WHERE cusfields.Index LIKE '%ast Contac%' AND CusID='" + CusID + "'";
+            string sql5 = "UPDATE cusfields SET cusfields.Value='" + FormatFunctions.CleanDateNew(x.ToString("yyyy/M/d h:mm:ss")) + "' WHERE cusfields.Index LIKE '%ast Contac%' AND CusID='" + CusID + "'";
             string sql6 = "UPDATE cusindex SET Name='" + FormatFunctions.CleanDateNew(NameEntry.Text) + "' WHERE IDKey='" + CusID + "'";
             string sql7 = "UPDATE cusfields SET cusfields.Value='" + FormatFunctions.CleanDateNew(Source.Text) + "' WHERE cusfields.Index LIKE '%Source%' AND CusID='" + CusID + "'";
             string sql8 = "UPDATE cusfields SET cusfields.value='" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "' WHERE cusfields.Index LIKE '%odified On%' AND CusID= '" + CusID + "'";//'Modified On','" + FormatFunctions.CleanDateNew(DateTime.Now.ToString("yyyy/M/d h:mm:ss")) + "'
             string sql9 = "UPDATE cusfields SET cusfields.Value='" + FormatFunctions.CleanDateNew(Postal.Text) + "' WHERE cusfields.Index LIKE '%Postal%' AND CusID='" + CusID + "'";
-
             List<string> batch = new List<string>() { sql, sql2, sql3, sql4, sql5, sql6, sql7, sql8, sql9};
             DatabaseFunctions.SendBatchToPHP(batch);
         }
@@ -167,6 +167,7 @@ namespace CRMDesktop.Pages
         Label NameLabel, StageLabel;
         TextBox NameBox;
         StackPanel holder;
+        ScrollViewer scroll;
         List<DataPair> dp;
         public Job_Tab(int job) :base()
         {
@@ -181,6 +182,8 @@ namespace CRMDesktop.Pages
         }
         public void InitializeComponent()
         {
+            scroll = new ScrollViewer();
+            scroll.VerticalScrollBarVisibility=ScrollBarVisibility.Visible;
             holder = new StackPanel();
             controlGrid = new Grid();
             bodyGrid = new Grid();
@@ -188,7 +191,8 @@ namespace CRMDesktop.Pages
             bodyGrid = new Grid() { Background = new SolidColorBrush(Color.FromRgb(0, 0, 0))};//Create the grids
             holder.Children.Add(controlGrid);//Add the grids to the holder
             holder.Children.Add(bodyGrid);
-            Content = holder;
+            scroll.Content = holder;
+            Content = scroll;
             controlGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(10, GridUnitType.Star)});
             controlGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(10, GridUnitType.Star)});
             controlGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(10, GridUnitType.Star)});
@@ -261,6 +265,130 @@ namespace CRMDesktop.Pages
                 }
             }
             string nsql = "UPDATE jobindex SET Name='"+NameBox.Text+"' WHERE IDKey='"+JobID+"'";
+            DatabaseFunctions.SendToPhp(nsql);
+        }
+        public void onClickAddFields(object sender, EventArgs e)
+        {
+            DataPair dataPair = new DataPair(0, "", "");
+            dataPair.setNew();
+            dataPair.Value.Text = "";
+            dataPair.Index.Text = "";
+            List<UIElement> list = new List<UIElement>() { dataPair.Index, dataPair.Value };
+            GridFiller.rapidFillPremadeObjects(list, bodyGrid, new bool[] { true, true });
+            dp.Add(dataPair);
+        }
+        public void onClickAdvance(object sender, EventArgs e)
+        {
+            Advance_Page page = new Advance_Page(JobID);
+            ClientData.mainFrame.Navigate(page);
+        }
+    }
+    public class Lead_Tab : TabItem
+    {
+        int JobID;
+        Grid controlGrid, bodyGrid;
+        Button Save, Add, Advance;
+        Label NameLabel, StageLabel;
+        TextBox NameBox;
+        StackPanel holder;
+        ScrollViewer scroll;
+        List<DataPair> dp;
+        public Lead_Tab(int job) : base()
+        {
+            InitializeComponent();
+            JobID = job;
+            string sql = "SELECT * FROM jobfields WHERE JobID='" + JobID + "'";
+            TaskCallback call = populateGrid;
+            DatabaseFunctions.SendToPhp(false, sql, call);
+            string sql2 = "SELECT Name,Stage FROM jobindex WHERE IDKey='" + JobID + "'";
+            TaskCallback call2 = populateName;
+            DatabaseFunctions.SendToPhp(false, sql2, call2);
+        }
+        public void InitializeComponent()
+        {
+            scroll = new ScrollViewer();
+            scroll.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
+            holder = new StackPanel();
+            controlGrid = new Grid();
+            bodyGrid = new Grid();
+            controlGrid = new Grid() { Background = new SolidColorBrush(Color.FromRgb(0, 0, 0)) };
+            bodyGrid = new Grid() { Background = new SolidColorBrush(Color.FromRgb(0, 0, 0)) };//Create the grids
+            holder.Children.Add(controlGrid);//Add the grids to the holder
+            holder.Children.Add(bodyGrid);
+            scroll.Content = holder;
+            Content = scroll;
+            controlGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(10, GridUnitType.Star) });
+            controlGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(10, GridUnitType.Star) });
+            controlGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(10, GridUnitType.Star) });
+            Add = new StyledButton() { Content = "Add Field" };
+            Add.Click += onClickAddFields;
+            Save = new StyledButton() { Content = "Save Changes" };
+            Save.Click += onClickSave;
+            Advance = new StyledButton() { Content = "Advance" };
+            Advance.Click += onClickAdvance;
+            NameLabel = new Label() { Content = "Job Name:" };
+            NameBox = new TextBox();
+            StageLabel = new Label();
+            List<UIElement> uIs = new List<UIElement>() { NameLabel, NameBox, StageLabel };
+            GridFiller.rapidFillPremadeObjects(uIs, controlGrid, new bool[] { true, true, true });
+            uIs = new List<UIElement>() { Add, Advance, Save };
+            GridFiller.rapidFillPremadeObjects(uIs, controlGrid, new bool[] { false, false, false });
+            Label l1 = new Label() { Content = "Index" };
+            Label l2 = new Label() { Content = "Value" };
+            uIs = new List<UIElement>() { l1, l2 };
+            GridFiller.rapidFillSpacedPremadeObjects(uIs, controlGrid, new int[] { 1, 2 }, new bool[] { true, true });
+            bodyGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(10, GridUnitType.Star) });
+            bodyGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(20, GridUnitType.Star) });
+        }
+        public void populateGrid(string result)
+        {
+            dp = new List<DataPair>();
+            Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
+            if (dictionary.Count > 0)
+            {
+                for (int i = 0; i < dictionary["IDKey"].Count; i++)
+                {
+                    DataPair d = new DataPair(int.Parse(dictionary["IDKey"][i]), dictionary["Index"][i], dictionary["Value"][i]);
+                    List<UIElement> list = new List<UIElement>() { d.Index, d.Value };
+                    d.Index.Text = FormatFunctions.PrettyDate(dictionary["Index"][i]);
+                    if (d.Index.Text.Contains("~"))
+                    {
+                        d.Value.Text = FormatFunctions.lookupAgentName(int.Parse(dictionary["Value"][i]));
+                    }
+                    else
+                    {
+                        d.Value.Text = FormatFunctions.PrettyDate(dictionary["Value"][i]);
+                    }
+                    GridFiller.rapidFillPremadeObjects(list, bodyGrid, new bool[] { true, true });
+                    dp.Add(d);
+                }
+            }
+        }
+        public void populateName(string result)
+        {
+            Dictionary<string, List<string>> dictionary = FormatFunctions.createValuePairs(FormatFunctions.SplitToPairs(result));
+            if (dictionary.Count > 0)
+            {
+                NameBox.Text = dictionary["Name"][0];
+                StageLabel.Content = "Stage: " + FormatFunctions.StageTranslate(int.Parse(dictionary["Stage"][0]));
+            }
+        }
+        public void onClickSave(object sender, EventArgs e)
+        {
+            foreach (DataPair dataPair in this.dp)
+            {
+                if (dataPair.isNew)
+                {
+                    string sql = "INSERT INTO jobfields (jobfields.Value,jobfields.Index,JobID) VALUES('" + FormatFunctions.CleanDateNew(dataPair.Value.Text) + "','" + FormatFunctions.CleanDateNew(dataPair.Index.Text) + "','" + this.JobID + "')";
+                    DatabaseFunctions.SendToPhp(sql);
+                    dataPair.isNew = false;
+                }
+                else if (dataPair.Index.Text != dataPair.Index.GetInit() || dataPair.Value.Text != dataPair.Value.GetInit())
+                {
+                    DatabaseFunctions.SendToPhp(string.Concat(new object[] { "UPDATE jobfields SET jobfields.Value = '", FormatFunctions.CleanDateNew(dataPair.Value.Text), "',jobfields.Index='", FormatFunctions.CleanDateNew(dataPair.Index.Text), "' WHERE (IDKey= '", dataPair.Index.GetInt(), "');" }));
+                }
+            }
+            string nsql = "UPDATE jobindex SET Name='" + NameBox.Text + "' WHERE IDKey='" + JobID + "'";
             DatabaseFunctions.SendToPhp(nsql);
         }
         public void onClickAddFields(object sender, EventArgs e)

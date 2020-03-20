@@ -31,5 +31,4 @@ namespace CRMDesktop
             mainFrame.Navigate(page);
         }
     }
-    
 }
